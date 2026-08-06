@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import { readFile } from 'node:fs/promises';
 
 const [mainSource, drawerSource, styles] = await Promise.all([
-  readFile(new URL('../src/main.js', import.meta.url), 'utf8'),
+  readFile(new URL('../src/app.js', import.meta.url), 'utf8'),
   readFile(new URL('../src/drawer-module.js', import.meta.url), 'utf8'),
   readFile(new URL('../src/style.css', import.meta.url), 'utf8'),
 ]);

@@ -45,7 +45,7 @@ for (let attempt = 0; attempt < 100; attempt += 1) {
   if (await evaluate(`document.querySelector('#loading-screen')?.hidden && !document.querySelector('#start-button')?.disabled`)) break;
   await wait(160);
 }
-await evaluate(`Promise.all([document.fonts.ready, fetch('/images/home-diy-hero-v1.jpg').then((response) => response.blob())])`);
+await evaluate(`Promise.all([document.fonts.ready, fetch('/images/home-diy-hero-v1.avif').then((response) => response.blob())])`);
 await wait(350);
 
 const report = await evaluate(`(() => ({
@@ -69,5 +69,5 @@ await writeFile('/tmp/pc-build-lab-lobby-background-qa.json', JSON.stringify(rep
 socket.close();
 await fetch(`${endpoint}/json/close/${target.id}`);
 
-if (!report.background.includes('home-diy-hero-v1.jpg') || !report.backgroundPosition.startsWith('82%')) process.exitCode = 1;
+if (!report.background.includes('home-diy-hero-v1.avif') || !report.backgroundPosition.startsWith('82%')) process.exitCode = 1;
 if (report.cards.some((card) => card.width < 180 || card.height < 18 || card.overflow !== 'visible')) process.exitCode = 1;

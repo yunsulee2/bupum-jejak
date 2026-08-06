@@ -9,7 +9,7 @@
         content="컴퓨터·서랍장 조립, 형광등 교체, 샤워기 필터 정비를 실제 판단 과정부터 연습하는 3D 제품 실습 시뮬레이터"
     />
     <link rel="icon" href="data:," />
-    <link rel="preload" as="image" href="/images/home-diy-hero-v1.jpg" fetchpriority="high" />
+    <link rel="preload" as="image" href="/images/home-diy-hero-v1.avif" type="image/avif" fetchpriority="high" />
     <title>부품제작 · 인터랙티브 제품 조립</title>
   </head>
   <body>
@@ -20,8 +20,8 @@
         <div class="ambient-glow" aria-hidden="true"></div>
         <div class="loading-screen" id="loading-screen">
           <div class="loading-mark"><i></i><i></i><i></i></div>
-          <p>정밀 3D 부품 불러오기</p>
-          <strong>실습 작업대를 준비하는 중</strong>
+          <p>부품제작 실습실</p>
+          <strong>실습 목록을 준비하는 중</strong>
           <div class="loading-track"><i id="loading-progress"></i></div>
         </div>
       </section>
@@ -436,6 +436,7 @@
             </div>
             <p class="price-meta">가격 기준일 <b id="catalog-date">-</b></p>
             <p id="price-notice" class="price-notice"></p>
+            <button id="pc-model-status" class="pc-model-status" type="button" aria-live="polite" disabled>3D 조립실 준비 전</button>
             <button id="purchase-button" class="purchase-button" type="button" disabled>
               구매 확정하고 조립하기 <span>→</span>
             </button>

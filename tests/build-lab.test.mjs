@@ -6,7 +6,7 @@ import test from 'node:test';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const html = await readFile(path.join(root, 'index.html'), 'utf8');
-const script = await readFile(path.join(root, 'src/main.js'), 'utf8');
+const script = await readFile(path.join(root, 'src/app.js'), 'utf8');
 const fluorescentScript = await readFile(path.join(root, 'src/fluorescent-module.js'), 'utf8');
 const showerScript = await readFile(path.join(root, 'src/shower-filter-module.js'), 'utf8');
 const drawerScript = await readFile(path.join(root, 'src/drawer-module.js'), 'utf8');
@@ -16,6 +16,11 @@ const catalog = JSON.parse(await readFile(path.join(root, 'public/data/store-cat
 const fluorescentData = JSON.parse(await readFile(path.join(root, 'public/data/fluorescent-lab.json'), 'utf8'));
 const showerData = JSON.parse(await readFile(path.join(root, 'public/data/shower-filter-lab.json'), 'utf8'));
 const drawerData = JSON.parse(await readFile(path.join(root, 'public/data/drawer-lab.json'), 'utf8'));
+
+function readGlbJson(buffer) {
+  const jsonLength = buffer.readUInt32LE(12);
+  return JSON.parse(buffer.subarray(20, 20 + jsonLength).toString('utf8'));
+}
 
 test('gaming room module has a complete fourteen-step guided assembly', () => {
   assert.equal(data.parts.length, 14);
@@ -83,10 +88,22 @@ test('all twenty-eight purchase choices use local real-product images', async ()
 
 test('generated Blender and glTF assets contain production-scale detail', async () => {
   const glb = await stat(path.join(root, 'public/models/pc-lab.glb'));
+  const mobileGlb = await stat(path.join(root, 'public/models/pc-lab-mobile.glb'));
+  const [desktopDocument, mobileDocument] = await Promise.all([
+    readFile(path.join(root, 'public/models/pc-lab.glb')).then(readGlbJson),
+    readFile(path.join(root, 'public/models/pc-lab-mobile.glb')).then(readGlbJson),
+  ]);
   const blend = await stat(path.join(root, 'assets/pc-lab-source.blend'));
   const neuralSource = await stat(path.join(root, 'assets/neural4d/atx-case-source.glb'));
   const assetBuilder = await readFile(path.join(root, 'tools/build_pc_scene.py'), 'utf8');
-  assert.ok(glb.size > 8_000_000, `expected Neural4D-enhanced GLB, got ${glb.size} bytes`);
+  assert.ok(glb.size > 5_000_000 && glb.size < 7_000_000, `expected compressed full-quality GLB, got ${glb.size} bytes`);
+  assert.ok(mobileGlb.size > 2_000_000 && mobileGlb.size < 4_000_000, `expected compact mobile GLB, got ${mobileGlb.size} bytes`);
+  assert.ok(desktopDocument.extensionsRequired.includes('EXT_meshopt_compression'));
+  assert.ok(mobileDocument.extensionsRequired.includes('EXT_meshopt_compression'));
+  for (const requiredNode of ['part_case', 'part_motherboard', 'part_gpu', 'part_cables']) {
+    assert.ok(desktopDocument.nodes.some((node) => node.name === requiredNode), `missing desktop node ${requiredNode}`);
+    assert.ok(mobileDocument.nodes.some((node) => node.name === requiredNode), `missing mobile node ${requiredNode}`);
+  }
   assert.ok(blend.size > 5_000_000, `expected editable Blender source with packed PBR maps, got ${blend.size} bytes`);
   assert.ok(neuralSource.size > 20_000_000, `expected preserved full-quality Neural4D source, got ${neuralSource.size} bytes`);
   assert.match(assetBuilder, /integrate_neural4d_case\(case\)/);
@@ -102,6 +119,7 @@ test('generated Blender and glTF assets contain production-scale detail', async 
   assert.match(assetBuilder, /gpu_heatsink_fin_/);
   assert.match(assetBuilder, /m2_shield_/);
   assert.match(script, /setCaseShellMode/);
+  assert.match(script, /setMeshoptDecoder\(MeshoptDecoder\)/);
 });
 
 test('Unreal project and import bridge are provided', async () => {
@@ -170,9 +188,11 @@ test('drawer module carries explicit safety boundaries and primary-source refere
 
 test('the main menu represents multiple home assembly tasks instead of only a PC', async () => {
   const hero = await stat(path.join(root, 'public/images/home-diy-hero-v1.jpg'));
+  const optimizedHero = await stat(path.join(root, 'public/images/home-diy-hero-v1.avif'));
   assert.ok(hero.size > 300_000, `expected a detailed home DIY hero image, got ${hero.size} bytes`);
-  assert.match(html, /rel="preload" as="image" href="\/images\/home-diy-hero-v1\.jpg"/);
-  assert.match(style, /url\('\/images\/home-diy-hero-v1\.jpg'\) center center \/ cover no-repeat/);
+  assert.ok(optimizedHero.size < 120_000, `expected a compact AVIF hero image, got ${optimizedHero.size} bytes`);
+  assert.match(html, /rel="preload" as="image" href="\/images\/home-diy-hero-v1\.avif"/);
+  assert.match(style, /image-set\([\s\S]*home-diy-hero-v1\.avif[\s\S]*home-diy-hero-v1\.jpg/);
   assert.match(style, /\.intro::after \{[^}]*linear-gradient/s);
   assert.match(style, /\.intro::before \{ background-position: 82% center;/);
 });

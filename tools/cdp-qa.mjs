@@ -114,8 +114,19 @@ shop.gpuOptions = await evaluate(`({
   localImages: [...document.querySelectorAll('.shop-option img')].every((image) => new URL(image.src).origin === location.origin)
 })`);
 await screenshot('/Users/yunsu/pc-build-lab/qa/shop-famous-gpus.png');
+for (let attempt = 0; attempt < 100; attempt += 1) {
+  if (await evaluate(`!document.querySelector('#purchase-button').disabled`)) break;
+  await wait(120);
+}
+shop.modelStatus = await evaluate(`({
+  ready: !document.querySelector('#purchase-button').disabled,
+  label: document.querySelector('#pc-model-status').textContent.trim()
+})`);
 await evaluate(`document.querySelector('#purchase-button').click()`);
-await wait(900);
+for (let attempt = 0; attempt < 60; attempt += 1) {
+  if (await evaluate(`!document.querySelector('#workspace').hidden`)) break;
+  await wait(100);
+}
 const fanBefore = await evaluate(`window.__BUILD_LAB_QA__.fanMotionState()`);
 await wait(450);
 const fanAfter = await evaluate(`window.__BUILD_LAB_QA__.fanMotionState()`);

@@ -6,12 +6,15 @@
   "scripts": {
     "dev": "vite --host 127.0.0.1",
     "build": "vite build",
+    "check:performance": "node tools/check-performance-budget.mjs",
     "preview": "vite preview --host 127.0.0.1",
     "test": "node --test tests/*.test.mjs",
-    "assets": "blender --background --python tools/build_pc_scene.py",
-    "assets:cables": "blender --background assets/pc-lab-source.blend --python tools/update_cable_asset.py",
-    "assets:glass": "blender --background assets/pc-lab-source.blend --python tools/update_case_glass.py",
-    "assets:interaction": "blender --background assets/pc-lab-source.blend --python tools/update_interaction_proxy.py"
+    "verify": "npm run build && npm run check:performance && npm test",
+    "assets": "blender --background --python tools/build_pc_scene.py && npm run assets:optimize",
+    "assets:optimize": "bash tools/optimize_pc_model.sh",
+    "assets:cables": "blender --background assets/pc-lab-source.blend --python tools/update_cable_asset.py && npm run assets:optimize",
+    "assets:glass": "blender --background assets/pc-lab-source.blend --python tools/update_case_glass.py && npm run assets:optimize",
+    "assets:interaction": "blender --background assets/pc-lab-source.blend --python tools/update_interaction_proxy.py && npm run assets:optimize"
   },
   "dependencies": {
     "three": "^0.179.1"

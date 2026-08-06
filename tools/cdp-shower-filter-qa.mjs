@@ -174,7 +174,7 @@ report.errors = errors;
 await writeFile('/tmp/shower-filter-qa.json', JSON.stringify(report, null, 2));
 socket.close();
 
-if (!report.lobby.showerEnabled || report.lobby.modules.length !== 3 || !report.started.visible) process.exitCode = 1;
+if (!report.lobby.showerEnabled || report.lobby.modules.length !== 4 || !report.started.visible) process.exitCode = 1;
 if (report.inspected.state.clues.length !== 5 || !report.inspected.actionEnabled) process.exitCode = 1;
 if (report.wrongChoice.state.purchaseErrors !== 1 || report.wrongChoice.state.stage !== 'shop') process.exitCode = 1;
 if (report.opened.stage !== 'install' || !report.dragged.filterInstalled) process.exitCode = 1;

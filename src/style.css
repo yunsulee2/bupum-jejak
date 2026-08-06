@@ -142,7 +142,13 @@ button { border: 0; }
   pointer-events: none;
 }
 .intro::before {
-  background: url('/images/home-diy-hero-v1.jpg') center center / cover no-repeat;
+  background-image: image-set(
+    url('/images/home-diy-hero-v1.avif') type('image/avif'),
+    url('/images/home-diy-hero-v1.jpg') type('image/jpeg')
+  );
+  background-position: center center;
+  background-size: cover;
+  background-repeat: no-repeat;
   filter: saturate(.82) contrast(1.05) brightness(.82);
   transform: scale(1.006);
 }
@@ -217,6 +223,10 @@ button { border: 0; }
 .module-card[data-load-state="loading"] > i { width: 18px; height: 18px; border: 2px solid color-mix(in srgb, var(--module-accent), transparent 68%); border-top-color: var(--module-accent); border-radius: 50%; color: transparent; animation: module-loading 700ms linear infinite; }
 .module-card[data-load-state="error"] { border-color: var(--danger); }
 .module-card[data-load-state="error"] .module-card-copy small { color: #ff9b8e; }
+.pc-model-status { display: block; margin: 12px 0 10px; padding: 0; border: 0; color: var(--muted); font-size: .78rem; letter-spacing: .04em; text-align: left; background: transparent; }
+.pc-model-status[data-state="loading"] { color: var(--mint); }
+.pc-model-status[data-state="ready"] { color: #93efce; }
+.pc-model-status[data-state="error"] { color: #ff9b8e; cursor: pointer; text-decoration: underline; text-underline-offset: 3px; }
 @keyframes module-loading { to { transform: rotate(360deg); } }
 .module-card-number { align-self: start; color: var(--module-accent); font: 500 9px/1 var(--mono); }
 .module-card-copy, .module-card-copy small, .module-card-copy b, .module-card-copy em { display: block; }

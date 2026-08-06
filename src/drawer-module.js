@@ -127,6 +127,7 @@ export function createDrawerModule({
   const ui = {
     workspace: $('#drawer-workspace'),
     completion: $('#drawer-completion'),
+    guideToggle: $('#drawer-guide-toggle'),
     menu: $('#drawer-menu-button'),
     restart: $('#drawer-restart-button'),
     route: [...document.querySelectorAll('[data-drawer-stage]')],
@@ -608,6 +609,12 @@ export function createDrawerModule({
     ui.action.hidden = false;
   }
 
+  function setGuideCollapsed(collapsed) {
+    ui.workspace.classList.toggle('is-guide-collapsed', collapsed);
+    ui.guideToggle.setAttribute('aria-expanded', String(!collapsed));
+    ui.guideToggle.querySelector('span').textContent = collapsed ? '안내 펼치기' : '안내 접기';
+  }
+
   function updatePartVisibility(stage) {
     const stageParts = {
       kit: ['side-set', 'top-base-set', 'rail-set', 'back-panel', 'drawer-1', 'drawer-2', 'drawer-3'],
@@ -627,6 +634,7 @@ export function createDrawerModule({
 
   function setStage(stage) {
     state.stage = stage;
+    setGuideCollapsed(false);
     const index = STAGES.indexOf(stage);
     const stageData = data.stages[index];
     ui.route.forEach((item, routeIndex) => {
@@ -809,6 +817,7 @@ export function createDrawerModule({
     event.stopImmediatePropagation();
     controls.enabled = false;
     renderer.domElement.style.cursor = 'grabbing';
+    if (window.matchMedia('(max-width: 760px)').matches) setGuideCollapsed(true);
     renderer.domElement.setPointerCapture(event.pointerId);
     const plane = new THREE.Plane().setFromNormalAndCoplanarPoint(camera.getWorldDirection(new THREE.Vector3()), hit.point);
     state.dragging = {
@@ -1035,6 +1044,9 @@ export function createDrawerModule({
   ui.anchorChoices.forEach((button) => button.addEventListener('click', () => chooseAnchor(button.dataset.drawerAnchor)));
   ui.testButtons.forEach((button) => button.addEventListener('click', () => testDrawer(button.dataset.drawerTest)));
   ui.action.addEventListener('click', nextStage);
+  ui.guideToggle.addEventListener('click', () => {
+    setGuideCollapsed(!ui.workspace.classList.contains('is-guide-collapsed'));
+  });
   ui.menu.addEventListener('click', () => window.location.reload());
   ui.restart.addEventListener('click', () => window.location.reload());
   renderer.domElement.addEventListener('pointerdown', beginDrag, true);
@@ -1051,6 +1063,7 @@ export function createDrawerModule({
     renderer.domElement.style.cursor = 'grab';
     ui.workspace.hidden = false;
     ui.completion.hidden = true;
+    setGuideCollapsed(false);
     controls.minDistance = 3.2;
     controls.maxDistance = 22;
     controls.maxPolarAngle = Math.PI * 0.88;

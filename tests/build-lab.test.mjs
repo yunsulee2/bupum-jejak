@@ -124,6 +124,15 @@ test('the lobby offers computer, fluorescent and shower filter modules', () => {
   assert.match(style, /\.module-card--shower/);
 });
 
+test('the main menu represents multiple home assembly tasks instead of only a PC', async () => {
+  const hero = await stat(path.join(root, 'public/images/home-diy-hero-v1.jpg'));
+  assert.ok(hero.size > 300_000, `expected a detailed home DIY hero image, got ${hero.size} bytes`);
+  assert.match(html, /rel="preload" as="image" href="\/images\/home-diy-hero-v1\.jpg"/);
+  assert.match(style, /url\('\/images\/home-diy-hero-v1\.jpg'\) center center \/ cover no-repeat/);
+  assert.match(style, /\.intro::after \{[^}]*linear-gradient/s);
+  assert.match(style, /\.intro::before \{ background-position: 82% center;/);
+});
+
 test('fluorescent diagnosis teaches inspection, ballast compatibility, 90-degree replacement and disposal', () => {
   assert.equal(fluorescentData.clues.length, 5);
   assert.equal(fluorescentData.products.length, 6);

@@ -1758,6 +1758,7 @@ async function loadExperience() {
           grid,
           setSessionLabel: (label) => { ui.sessionLabel.textContent = label; },
           tweenCamera,
+          playTone,
         });
         window.__FLUORESCENT_LAB_QA__ = fluorescentModule.qa;
         window.__SHOWER_FILTER_QA__ = showerFilterModule.qa;

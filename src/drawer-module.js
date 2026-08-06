@@ -121,6 +121,7 @@ export function createDrawerModule({
   grid,
   setSessionLabel,
   tweenCamera,
+  playTone = () => {},
 }) {
   const $ = (selector) => document.querySelector(selector);
   const ui = {
@@ -195,6 +196,7 @@ export function createDrawerModule({
   const drawers = new Map();
   const camDiscs = [];
   let targetHelper = null;
+  let targetFill = null;
   let anchorBrackets = null;
 
   const panelMaterial = physical(0xe9ebe5, { roughness: 0.56, clearcoat: 0.1 });
@@ -526,15 +528,41 @@ export function createDrawerModule({
       targetHelper.material.dispose();
       targetHelper = null;
     }
+    if (targetFill) {
+      root.remove(targetFill);
+      targetFill.geometry.dispose();
+      targetFill.material.dispose();
+      targetFill = null;
+    }
     const id = currentPartId();
     if (!id) return;
     const part = parts.get(id);
-    targetHelper = new THREE.Box3Helper(part.targetBox.clone(), 0x75e6c6);
+    const kit = data.kits.find((item) => item.id === state.kitId);
+    const targetColor = new THREE.Color(kit?.colors.accent ?? '#ffbd66');
+    targetHelper = new THREE.Box3Helper(part.targetBox.clone(), targetColor);
     targetHelper.name = `drawer-target-${id}`;
     targetHelper.material.transparent = true;
-    targetHelper.material.opacity = 0.72;
+    targetHelper.material.opacity = 0.78;
     targetHelper.material.depthTest = false;
+    targetHelper.renderOrder = 13;
     root.add(targetHelper);
+
+    const size = part.targetBox.getSize(new THREE.Vector3());
+    const center = part.targetBox.getCenter(new THREE.Vector3());
+    targetFill = new THREE.Mesh(
+      new THREE.BoxGeometry(size.x, size.y, size.z),
+      new THREE.MeshBasicMaterial({
+        color: targetColor,
+        transparent: true,
+        opacity: 0.035,
+        depthWrite: false,
+        side: THREE.DoubleSide,
+      }),
+    );
+    targetFill.name = `drawer-target-fill-${id}`;
+    targetFill.position.copy(center);
+    targetFill.renderOrder = 12;
+    root.add(targetFill);
   }
 
   function updateFrameUi() {
@@ -780,6 +808,7 @@ export function createDrawerModule({
     event.preventDefault();
     event.stopImmediatePropagation();
     controls.enabled = false;
+    renderer.domElement.style.cursor = 'grabbing';
     renderer.domElement.setPointerCapture(event.pointerId);
     const plane = new THREE.Plane().setFromNormalAndCoplanarPoint(camera.getWorldDirection(new THREE.Vector3()), hit.point);
     state.dragging = {
@@ -789,11 +818,17 @@ export function createDrawerModule({
       grabPoint: hit.point.clone(),
       startPosition: part.group.position.clone(),
       startClient: new THREE.Vector2(event.clientX, event.clientY),
+      startScale: part.group.scale.clone(),
       moved: false,
+      wasNear: false,
     };
+    part.group.scale.copy(state.dragging.startScale).multiplyScalar(1.035);
+    ui.workspace.classList.add('is-part-dragging');
     ui.dragCoach.hidden = false;
     ui.dragCoach.style.left = `${event.clientX}px`;
     ui.dragCoach.style.top = `${event.clientY}px`;
+    ui.dragDistance.textContent = '빛나는 윤곽을 향해 이동하세요';
+    playTone('select');
   }
 
   function moveDrag(event) {
@@ -803,15 +838,56 @@ export function createDrawerModule({
     setPointer(event);
     const point = new THREE.Vector3();
     if (!raycaster.ray.intersectPlane(drag.plane, point)) return;
-    parts.get(drag.id).group.position.copy(drag.startPosition).add(point.sub(drag.grabPoint));
+    const part = parts.get(drag.id);
+    part.group.position.copy(drag.startPosition).add(point.sub(drag.grabPoint));
     drag.moved ||= drag.startClient.distanceTo(new THREE.Vector2(event.clientX, event.clientY)) > 5;
-    const distance = screenPoint(currentCenter(drag.id)).distanceTo(screenPoint(targetCenter(drag.id)));
-    const near = distance < 115;
+    let distance = screenPoint(currentCenter(drag.id)).distanceTo(screenPoint(targetCenter(drag.id)));
+    const magnetic = distance < 210;
+    const magnetStrength = magnetic ? THREE.MathUtils.clamp((210 - distance) / 360, 0, 0.4) : 0;
+    if (magnetStrength > 0) {
+      part.group.position.lerp(part.target, magnetStrength);
+      distance = screenPoint(currentCenter(drag.id)).distanceTo(screenPoint(targetCenter(drag.id)));
+    }
+    const near = distance < 105;
     ui.dragCoach.style.left = `${event.clientX}px`;
     ui.dragCoach.style.top = `${event.clientY}px`;
-    ui.dragDistance.textContent = near ? '장착 가능 · 여기서 놓으세요' : `목표까지 ${Math.round(distance)}픽셀`;
+    ui.dragDistance.textContent = near
+      ? '정렬 완료 · 놓아서 고정하세요'
+      : magnetic
+        ? '자석 정렬 중 · 조금만 더 이동하세요'
+        : `목표까지 ${Math.round(distance)}픽셀`;
     ui.dragCoach.classList.toggle('is-near', near);
-    if (targetHelper) targetHelper.material.color.set(near ? 0xbaff9a : 0x75e6c6);
+    ui.dragCoach.classList.toggle('is-magnetic', magnetic && !near);
+    ui.workspace.classList.toggle('is-part-near', near);
+    if (targetHelper) {
+      targetHelper.material.color.set(near ? 0xbaff9a : magnetic ? 0xffe09a : 0xffbd66);
+      targetHelper.material.opacity = near ? 1 : magnetic ? 0.9 : 0.78;
+    }
+    if (targetFill) {
+      targetFill.material.color.set(near ? 0xbaff9a : magnetic ? 0xffe09a : 0xffbd66);
+      targetFill.material.opacity = near ? 0.17 : magnetic ? 0.085 : 0.035;
+    }
+    if (near && !drag.wasNear) playTone('select');
+    drag.wasNear = near;
+  }
+
+  function animateRejectedDrop(part, target) {
+    const rejected = part.group.position.clone();
+    const start = performance.now();
+    return new Promise((resolve) => {
+      const tick = (now) => {
+        const linear = Math.min(1, (now - start) / 380);
+        const eased = 1 - ((1 - linear) ** 3);
+        part.group.position.lerpVectors(rejected, target, eased);
+        part.group.position.x += Math.sin(linear * Math.PI * 5) * (1 - linear) * 0.1;
+        if (linear < 1) requestAnimationFrame(tick);
+        else {
+          part.group.position.copy(target);
+          resolve();
+        }
+      };
+      requestAnimationFrame(tick);
+    });
   }
 
   function animatePart(part, duration = 520) {
@@ -838,6 +914,7 @@ export function createDrawerModule({
     const part = parts.get(id);
     await animatePart(part);
     state.installed.add(id);
+    playTone('install');
     if (id === 'back-panel') {
       ui.diagonalChoices.classList.remove('is-locked');
       ui.squareState.textContent = '뒤판 장착 · 대각선 측정 대기';
@@ -864,18 +941,31 @@ export function createDrawerModule({
     event.stopImmediatePropagation();
     state.dragging = null;
     controls.enabled = true;
+    renderer.domElement.style.cursor = 'grab';
+    ui.workspace.classList.remove('is-part-dragging', 'is-part-near');
     ui.dragCoach.hidden = true;
-    ui.dragCoach.classList.remove('is-near');
+    ui.dragCoach.classList.remove('is-near', 'is-magnetic');
     if (renderer.domElement.hasPointerCapture(event.pointerId)) renderer.domElement.releasePointerCapture(event.pointerId);
     const part = parts.get(drag.id);
+    part.group.scale.copy(drag.startScale);
     const distance = screenPoint(currentCenter(drag.id)).distanceTo(screenPoint(targetCenter(drag.id)));
-    if (drag.moved && distance < 115) {
+    if (drag.moved && distance < 105) {
       await installPart(drag.id);
       return;
     }
     state.errors += drag.moved ? 1 : 0;
-    part.group.position.copy(drag.startPosition);
-    if (drag.moved) setFeedback('목표 윤곽까지 충분히 닿지 않았습니다. 부품의 중심을 빛나는 상자 안에 맞춰 다시 놓으세요.', 'error');
+    if (drag.moved) {
+      playTone('error');
+      await animateRejectedDrop(part, drag.startPosition);
+      setFeedback(
+        distance < 210
+          ? '설치 위치에는 닿았지만 중심과 높이가 맞지 않습니다. 빛나는 윤곽이 초록색으로 바뀔 때 놓으세요.'
+          : '부품이 설치 위치까지 도달하지 않았습니다. 빛나는 윤곽의 중앙을 향해 다시 끌어보세요.',
+        'error',
+      );
+    } else {
+      part.group.position.copy(drag.startPosition);
+    }
   }
 
   async function testDrawer(id) {
@@ -958,6 +1048,7 @@ export function createDrawerModule({
     globalFloor.visible = false;
     grid.visible = false;
     root.visible = true;
+    renderer.domElement.style.cursor = 'grab';
     ui.workspace.hidden = false;
     ui.completion.hidden = true;
     controls.minDistance = 3.2;
@@ -968,7 +1059,8 @@ export function createDrawerModule({
 
   function update(now) {
     if (!state.active) return;
-    if (targetHelper) targetHelper.material.opacity = 0.5 + Math.sin(now * 0.005) * 0.28;
+    if (targetHelper && !state.dragging) targetHelper.material.opacity = 0.5 + Math.sin(now * 0.005) * 0.28;
+    if (targetFill && !state.dragging) targetFill.material.opacity = 0.025 + (Math.sin(now * 0.004) + 1) * 0.018;
   }
 
   async function qaInstallCurrent() {

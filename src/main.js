@@ -6,7 +6,7 @@ import { EffectComposer } from 'three/addons/postprocessing/EffectComposer.js';
 import { RenderPass } from 'three/addons/postprocessing/RenderPass.js';
 import { UnrealBloomPass } from 'three/addons/postprocessing/UnrealBloomPass.js';
 import { RoundedBoxGeometry } from 'three/addons/geometries/RoundedBoxGeometry.js';
-import { createBulbModule } from './bulb-module.js';
+import { createFluorescentModule } from './fluorescent-module.js';
 import './style.css';
 
 const $ = (selector) => document.querySelector(selector);
@@ -18,9 +18,9 @@ const ui = {
   loadingProgress: $('#loading-progress'),
   intro: $('#intro'),
   start: $('#start-button'),
-  bulbStart: $('#bulb-start-button'),
-  bulbWorkspace: $('#bulb-workspace'),
-  bulbCompletion: $('#bulb-completion'),
+  fluorescentStart: $('#fluorescent-start-button'),
+  fluorescentWorkspace: $('#fluorescent-workspace'),
+  fluorescentCompletion: $('#fluorescent-completion'),
   shop: $('#shop'),
   shopCategories: $('#shop-categories'),
   shopProgress: $('#shop-progress'),
@@ -74,7 +74,7 @@ const ui = {
 const state = {
   data: null,
   catalog: null,
-  bulbData: null,
+  fluorescentData: null,
   shopCategories: [],
   shopIndex: 0,
   purchases: new Map(),
@@ -204,7 +204,7 @@ const furnitureRoots = [];
 let roomRoot = null;
 let pcAssemblyRig = null;
 let pcAssemblyBench = null;
-let bulbModule = null;
+let fluorescentModule = null;
 
 function finishMaterial(color, options = {}) {
   return new THREE.MeshPhysicalMaterial({
@@ -1482,15 +1482,15 @@ function startExperience() {
   openShop();
 }
 
-function startBulbExperience() {
+function startFluorescentExperience() {
   ensureAudio();
   ui.intro.hidden = true;
   ui.shop.hidden = true;
   ui.workspace.hidden = true;
   ui.completion.hidden = true;
-  ui.bulbCompletion.hidden = true;
-  ui.app.dataset.mode = 'bulb';
-  bulbModule.start();
+  ui.fluorescentCompletion.hidden = true;
+  ui.app.dataset.mode = 'fluorescent';
+  fluorescentModule.start();
 }
 
 async function beginAssembly() {
@@ -1537,10 +1537,10 @@ function mapPartRoots() {
 }
 
 async function loadExperience() {
-  [state.data, state.catalog, state.bulbData] = await Promise.all([
+  [state.data, state.catalog, state.fluorescentData] = await Promise.all([
     fetch('/data/desktop-atx.json').then((response) => response.json()),
     fetch('/data/store-catalog.json').then((response) => response.json()),
-    fetch('/data/bulb-lab.json').then((response) => response.json()),
+    fetch('/data/fluorescent-lab.json').then((response) => response.json()),
   ]);
   buildShopCategories();
   ui.catalogDate.textContent = state.catalog.updatedAt;
@@ -1570,8 +1570,8 @@ async function loadExperience() {
         setCableVisualMode(false);
         applyPurchasedAppearances();
         initializePartLayout();
-        bulbModule = createBulbModule({
-          data: state.bulbData,
+        fluorescentModule = createFluorescentModule({
+          data: state.fluorescentData,
           scene,
           camera,
           controls,
@@ -1581,10 +1581,10 @@ async function loadExperience() {
           setSessionLabel: (label) => { ui.sessionLabel.textContent = label; },
           tweenCamera,
         });
-        window.__BULB_LAB_QA__ = bulbModule.qa;
+        window.__FLUORESCENT_LAB_QA__ = fluorescentModule.qa;
         state.ready = true;
         ui.start.disabled = false;
-        ui.bulbStart.disabled = false;
+        ui.fluorescentStart.disabled = false;
         ui.app.dataset.mode = 'intro';
         ui.loading.classList.add('is-complete');
         window.setTimeout(() => { ui.loading.hidden = true; }, 600);
@@ -1604,7 +1604,7 @@ function animate(now) {
   lastFrame = now;
   controls.update(delta);
   animateGamingEffects(now, delta);
-  bulbModule?.update(now, delta);
+  fluorescentModule?.update(now, delta);
   if (targetHelper && !state.dragging) {
     targetHelper.material.opacity = 0.58 + Math.sin(now * 0.004) * 0.28;
   }
@@ -1614,7 +1614,7 @@ function animate(now) {
 }
 
 ui.start.addEventListener('click', startExperience);
-ui.bulbStart.addEventListener('click', startBulbExperience);
+ui.fluorescentStart.addEventListener('click', startFluorescentExperience);
 ui.purchase.addEventListener('click', beginAssembly);
 ui.focus.addEventListener('click', focusSelected);
 ui.explode.addEventListener('click', toggleExploded);

@@ -1,0 +1,220 @@
+{
+  "scenario": {
+    "name": "방 천장 직관형 형광등 교체",
+    "fixture": "전자식 안정기 32W 1등용 천장등",
+    "required": {
+      "lampCode": "FHF32SS-EX-D",
+      "technology": "fluorescent",
+      "form": "T8",
+      "base": "G13",
+      "watts": 32,
+      "lengthMm": 1198,
+      "diameterMm": 26,
+      "cct": 6500,
+      "lumens": 3100,
+      "ballast": "HF32"
+    },
+    "stopConditions": [
+      "램프가 깨졌거나 금이 가 있음",
+      "소켓이 그을렸거나 녹아 있음",
+      "안정기에서 타는 냄새·큰 소음·누액이 발생함",
+      "차단 후에도 검전 결과 전압이 감지됨"
+    ]
+  },
+  "clues": [
+    {
+      "id": "printing",
+      "code": "단서 01",
+      "name": "기존 램프 인쇄",
+      "value": "FHF32SS-EX-D · 32 W",
+      "help": "FHF·FL·FPL과 소비전력이 다르면 길이나 안정기 방식이 달라질 수 있습니다.",
+      "camera": "tube"
+    },
+    {
+      "id": "pins",
+      "code": "단서 02",
+      "name": "끝단 핀과 소켓",
+      "value": "G13 양핀 · T8 Ø26 mm",
+      "help": "같은 직관형이라도 핀 간격과 관 지름이 맞아야 소켓에 체결됩니다.",
+      "camera": "socket"
+    },
+    {
+      "id": "length",
+      "code": "단서 03",
+      "name": "램프 길이",
+      "value": "약 1,198 mm",
+      "help": "18 W 580 mm 제품은 G13이어도 이 등기구 양쪽 소켓에 닿지 않습니다.",
+      "camera": "fixture"
+    },
+    {
+      "id": "ballast",
+      "code": "단서 04",
+      "name": "안정기 라벨",
+      "value": "전자식 HF32 · 32 W 1등용",
+      "help": "LED 대체관과 일반 형광램프는 겉모양이 같아도 허용 안정기와 결선 방식이 다릅니다.",
+      "camera": "ballast"
+    },
+    {
+      "id": "color",
+      "code": "단서 05",
+      "name": "빛 색상 코드",
+      "value": "EX-D / 865 · 6500 K 주광색",
+      "help": "EX-W 같은 3000 K 따뜻한 색 제품을 고르면 기존 방의 흰빛과 색이 달라집니다.",
+      "camera": "tube"
+    }
+  ],
+  "products": [
+    {
+      "id": "kumho-fhf32-daylight",
+      "maker": "금호전기 번개표",
+      "name": "FHF32SS-EX-D 직관 형광램프",
+      "pack": "32 W · 주광색 · 낱개",
+      "price": 2400,
+      "lampCode": "FHF32SS-EX-D",
+      "technology": "fluorescent",
+      "form": "T8",
+      "base": "G13",
+      "watts": 32,
+      "lengthMm": 1198,
+      "diameterMm": 26,
+      "cct": 6500,
+      "lumens": 3100,
+      "ballast": "HF32",
+      "source": "https://search.danawa.com/dsearch.php?query=FHF32SS-EX-D",
+      "accent": "#d9f3ff"
+    },
+    {
+      "id": "philips-tld32-daylight",
+      "maker": "PHILIPS",
+      "name": "TL-D 32W FLR32SS EX-D",
+      "pack": "32 W · 주광색 · 낱개",
+      "price": 5170,
+      "lampCode": "FLR32SS-EX-D",
+      "technology": "fluorescent",
+      "form": "T8",
+      "base": "G13",
+      "watts": 32,
+      "lengthMm": 1198,
+      "diameterMm": 26,
+      "cct": 6500,
+      "lumens": 3100,
+      "ballast": "HF32",
+      "source": "https://www.coupang.com/vp/products/8295180698?itemId=23925212634",
+      "accent": "#e7f7ff"
+    },
+    {
+      "id": "kumho-fl20-daylight",
+      "maker": "금호전기 번개표",
+      "name": "FL20SS-EX-D 직관 형광램프",
+      "pack": "18 W · 580 mm · 주광색",
+      "price": 1800,
+      "lampCode": "FL20SS-EX-D",
+      "technology": "fluorescent",
+      "form": "T8",
+      "base": "G13",
+      "watts": 18,
+      "lengthMm": 580,
+      "diameterMm": 26,
+      "cct": 6500,
+      "lumens": 1350,
+      "ballast": "FL20",
+      "source": "https://search.danawa.com/dsearch.php?query=FL20SS-EX-D",
+      "accent": "#d8eff8"
+    },
+    {
+      "id": "kumho-fpl36-daylight",
+      "maker": "금호전기 번개표",
+      "name": "FPL36EX-D 콤팩트 형광램프",
+      "pack": "36 W · 2G11 4핀 · 주광색",
+      "price": 3500,
+      "lampCode": "FPL36EX-D",
+      "technology": "fluorescent",
+      "form": "FPL",
+      "base": "2G11",
+      "watts": 36,
+      "lengthMm": 410,
+      "diameterMm": 18,
+      "cct": 6500,
+      "lumens": 2900,
+      "ballast": "FPL36",
+      "source": "https://search.danawa.com/dsearch.php?query=FPL36EX-D",
+      "accent": "#e4f7ff"
+    },
+    {
+      "id": "kumho-fhf32-warm",
+      "maker": "금호전기 번개표",
+      "name": "FHF32SS-EX-W 직관 형광램프",
+      "pack": "32 W · 3000 K 따뜻한 백색 · 낱개",
+      "price": 2900,
+      "lampCode": "FHF32SS-EX-W",
+      "technology": "fluorescent",
+      "form": "T8",
+      "base": "G13",
+      "watts": 32,
+      "lengthMm": 1198,
+      "diameterMm": 26,
+      "cct": 3000,
+      "lumens": 3000,
+      "ballast": "HF32",
+      "source": "https://search.danawa.com/dsearch.php?query=FHF32SS-EX-W",
+      "accent": "#ffd59a"
+    },
+    {
+      "id": "ledvance-t8-led-em",
+      "maker": "LEDVANCE",
+      "name": "SubstiTUBE T8 EM LED 대체관",
+      "pack": "18 W · G13 · 1200 mm · LED",
+      "price": 12900,
+      "lampCode": "ST8V-EM-18-865",
+      "technology": "led",
+      "form": "T8",
+      "base": "G13",
+      "watts": 18,
+      "lengthMm": 1200,
+      "diameterMm": 26,
+      "cct": 6500,
+      "lumens": 2100,
+      "ballast": "EM_OR_AC",
+      "source": "https://www.ledvance.com/en/product-datasheet/7013/155904",
+      "accent": "#bfeaff"
+    }
+  ],
+  "disposalOptions": [
+    {
+      "id": "collection",
+      "name": "폐형광등 전용 수거함",
+      "description": "깨지지 않게 운반해 공동주택·행정복지센터의 전용 수거함에 배출",
+      "correct": true
+    },
+    {
+      "id": "general",
+      "name": "종량제 봉투",
+      "description": "일반 쓰레기와 함께 버리기",
+      "correct": false
+    },
+    {
+      "id": "glass",
+      "name": "유리 재활용함",
+      "description": "빈 병과 같은 유리류로 배출",
+      "correct": false
+    }
+  ],
+  "sources": [
+    {
+      "label": "국내 FHF32SS-EX-D 판매 규격",
+      "url": "https://search.danawa.com/dsearch.php?query=FHF32SS-EX-D"
+    },
+    {
+      "label": "Philips Korea G13 직관 형광램프 사양",
+      "url": "https://www.lighting.philips.co.kr/content/signify-multibrand/kr/ko/product/product-detail-page.927981286536_EU.html"
+    },
+    {
+      "label": "LEDVANCE T8 형광램프 데이터시트",
+      "url": "https://www.ledvance.com/en/product-datasheet/7384/110160"
+    },
+    {
+      "label": "환경부 폐형광등 분리배출 안내",
+      "url": "https://niwdc.me.go.kr/home/web/board/read.do?boardId=83540&boardMasterId=1"
+    }
+  ]
+}

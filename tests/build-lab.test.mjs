@@ -7,11 +7,11 @@ import test from 'node:test';
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const html = await readFile(path.join(root, 'index.html'), 'utf8');
 const script = await readFile(path.join(root, 'src/main.js'), 'utf8');
-const bulbScript = await readFile(path.join(root, 'src/bulb-module.js'), 'utf8');
+const fluorescentScript = await readFile(path.join(root, 'src/fluorescent-module.js'), 'utf8');
 const style = await readFile(path.join(root, 'src/style.css'), 'utf8');
 const data = JSON.parse(await readFile(path.join(root, 'public/data/desktop-atx.json'), 'utf8'));
 const catalog = JSON.parse(await readFile(path.join(root, 'public/data/store-catalog.json'), 'utf8'));
-const bulbData = JSON.parse(await readFile(path.join(root, 'public/data/bulb-lab.json'), 'utf8'));
+const fluorescentData = JSON.parse(await readFile(path.join(root, 'public/data/fluorescent-lab.json'), 'utf8'));
 
 test('gaming room module has a complete fourteen-step guided assembly', () => {
   assert.equal(data.parts.length, 14);
@@ -107,47 +107,53 @@ test('Unreal project and import bridge are provided', async () => {
   assert.match(importer, /pc-lab\.glb/);
 });
 
-test('the lobby offers computer assembly and bulb replacement as distinct modules', () => {
+test('the lobby offers computer assembly and fluorescent replacement as distinct modules', () => {
   assert.match(html, /id="start-button"/);
   assert.match(html, /게이밍 컴퓨터 조립/);
-  assert.match(html, /id="bulb-start-button"/);
-  assert.match(html, /전구 교체 진단/);
-  assert.match(script, /function startBulbExperience/);
-  assert.match(script, /createBulbModule/);
-  assert.match(style, /\.module-card--bulb/);
+  assert.match(html, /id="fluorescent-start-button"/);
+  assert.match(html, /형광등 교체 진단/);
+  assert.match(script, /function startFluorescentExperience/);
+  assert.match(script, /createFluorescentModule/);
+  assert.match(style, /\.module-card--fluorescent/);
 });
 
-test('bulb diagnosis teaches inspection, compatibility, safety, rotation and testing', () => {
-  assert.equal(bulbData.clues.length, 4);
-  assert.equal(bulbData.products.length, 6);
-  assert.deepEqual(Object.keys(bulbData.scenario.required), [
-    'base', 'lumens', 'cct', 'dimmable', 'shape', 'maxDiameterMm', 'voltage',
+test('fluorescent diagnosis teaches inspection, ballast compatibility, 90-degree replacement and disposal', () => {
+  assert.equal(fluorescentData.clues.length, 5);
+  assert.equal(fluorescentData.products.length, 6);
+  assert.deepEqual(Object.keys(fluorescentData.scenario.required), [
+    'lampCode', 'technology', 'form', 'base', 'watts', 'lengthMm', 'diameterMm', 'cct', 'lumens', 'ballast',
   ]);
-  assert.match(html, /현장 관찰/);
+  assert.match(html, /기구·램프 확인/);
   assert.match(html, /규격 비교·구매/);
   assert.match(html, /안전 준비/);
-  assert.match(html, /반시계 방향 회전/);
+  assert.match(html, /90° 회전/);
   assert.match(html, /점등 검증/);
-  assert.match(bulbScript, /function compatibility/);
-  assert.match(bulbScript, /function wrongProductFeedback/);
-  assert.match(bulbScript, /function addTurnDelta/);
-  assert.match(bulbScript, /function powerOn/);
-  assert.match(html, /소켓·배선 수리는 전기 전문가/);
-  assert.match(style, /\.bulb-turn-dial/);
+  assert.match(html, /폐램프 배출/);
+  assert.match(fluorescentScript, /function compatibility/);
+  assert.match(fluorescentScript, /function wrongProductFeedback/);
+  assert.match(fluorescentScript, /function addTurnDelta/);
+  assert.match(fluorescentScript, /function powerOn/);
+  assert.match(fluorescentScript, /function attemptDisposal/);
+  assert.match(html, /소켓·안정기·배선 수리는 전기 전문가/);
+  assert.match(html, /폐형광등 전용 수거함/);
+  assert.match(style, /\.fluorescent-turn-dial/);
+  assert.match(style, /\.fluorescent-disposal-options/);
 });
 
-test('only one bulb candidate matches every discovered field condition', () => {
-  const required = bulbData.scenario.required;
-  const compatible = bulbData.products.filter((product) => (
-    product.base === required.base
-    && product.lumens === required.lumens
+test('two real fluorescent brands match while similar lengths and pins can still be incompatible', () => {
+  const required = fluorescentData.scenario.required;
+  const compatible = fluorescentData.products.filter((product) => (
+    product.technology === required.technology
+    && product.form === required.form
+    && product.base === required.base
+    && product.watts === required.watts
+    && Math.abs(product.lengthMm - required.lengthMm) <= 5
     && product.cct === required.cct
-    && product.dimmable === required.dimmable
-    && product.shape === required.shape
-    && product.diameterMm <= required.maxDiameterMm
+    && product.ballast === required.ballast
   ));
-  assert.equal(compatible.length, 1);
-  assert.equal(compatible[0].id, 'solhetta-e26-806-warm-dim');
-  assert.ok(bulbData.products.every((product) => product.price > 0 && product.source.startsWith('https://')));
-  assert.ok(bulbData.scenario.stopConditions.length >= 3);
+  assert.deepEqual(compatible.map((product) => product.id), ['kumho-fhf32-daylight', 'philips-tld32-daylight']);
+  assert.ok(fluorescentData.products.some((product) => product.technology === 'led' && product.base === 'G13'));
+  assert.ok(fluorescentData.products.every((product) => product.price > 0 && product.source.startsWith('https://')));
+  assert.ok(fluorescentData.scenario.stopConditions.length >= 3);
+  assert.equal(fluorescentData.disposalOptions.filter((option) => option.correct).length, 1);
 });

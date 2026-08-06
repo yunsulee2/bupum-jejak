@@ -45,18 +45,18 @@ async function screenshot(name) {
 }
 
 async function circularTurn(direction) {
-  const rect = await evaluate(`(() => { const r = document.querySelector('#bulb-turn-dial').getBoundingClientRect(); return { x: r.x, y: r.y, width: r.width, height: r.height }; })()`);
+  const rect = await evaluate(`(() => { const r = document.querySelector('#fluorescent-turn-dial').getBoundingClientRect(); return { x: r.x, y: r.y, width: r.width, height: r.height }; })()`);
   const center = { x: rect.x + rect.width / 2, y: rect.y + rect.height / 2 };
   const radius = Math.min(rect.width, rect.height) * 0.42;
   const point = (angle) => ({ x: center.x + Math.cos(angle) * radius, y: center.y + Math.sin(angle) * radius });
   const start = point(0);
   await command('Input.dispatchMouseEvent', { type: 'mousePressed', x: start.x, y: start.y, button: 'left', buttons: 1, clickCount: 1 });
-  for (let index = 1; index <= 52; index += 1) {
-    const current = point(direction * Math.PI * 4.2 * (index / 52));
+  for (let index = 1; index <= 18; index += 1) {
+    const current = point(direction * Math.PI * 0.56 * (index / 18));
     await command('Input.dispatchMouseEvent', { type: 'mouseMoved', x: current.x, y: current.y, button: 'left', buttons: 1 });
     await wait(2);
   }
-  const end = point(direction * Math.PI * 4.2);
+  const end = point(direction * Math.PI * 0.56);
   await command('Input.dispatchMouseEvent', { type: 'mouseReleased', x: end.x, y: end.y, button: 'left', buttons: 0, clickCount: 1 });
 }
 
@@ -70,7 +70,7 @@ await command('Emulation.setDeviceMetricsOverride', { width: 1440, height: 900, 
 await command('Page.navigate', { url: 'http://127.0.0.1:5173/' });
 
 for (let attempt = 0; attempt < 80; attempt += 1) {
-  if (await evaluate(`document.querySelector('#loading-screen').hidden && !document.querySelector('#bulb-start-button').disabled`)) break;
+  if (await evaluate(`document.querySelector('#loading-screen').hidden && !document.querySelector('#fluorescent-start-button').disabled`)) break;
   await wait(180);
 }
 
@@ -79,67 +79,75 @@ report.lobby = await evaluate(`({
   mode: document.querySelector('#app').dataset.mode,
   title: document.querySelector('#title').textContent.trim(),
   modules: [...document.querySelectorAll('.module-card b')].map((node) => node.textContent.trim()),
-  bulbEnabled: !document.querySelector('#bulb-start-button').disabled
+  fluorescentEnabled: !document.querySelector('#fluorescent-start-button').disabled
 })`);
 await screenshot('module-lobby.png');
 
-await evaluate(`document.querySelector('#bulb-start-button').click()`);
+await evaluate(`document.querySelector('#fluorescent-start-button').click()`);
 await wait(350);
-report.started = await evaluate(`({ visible: !document.querySelector('#bulb-workspace').hidden, qa: window.__BULB_LAB_QA__.state() })`);
-await screenshot('bulb-01-inspection.png');
+report.started = await evaluate(`({ visible: !document.querySelector('#fluorescent-workspace').hidden, qa: window.__FLUORESCENT_LAB_QA__.state() })`);
+await screenshot('fluorescent-01-inspection.png');
 
 await evaluate(`[...document.querySelectorAll('[data-clue]')].forEach((button) => button.click())`);
 await wait(120);
 report.inspected = await evaluate(`({
-  clues: window.__BULB_LAB_QA__.state().clues,
-  actionEnabled: !document.querySelector('#bulb-action').disabled,
-  specs: [...document.querySelectorAll('#bulb-spec-sheet b')].map((node) => node.textContent.trim())
+  clues: window.__FLUORESCENT_LAB_QA__.state().clues,
+  actionEnabled: !document.querySelector('#fluorescent-action').disabled,
+  specs: [...document.querySelectorAll('#fluorescent-spec-sheet b')].map((node) => node.textContent.trim())
 })`);
 
-await evaluate(`document.querySelector('#bulb-action').click()`);
+await evaluate(`document.querySelector('#fluorescent-action').click()`);
 await wait(120);
-await evaluate(`document.querySelector('[data-product="solhetta-e26-806-daylight"]').click()`);
-await evaluate(`document.querySelector('#bulb-action').click()`);
+await evaluate(`document.querySelector('[data-product="ledvance-t8-led-em"]').click()`);
+await evaluate(`document.querySelector('#fluorescent-action').click()`);
 await wait(80);
 report.wrongChoice = await evaluate(`({
-  stage: window.__BULB_LAB_QA__.state().stage,
-  errors: window.__BULB_LAB_QA__.state().purchaseErrors,
-  feedback: document.querySelector('#bulb-feedback').textContent.trim(),
-  failedChecks: window.__BULB_LAB_QA__.compatibility('solhetta-e26-806-daylight').filter((item) => !item.pass).map((item) => item.label)
+  stage: window.__FLUORESCENT_LAB_QA__.state().stage,
+  errors: window.__FLUORESCENT_LAB_QA__.state().purchaseErrors,
+  feedback: document.querySelector('#fluorescent-feedback').textContent.trim(),
+  failedChecks: window.__FLUORESCENT_LAB_QA__.compatibility('ledvance-t8-led-em').filter((item) => !item.pass).map((item) => item.label)
 })`);
-await screenshot('bulb-03-wrong-product-feedback.png');
+await screenshot('fluorescent-03-wrong-product-feedback.png');
 
-await evaluate(`document.querySelector('[data-product="solhetta-e26-806-warm-dim"]').click()`);
-await evaluate(`document.querySelector('#bulb-action').click()`);
-await wait(570);
-report.purchase = await evaluate(`window.__BULB_LAB_QA__.state()`);
+await evaluate(`document.querySelector('[data-product="kumho-fhf32-daylight"]').click()`);
+await evaluate(`document.querySelector('#fluorescent-action').click()`);
+await wait(460);
+report.purchase = await evaluate(`window.__FLUORESCENT_LAB_QA__.state()`);
 
 await evaluate(`[...document.querySelectorAll('[data-safety]')].forEach((button) => button.click())`);
-await evaluate(`document.querySelector('#bulb-action').click()`);
+await evaluate(`document.querySelector('#fluorescent-action').click()`);
 await wait(160);
-await circularTurn(-1);
-await wait(660);
-report.removed = await evaluate(`window.__BULB_LAB_QA__.state()`);
-
 await circularTurn(1);
-await wait(660);
-report.installed = await evaluate(`window.__BULB_LAB_QA__.state()`);
+await wait(560);
+report.removed = await evaluate(`window.__FLUORESCENT_LAB_QA__.state()`);
 
-await evaluate(`document.querySelector('#bulb-action').click()`);
+await circularTurn(-1);
+await wait(560);
+report.installed = await evaluate(`window.__FLUORESCENT_LAB_QA__.state()`);
+
+await evaluate(`document.querySelector('#fluorescent-action').click()`);
+await wait(660);
+report.tested = await evaluate(`window.__FLUORESCENT_LAB_QA__.state()`);
+await evaluate(`document.querySelector('[data-disposal="general"]').click()`);
+await evaluate(`document.querySelector('#fluorescent-action').click()`);
+report.wrongDisposal = await evaluate(`({ state: window.__FLUORESCENT_LAB_QA__.state(), feedback: document.querySelector('#fluorescent-feedback').textContent.trim() })`);
+await evaluate(`document.querySelector('[data-disposal="collection"]').click()`);
+await evaluate(`document.querySelector('#fluorescent-action').click()`);
 await wait(780);
 report.completed = await evaluate(`({
-  completionVisible: !document.querySelector('#bulb-completion').hidden,
-  state: window.__BULB_LAB_QA__.state(),
-  result: document.querySelector('.bulb-result-light').textContent.trim(),
-  solvedProblem: document.querySelector('.bulb-learning').textContent.trim()
+  completionVisible: !document.querySelector('#fluorescent-completion').hidden,
+  state: window.__FLUORESCENT_LAB_QA__.state(),
+  result: document.querySelector('.fluorescent-result-light').textContent.trim(),
+  solvedProblem: document.querySelector('.fluorescent-learning').textContent.trim()
 })`);
-await screenshot('bulb-07-completion-room.png');
+await screenshot('fluorescent-07-completion-room.png');
 
 report.errors = errors;
-await writeFile('/tmp/bulb-lab-qa.json', JSON.stringify(report, null, 2));
+await writeFile('/tmp/fluorescent-lab-qa.json', JSON.stringify(report, null, 2));
 socket.close();
 
-if (!report.lobby.bulbEnabled || !report.started.visible || report.inspected.clues.length !== 4) process.exitCode = 1;
+if (!report.lobby.fluorescentEnabled || !report.started.visible || report.inspected.clues.length !== 5) process.exitCode = 1;
 if (report.wrongChoice.errors !== 1 || report.wrongChoice.stage !== 'shop') process.exitCode = 1;
-if (report.removed.stage !== 'install' || report.installed.stage !== 'test') process.exitCode = 1;
+if (report.removed.stage !== 'install' || report.installed.stage !== 'test' || report.tested.stage !== 'dispose') process.exitCode = 1;
+if (report.wrongDisposal.state.disposalErrors !== 1 || report.wrongDisposal.state.stage !== 'dispose') process.exitCode = 1;
 if (!report.completed.completionVisible || !report.completed.state.powered || errors.length) process.exitCode = 1;

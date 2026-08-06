@@ -6,7 +6,7 @@
     <meta name="theme-color" content="#0a0d0e" />
     <meta
       name="description"
-        content="컴퓨터 조립과 전구 교체를 실제 판단 과정부터 연습하는 3D 제품 실습 시뮬레이터"
+        content="컴퓨터 조립과 형광등 교체를 실제 판단 과정부터 연습하는 3D 제품 실습 시뮬레이터"
     />
     <link rel="icon" href="data:," />
     <title>부품제작 · 인터랙티브 제품 조립</title>
@@ -40,16 +40,16 @@
         <div class="intro-copy">
           <p class="eyebrow"><span>부품제작 실습실</span> 제품마다 다른 문제 해결 방식을 배우세요</p>
           <h1 id="title">무엇을 직접<br /><em>해결해 볼까요?</em></h1>
-          <p class="intro-lede">조립 순서를 익히는 컴퓨터와, 규격을 판별해 실수를 막는 전구 교체.<br />실제 생활과 실무에서 필요한 판단을 3D로 연습합니다.</p>
+          <p class="intro-lede">조립 순서를 익히는 컴퓨터와, 안정기까지 판별해 실수를 막는 형광등 교체.<br />실제 생활과 실무에서 필요한 판단을 3D로 연습합니다.</p>
           <div class="module-picker" aria-label="실습 모듈 선택">
             <button id="start-button" class="module-card module-card--pc" type="button" disabled>
               <span class="module-card-number">01</span>
               <span class="module-card-copy"><small>구매 · 호환성 · 14단계 조립</small><b>게이밍 컴퓨터 조립</b><em>부품을 비교 구매하고 직접 끌어 장착</em></span>
               <i aria-hidden="true">↗</i>
             </button>
-            <button id="bulb-start-button" class="module-card module-card--bulb" type="button" disabled>
+            <button id="fluorescent-start-button" class="module-card module-card--fluorescent" type="button" disabled>
               <span class="module-card-number">02</span>
-              <span class="module-card-copy"><small>관찰 · 판별 · 안전 교체</small><b>전구 교체 진단</b><em>비슷한 전구 사이에서 맞는 규격 찾기</em></span>
+              <span class="module-card-copy"><small>규격 · 안정기 · 안전 배출</small><b>형광등 교체 진단</b><em>비슷한 직관 램프에서 호환 제품 찾기</em></span>
               <i aria-hidden="true">↗</i>
             </button>
           </div>
@@ -62,89 +62,96 @@
         </div>
       </section>
 
-      <section id="bulb-workspace" class="bulb-workspace" hidden aria-labelledby="bulb-title">
-        <aside class="bulb-route-panel" aria-label="전구 교체 과정">
-          <div class="bulb-route-heading"><span>전구 교체 진단</span><b id="bulb-route-progress">01 / 06</b></div>
-          <div class="bulb-route" id="bulb-route">
-            <div data-bulb-stage="inspect"><i>01</i><span><b>현장 관찰</b><small>기존 전구와 기구 확인</small></span></div>
-            <div data-bulb-stage="shop"><i>02</i><span><b>규격 비교·구매</b><small>비슷한 후보 판별</small></span></div>
-            <div data-bulb-stage="safety"><i>03</i><span><b>안전 준비</b><small>전원 차단·냉각 확인</small></span></div>
-            <div data-bulb-stage="remove"><i>04</i><span><b>기존 전구 분리</b><small>반시계 방향 회전</small></span></div>
-            <div data-bulb-stage="install"><i>05</i><span><b>새 전구 장착</b><small>직선 정렬·시계 방향</small></span></div>
-            <div data-bulb-stage="test"><i>06</i><span><b>점등 검증</b><small>색·밝기·조광 확인</small></span></div>
+      <section id="fluorescent-workspace" class="fluorescent-workspace" hidden aria-labelledby="fluorescent-title">
+        <aside class="fluorescent-route-panel" aria-label="형광등 교체 과정">
+          <div class="fluorescent-route-heading"><span>형광등 교체 진단</span><b id="fluorescent-route-progress">01 / 07</b></div>
+          <div class="fluorescent-route" id="fluorescent-route">
+            <div data-fluorescent-stage="inspect"><i>01</i><span><b>기구·램프 확인</b><small>인쇄·길이·핀·안정기</small></span></div>
+            <div data-fluorescent-stage="shop"><i>02</i><span><b>규격 비교·구매</b><small>유사 램프 호환 판별</small></span></div>
+            <div data-fluorescent-stage="safety"><i>03</i><span><b>안전 준비</b><small>전원 차단·파손 확인</small></span></div>
+            <div data-fluorescent-stage="remove"><i>04</i><span><b>기존 램프 분리</b><small>양끝 잡고 90° 회전</small></span></div>
+            <div data-fluorescent-stage="install"><i>05</i><span><b>새 램프 장착</b><small>G13 핀 정렬·잠금</small></span></div>
+            <div data-fluorescent-stage="test"><i>06</i><span><b>점등 검증</b><small>점등·떨림·소음 확인</small></span></div>
+            <div data-fluorescent-stage="dispose"><i>07</i><span><b>폐램프 배출</b><small>전용 수거함 선택</small></span></div>
           </div>
-          <div class="bulb-stop-card"><i>!</i><p><b>교체를 멈춰야 할 때</b><span>소켓이 그을렸거나 깨졌다면 전구만 바꾸지 말고 전문가에게 점검을 요청하세요.</span></p></div>
-          <button id="bulb-menu-button" class="bulb-menu-button" type="button">← 실습 선택으로 돌아가기</button>
+          <div class="fluorescent-stop-card"><i>!</i><p><b>교체를 멈춰야 할 때</b><span>램프가 깨졌거나 소켓·안정기가 그을렸다면 만지지 말고 전문가에게 점검을 요청하세요.</span></p></div>
+          <button id="fluorescent-menu-button" class="fluorescent-menu-button" type="button">← 실습 선택으로 돌아가기</button>
         </aside>
 
-        <aside class="bulb-guide-panel" aria-live="polite">
-          <header class="bulb-guide-heading">
-            <p><span id="bulb-step-code">진단 01</span><b>거실 펜던트 조명</b></p>
-            <h2 id="bulb-title">전구를 사기 전에<br />단서를 찾으세요</h2>
-            <p id="bulb-copy">모양만 보고 사면 베이스·밝기·색온도·조광 호환성을 놓치기 쉽습니다. 현장의 네 단서를 조사하세요.</p>
+        <aside class="fluorescent-guide-panel" aria-live="polite">
+          <header class="fluorescent-guide-heading">
+            <p><span id="fluorescent-step-code">진단 01</span><b>방 천장 직관 형광등</b></p>
+            <h2 id="fluorescent-title">형광등을 사기 전에<br />기구부터 확인하세요</h2>
+            <p id="fluorescent-copy">길이가 비슷해도 램프 코드·핀·소비전력·안정기가 다를 수 있습니다. 천장 기구의 다섯 단서를 조사하세요.</p>
           </header>
-          <div class="bulb-progress-rail"><i id="bulb-progress-fill"></i></div>
+          <div class="fluorescent-progress-rail"><i id="fluorescent-progress-fill"></i></div>
 
-          <div id="bulb-inspection" class="bulb-view bulb-inspection">
-            <div class="bulb-section-label"><span>현장 단서</span><b id="bulb-clue-count">0 / 4 발견</b></div>
-            <div id="bulb-clues" class="bulb-clues"></div>
-            <div id="bulb-spec-sheet" class="bulb-spec-sheet" aria-label="발견한 요구 규격"></div>
+          <div id="fluorescent-inspection" class="fluorescent-view fluorescent-inspection">
+            <div class="fluorescent-section-label"><span>현장 단서</span><b id="fluorescent-clue-count">0 / 5 발견</b></div>
+            <div id="fluorescent-clues" class="fluorescent-clues"></div>
+            <div id="fluorescent-spec-sheet" class="fluorescent-spec-sheet" aria-label="발견한 요구 규격"></div>
           </div>
 
-          <div id="bulb-shop" class="bulb-view bulb-shop" hidden>
-            <div class="bulb-section-label"><span>실제품 후보 6개</span><b>가격·포장 표기 기준</b></div>
-            <div id="bulb-products" class="bulb-products"></div>
-            <div id="bulb-compare" class="bulb-compare"><span>제품을 선택하면 현장 규격과 항목별로 비교합니다.</span></div>
+          <div id="fluorescent-shop" class="fluorescent-view fluorescent-shop" hidden>
+            <div class="fluorescent-section-label"><span>실제품 후보 6개</span><b>가격·포장 표기 기준</b></div>
+            <div id="fluorescent-products" class="fluorescent-products"></div>
+            <div id="fluorescent-compare" class="fluorescent-compare"><span>제품을 선택하면 현장 규격과 항목별로 비교합니다.</span></div>
           </div>
 
-          <div id="bulb-safety" class="bulb-view bulb-safety" hidden>
-            <div class="bulb-section-label"><span>작업 전 잠금 절차</span><b id="bulb-safety-count">0 / 3 완료</b></div>
-            <div id="bulb-safety-list" class="bulb-safety-list">
+          <div id="fluorescent-safety" class="fluorescent-view fluorescent-safety" hidden>
+            <div class="fluorescent-section-label"><span>작업 전 잠금 절차</span><b id="fluorescent-safety-count">0 / 3 완료</b></div>
+            <div id="fluorescent-safety-list" class="fluorescent-safety-list">
               <button type="button" data-safety="switch"><i>01</i><span><b>벽 스위치 끄기</b><small>다른 사람이 켜지 않도록 ‘작업 중’ 표시</small></span><em>확인</em></button>
               <button type="button" data-safety="breaker"><i>02</i><span><b>조명 회로 차단기 내리기</b><small>스위치만 끈 상태를 전원 차단으로 간주하지 않기</small></span><em>확인</em></button>
-              <button type="button" data-safety="cool"><i>03</i><span><b>전구 냉각·파손 확인</b><small>뜨겁지 않고 유리가 온전할 때 마른 손으로 작업</small></span><em>확인</em></button>
+              <button type="button" data-safety="cool"><i>03</i><span><b>램프 냉각·파손 확인</b><small>유리관에 금이 없고 충분히 식었는지 양끝에서 확인</small></span><em>확인</em></button>
             </div>
-            <p class="bulb-safety-note"><b>범위 안내</b> 이 실습은 전구 교체만 다룹니다. 소켓·배선 수리는 전기 전문가의 작업입니다.</p>
+            <p class="fluorescent-safety-note"><b>범위 안내</b> 이 실습은 형광램프 교체만 다룹니다. 소켓·안정기·배선 수리는 전기 전문가의 작업입니다.</p>
           </div>
 
-          <div id="bulb-turn" class="bulb-view bulb-turn" hidden>
-            <div class="bulb-section-label"><span id="bulb-turn-label">반시계 방향으로 풀기</span><b id="bulb-turn-count">0.0 / 2바퀴</b></div>
-            <div id="bulb-turn-dial" class="bulb-turn-dial" role="slider" tabindex="0" aria-label="전구 회전 조작" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
-              <div class="bulb-dial-ring"><i id="bulb-dial-hand"></i><span id="bulb-turn-direction">↶</span><b>마우스로 원을<br />그리며 돌리세요</b></div>
+          <div id="fluorescent-turn" class="fluorescent-view fluorescent-turn" hidden>
+            <div class="fluorescent-section-label"><span id="fluorescent-turn-label">G13 핀 홈에 맞추기</span><b id="fluorescent-turn-count">0° / 90°</b></div>
+            <div id="fluorescent-turn-dial" class="fluorescent-turn-dial" role="slider" tabindex="0" aria-label="형광램프 90도 회전 조작" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+              <div class="fluorescent-dial-ring"><i id="fluorescent-dial-hand"></i><span id="fluorescent-turn-direction">↶</span><b>마우스로 원을<br />그리며 돌리세요</b></div>
             </div>
-            <p id="bulb-turn-help" class="bulb-turn-help">전구 유리 몸체를 세게 쥐지 않고 베이스 가까이를 잡아 반시계 방향으로 천천히 돌립니다.</p>
+            <p id="fluorescent-turn-help" class="fluorescent-turn-help">유리관 중앙을 누르지 않고 양끝을 잡아 핀이 소켓 홈과 평행해질 때까지만 90도 돌립니다.</p>
           </div>
 
-          <div id="bulb-test" class="bulb-view bulb-test" hidden>
-            <div class="bulb-test-state"><i></i><span><small>현재 상태</small><b id="bulb-test-label">차단기 내려감 · 스위치 꺼짐</b></span></div>
+          <div id="fluorescent-test" class="fluorescent-view fluorescent-test" hidden>
+            <div class="fluorescent-test-state"><i></i><span><small>현재 상태</small><b id="fluorescent-test-label">차단기 내려감 · 스위치 꺼짐</b></span></div>
             <dl>
-              <div><dt>베이스</dt><dd>E26 체결 완료</dd></div>
-              <div><dt>예상 밝기</dt><dd>806 lm</dd></div>
-              <div><dt>예상 색온도</dt><dd>2700 K · 따뜻한 전구색</dd></div>
-              <div><dt>조광기</dt><dd>호환 제품</dd></div>
+              <div><dt>램프·소켓</dt><dd>FHF32SS · G13 잠금 완료</dd></div>
+              <div><dt>안정기</dt><dd>전자식 HF32 · 32 W 호환</dd></div>
+              <div><dt>예상 광속</dt><dd>3,100 lm</dd></div>
+              <div><dt>예상 색온도</dt><dd>6500 K · 주광색</dd></div>
             </dl>
           </div>
 
-          <div id="bulb-feedback" class="bulb-feedback" role="status">먼저 3D 조명 주변에서 확인할 네 가지 단서를 선택하세요.</div>
-          <button id="bulb-action" class="bulb-action" type="button" disabled>현장 규격 확정 <span>→</span></button>
+          <div id="fluorescent-disposal" class="fluorescent-view fluorescent-disposal" hidden>
+            <div class="fluorescent-section-label"><span>폐형광등 배출 방법</span><b>수은 함유 · 파손 금지</b></div>
+            <div id="fluorescent-disposal-options" class="fluorescent-disposal-options"></div>
+            <p class="fluorescent-safety-note"><b>파손 시</b> 맨손이나 진공청소기로 치우지 말고 공간을 환기한 뒤 관할 지자체의 파손 폐형광등 배출 방법을 확인하세요.</p>
+          </div>
+
+          <div id="fluorescent-feedback" class="fluorescent-feedback" role="status">먼저 3D 천장등에서 확인할 다섯 가지 단서를 선택하세요.</div>
+          <button id="fluorescent-action" class="fluorescent-action" type="button" disabled>현장 규격 확정 <span>→</span></button>
         </aside>
 
-        <div class="bulb-camera-help"><span><b>빈 공간 끌기</b> 시점 회전</span><span><b>휠</b> 확대/축소</span><span><b>오른쪽 패널</b> 조사·조작</span></div>
+        <div class="fluorescent-camera-help"><span><b>빈 공간 끌기</b> 시점 회전</span><span><b>휠</b> 확대/축소</span><span><b>오른쪽 패널</b> 조사·조작</span></div>
       </section>
 
-      <section id="bulb-completion" class="bulb-completion" hidden aria-labelledby="bulb-completion-title">
-        <div class="bulb-completion-panel">
-          <p>교체 결과 검증 완료</p>
-          <h2 id="bulb-completion-title">규격도, 빛도<br /><em>정확합니다.</em></h2>
-          <div class="bulb-result-light"><i></i><span><b>806 lm · 2700 K</b>따뜻한 거실 조명 · 조광 정상</span></div>
-          <div class="bulb-result-grid">
-            <span><small>선택 베이스</small><b>E26</b></span>
-            <span><small>구매 금액</small><b id="bulb-purchase-price">9,900원</b></span>
+      <section id="fluorescent-completion" class="fluorescent-completion" hidden aria-labelledby="fluorescent-completion-title">
+        <div class="fluorescent-completion-panel">
+          <p>교체·분리배출 검증 완료</p>
+          <h2 id="fluorescent-completion-title">규격도, 배출도<br /><em>정확합니다.</em></h2>
+          <div class="fluorescent-result-light"><i></i><span><b>3,100 lm · 6500 K</b>주광색 점등 · 떨림·이상 소음 없음</span></div>
+          <div class="fluorescent-result-grid">
+            <span><small>선택 규격</small><b>G13·32W</b></span>
+            <span><small>구매 금액</small><b id="fluorescent-purchase-price">2,400원</b></span>
             <span><small>안전 절차</small><b>3 / 3</b></span>
-            <span><small>구매 실수</small><b id="bulb-error-count">0회</b></span>
+            <span><small>구매 실수</small><b id="fluorescent-error-count">0회</b></span>
           </div>
-          <p class="bulb-learning"><b>이번에 해결한 문제</b> 비슷해 보이는 전구를 외형이 아니라 베이스·루멘·켈빈·조광 여부·크기로 구분하고, 전원 차단 후 안전하게 교체했습니다.</p>
-          <button id="bulb-restart-button" type="button">다른 실습 선택 <span>↺</span></button>
+          <p class="fluorescent-learning"><b>이번에 해결한 문제</b> 비슷해 보이는 직관 램프를 코드·길이·G13 핀·소비전력·안정기로 구분하고, 전원 차단 후 90도로 교체해 폐형광등 전용 수거함까지 연결했습니다.</p>
+          <button id="fluorescent-restart-button" type="button">다른 실습 선택 <span>↺</span></button>
         </div>
       </section>
 

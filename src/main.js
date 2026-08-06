@@ -6,9 +6,6 @@ import { EffectComposer } from 'three/addons/postprocessing/EffectComposer.js';
 import { RenderPass } from 'three/addons/postprocessing/RenderPass.js';
 import { UnrealBloomPass } from 'three/addons/postprocessing/UnrealBloomPass.js';
 import { RoundedBoxGeometry } from 'three/addons/geometries/RoundedBoxGeometry.js';
-import { createFluorescentModule } from './fluorescent-module.js';
-import { createShowerFilterModule } from './shower-filter-module.js';
-import { createDrawerModule } from './drawer-module.js';
 import './style.css';
 
 const $ = (selector) => document.querySelector(selector);
@@ -219,6 +216,7 @@ let pcAssemblyBench = null;
 let fluorescentModule = null;
 let showerFilterModule = null;
 let drawerModule = null;
+const moduleLoadPromises = new Map();
 
 function finishMaterial(color, options = {}) {
   return new THREE.MeshPhysicalMaterial({
@@ -1607,8 +1605,110 @@ function startExperience() {
   openShop();
 }
 
-function startFluorescentExperience() {
+function setModuleLoadState(button, loadState, label = '') {
+  const status = button.querySelector('.module-card-copy small');
+  if (!button.dataset.originalStatus) button.dataset.originalStatus = status.textContent;
+  button.dataset.loadState = loadState;
+  button.setAttribute('aria-busy', String(loadState === 'loading'));
+  button.disabled = loadState === 'loading';
+  status.textContent = label || button.dataset.originalStatus;
+}
+
+async function fetchJson(url) {
+  const response = await fetch(url);
+  if (!response.ok) throw new Error(`${url} 데이터를 불러오지 못했습니다 (${response.status})`);
+  return response.json();
+}
+
+function createPracticeModule(kind, data, factory) {
+  const shared = {
+    data,
+    scene,
+    camera,
+    controls,
+    pcRoot: modelRoot,
+    globalFloor: floor,
+    grid,
+    setSessionLabel: (label) => { ui.sessionLabel.textContent = label; },
+    tweenCamera,
+  };
+  if (kind === 'drawer') {
+    return factory({
+      ...shared,
+      renderer,
+      playTone,
+    });
+  }
+  return factory(shared);
+}
+
+async function ensurePracticeModule(kind) {
+  if (kind === 'fluorescent' && fluorescentModule) return fluorescentModule;
+  if (kind === 'shower' && showerFilterModule) return showerFilterModule;
+  if (kind === 'drawer' && drawerModule) return drawerModule;
+  if (moduleLoadPromises.has(kind)) return moduleLoadPromises.get(kind);
+
+  const config = {
+    fluorescent: {
+      button: ui.fluorescentStart,
+      dataUrl: '/data/fluorescent-lab.json',
+      label: '형광등 실습 불러오는 중…',
+      load: () => import('./fluorescent-module.js'),
+      factory: 'createFluorescentModule',
+    },
+    shower: {
+      button: ui.showerStart,
+      dataUrl: '/data/shower-filter-lab.json',
+      label: '샤워기 실습 불러오는 중…',
+      load: () => import('./shower-filter-module.js'),
+      factory: 'createShowerFilterModule',
+    },
+    drawer: {
+      button: ui.drawerStart,
+      dataUrl: '/data/drawer-lab.json',
+      label: '서랍장 실습 불러오는 중…',
+      load: () => import('./drawer-module.js'),
+      factory: 'createDrawerModule',
+    },
+  }[kind];
+
+  setModuleLoadState(config.button, 'loading', config.label);
+  const loadPromise = Promise.all([fetchJson(config.dataUrl), config.load()])
+    .then(([data, moduleExports]) => {
+      const module = createPracticeModule(kind, data, moduleExports[config.factory]);
+      if (kind === 'fluorescent') {
+        state.fluorescentData = data;
+        fluorescentModule = module;
+        window.__FLUORESCENT_LAB_QA__ = module.qa;
+      } else if (kind === 'shower') {
+        state.showerData = data;
+        showerFilterModule = module;
+        window.__SHOWER_FILTER_QA__ = module.qa;
+      } else {
+        state.drawerData = data;
+        drawerModule = module;
+        window.__DRAWER_LAB_QA__ = module.qa;
+      }
+      setModuleLoadState(config.button, 'ready');
+      return module;
+    })
+    .catch((error) => {
+      moduleLoadPromises.delete(kind);
+      setModuleLoadState(config.button, 'error', '불러오기 실패 · 다시 누르세요');
+      console.error(error);
+      throw error;
+    });
+  moduleLoadPromises.set(kind, loadPromise);
+  return loadPromise;
+}
+
+async function startFluorescentExperience() {
   ensureAudio();
+  try {
+    await ensurePracticeModule('fluorescent');
+  } catch {
+    return;
+  }
   ui.intro.hidden = true;
   ui.shop.hidden = true;
   ui.workspace.hidden = true;
@@ -1618,8 +1718,13 @@ function startFluorescentExperience() {
   fluorescentModule.start();
 }
 
-function startShowerFilterExperience() {
+async function startShowerFilterExperience() {
   ensureAudio();
+  try {
+    await ensurePracticeModule('shower');
+  } catch {
+    return;
+  }
   ui.intro.hidden = true;
   ui.shop.hidden = true;
   ui.workspace.hidden = true;
@@ -1631,8 +1736,13 @@ function startShowerFilterExperience() {
   showerFilterModule.start();
 }
 
-function startDrawerExperience() {
+async function startDrawerExperience() {
   ensureAudio();
+  try {
+    await ensurePracticeModule('drawer');
+  } catch {
+    return;
+  }
   ui.intro.hidden = true;
   ui.shop.hidden = true;
   ui.workspace.hidden = true;
@@ -1690,12 +1800,9 @@ function mapPartRoots() {
 }
 
 async function loadExperience() {
-  [state.data, state.catalog, state.fluorescentData, state.showerData, state.drawerData] = await Promise.all([
-    fetch('/data/desktop-atx.json').then((response) => response.json()),
-    fetch('/data/store-catalog.json').then((response) => response.json()),
-    fetch('/data/fluorescent-lab.json').then((response) => response.json()),
-    fetch('/data/shower-filter-lab.json').then((response) => response.json()),
-    fetch('/data/drawer-lab.json').then((response) => response.json()),
+  [state.data, state.catalog] = await Promise.all([
+    fetchJson('/data/desktop-atx.json'),
+    fetchJson('/data/store-catalog.json'),
   ]);
   buildShopCategories();
   ui.catalogDate.textContent = state.catalog.updatedAt;
@@ -1725,44 +1832,6 @@ async function loadExperience() {
         setCableVisualMode(false);
         applyPurchasedAppearances();
         initializePartLayout();
-        fluorescentModule = createFluorescentModule({
-          data: state.fluorescentData,
-          scene,
-          camera,
-          controls,
-          pcRoot: modelRoot,
-          globalFloor: floor,
-          grid,
-          setSessionLabel: (label) => { ui.sessionLabel.textContent = label; },
-          tweenCamera,
-        });
-        showerFilterModule = createShowerFilterModule({
-          data: state.showerData,
-          scene,
-          camera,
-          controls,
-          pcRoot: modelRoot,
-          globalFloor: floor,
-          grid,
-          setSessionLabel: (label) => { ui.sessionLabel.textContent = label; },
-          tweenCamera,
-        });
-        drawerModule = createDrawerModule({
-          data: state.drawerData,
-          scene,
-          camera,
-          controls,
-          renderer,
-          pcRoot: modelRoot,
-          globalFloor: floor,
-          grid,
-          setSessionLabel: (label) => { ui.sessionLabel.textContent = label; },
-          tweenCamera,
-          playTone,
-        });
-        window.__FLUORESCENT_LAB_QA__ = fluorescentModule.qa;
-        window.__SHOWER_FILTER_QA__ = showerFilterModule.qa;
-        window.__DRAWER_LAB_QA__ = drawerModule.qa;
         state.ready = true;
         ui.start.disabled = false;
         ui.fluorescentStart.disabled = false;

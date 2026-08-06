@@ -213,6 +213,11 @@ button { border: 0; }
 .module-card--drawer { --module-accent: #ffbd66; }
 .module-card:hover:not(:disabled) { transform: translateY(-4px); border-color: var(--module-accent); box-shadow: 0 22px 50px rgba(0,0,0,.25); }
 .module-card:disabled { cursor: wait; opacity: .4; }
+.module-card[data-load-state="loading"] { opacity: .78; }
+.module-card[data-load-state="loading"] > i { width: 18px; height: 18px; border: 2px solid color-mix(in srgb, var(--module-accent), transparent 68%); border-top-color: var(--module-accent); border-radius: 50%; color: transparent; animation: module-loading 700ms linear infinite; }
+.module-card[data-load-state="error"] { border-color: var(--danger); }
+.module-card[data-load-state="error"] .module-card-copy small { color: #ff9b8e; }
+@keyframes module-loading { to { transform: rotate(360deg); } }
 .module-card-number { align-self: start; color: var(--module-accent); font: 500 9px/1 var(--mono); }
 .module-card-copy, .module-card-copy small, .module-card-copy b, .module-card-copy em { display: block; }
 .module-card-copy small { color: color-mix(in srgb, var(--module-accent), #9aa5a4 56%); font: 500 6px/1 var(--mono); letter-spacing: .1em; }

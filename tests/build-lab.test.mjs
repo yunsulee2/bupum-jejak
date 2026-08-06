@@ -211,3 +211,16 @@ test('only the two genuine standard refill packs fit the selected shower body', 
     assert.ok(image.size > 20_000, `${product.name} should use a real local product image`);
   }));
 });
+
+test('readability keeps the 3D workspace dominant while detail panels scroll', () => {
+  assert.match(style, /Readability pass: larger type, stable 3D canvas, scrollable detail panels/);
+  assert.match(style, /\.module-card-copy b \{ font-size: 17px; \}/);
+  assert.match(style, /\.fluorescent-guide-heading > p:last-child \{ font-size: 12px; line-height: 1\.65; \}/);
+  assert.match(style, /\.fluorescent-view \{[^}]*flex: 1 1 auto;[^}]*overflow-y: auto;/s);
+  assert.match(style, /\.fluorescent-route small \{ display: none;/);
+  assert.match(style, /\.fluorescent-route > div\.is-active small \{ display: block; \}/);
+  assert.match(style, /\.step-copy \{ min-height: 0; font-size: 12px; line-height: 1\.65; \}/);
+  assert.match(style, /\.guide-panel \{ overscroll-behavior: contain; \}/);
+  assert.match(style, /max-height: 42svh;[^}]*overflow-y: auto;/s);
+  assert.match(style, /\.inventory-panel, \.guide-panel, \.tool-dock \{ z-index: 2;/);
+});

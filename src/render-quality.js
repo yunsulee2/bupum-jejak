@@ -1,3 +1,5 @@
+import { publicUrl } from './public-url.js';
+
 export function getRenderProfile({
   viewportWidth = globalThis.innerWidth ?? 1440,
   devicePixelRatio = globalThis.devicePixelRatio ?? 1,
@@ -12,8 +14,8 @@ export function getRenderProfile({
     balanced,
     pixelRatio: Math.min(devicePixelRatio, balanced ? 1.35 : 1.8),
     shadowMapSize: balanced ? 1024 : 2048,
-    modelUrl: balanced
+    modelUrl: publicUrl(balanced
       ? '/models/pc-lab-mobile.glb?v=meshopt-20260807-1'
-      : '/models/pc-lab.glb?v=meshopt-20260807-1',
+      : '/models/pc-lab.glb?v=meshopt-20260807-1'),
   };
 }

@@ -8,6 +8,7 @@ import { RenderPass } from 'three/addons/postprocessing/RenderPass.js';
 import { UnrealBloomPass } from 'three/addons/postprocessing/UnrealBloomPass.js';
 import { RoundedBoxGeometry } from 'three/addons/geometries/RoundedBoxGeometry.js';
 import { getRenderProfile } from './render-quality.js';
+import { publicUrl } from './public-url.js';
 
 const $ = (selector) => document.querySelector(selector);
 
@@ -809,7 +810,7 @@ function renderShopOptions(category) {
       <button type="button" data-shop-option="${option.id}" aria-pressed="${option.id === selectedId}">
         <span class="product-visual${option.image ? ' has-image' : ''}" data-product="${category.id}" data-style="${option.appearance?.style ?? option.id}">
           ${option.image
-            ? `<img src="${option.image}" alt="${option.name} 실제 제품 이미지" loading="eager" decoding="async"><span class="product-photo-label">실제 제품 이미지</span>`
+            ? `<img src="${publicUrl(option.image)}" alt="${option.name} 실제 제품 이미지" loading="eager" decoding="async"><span class="product-photo-label">실제 제품 이미지</span>`
             : '<i></i><i></i><i></i>'}
           <b>${option.badge}</b>
         </span>
@@ -1637,7 +1638,8 @@ function setModuleLoadState(button, loadState, label = '') {
 }
 
 async function fetchJson(url) {
-  const response = await fetch(url);
+  const resolvedUrl = publicUrl(url);
+  const response = await fetch(resolvedUrl);
   if (!response.ok) throw new Error(`${url} 데이터를 불러오지 못했습니다 (${response.status})`);
   return response.json();
 }

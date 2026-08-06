@@ -1,4 +1,5 @@
 import * as THREE from 'three';
+import { publicUrl } from './public-url.js';
 import { RoundedBoxGeometry } from 'three/addons/geometries/RoundedBoxGeometry.js';
 
 const STAGES = ['inspect', 'shop', 'prepare', 'open', 'install', 'seal', 'test'];
@@ -447,7 +448,7 @@ export function createShowerFilterModule({
 
   function renderProducts() {
     ui.products.innerHTML = data.products.map((product) => `<button type="button" class="fluorescent-product shower-product${state.selectedProduct === product.id ? ' is-selected' : ''}" data-shower-product="${product.id}" style="--shower-product-accent:${product.accent}">
-      <span class="fluorescent-product-visual shower-product-visual"><img src="${product.image}" alt="${product.name}" /></span>
+      <span class="fluorescent-product-visual shower-product-visual"><img src="${publicUrl(product.image)}" alt="${product.name}" /></span>
       <span class="fluorescent-product-copy shower-product-copy"><small>${product.maker}</small><b>${product.name}</b><span>${product.pack}</span><strong>${formatWon(product.price)}</strong></span>
     </button>`).join('');
     ui.products.querySelectorAll('[data-shower-product]').forEach((button) => button.addEventListener('click', () => selectProduct(button.dataset.showerProduct)));

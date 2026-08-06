@@ -6,7 +6,7 @@
     <meta name="theme-color" content="#0a0d0e" />
     <meta
       name="description"
-        content="컴퓨터 조립과 형광등 교체를 실제 판단 과정부터 연습하는 3D 제품 실습 시뮬레이터"
+        content="컴퓨터 조립, 형광등 교체, 샤워기 필터 정비를 실제 판단 과정부터 연습하는 3D 제품 실습 시뮬레이터"
     />
     <link rel="icon" href="data:," />
     <title>부품제작 · 인터랙티브 제품 조립</title>
@@ -40,7 +40,7 @@
         <div class="intro-copy">
           <p class="eyebrow"><span>부품제작 실습실</span> 제품마다 다른 문제 해결 방식을 배우세요</p>
           <h1 id="title">무엇을 직접<br /><em>해결해 볼까요?</em></h1>
-          <p class="intro-lede">조립 순서를 익히는 컴퓨터와, 안정기까지 판별해 실수를 막는 형광등 교체.<br />실제 생활과 실무에서 필요한 판단을 3D로 연습합니다.</p>
+          <p class="intro-lede">컴퓨터는 조립하고, 형광등은 규격을 판별하고, 샤워기 필터는 누수 없이 정비합니다.<br />제품마다 다른 실제 문제 해결 과정을 3D로 연습하세요.</p>
           <div class="module-picker" aria-label="실습 모듈 선택">
             <button id="start-button" class="module-card module-card--pc" type="button" disabled>
               <span class="module-card-number">01</span>
@@ -50,6 +50,11 @@
             <button id="fluorescent-start-button" class="module-card module-card--fluorescent" type="button" disabled>
               <span class="module-card-number">02</span>
               <span class="module-card-copy"><small>규격 · 안정기 · 안전 배출</small><b>형광등 교체 진단</b><em>비슷한 직관 램프에서 호환 제품 찾기</em></span>
+              <i aria-hidden="true">↗</i>
+            </button>
+            <button id="shower-start-button" class="module-card module-card--shower" type="button" disabled>
+              <span class="module-card-number">03</span>
+              <span class="module-card-copy"><small>전용 리필 · O링 · 누수 검증</small><b>샤워기 필터 교체</b><em>모델을 판별하고 직접 끌어 장착</em></span>
               <i aria-hidden="true">↗</i>
             </button>
           </div>
@@ -152,6 +157,112 @@
           </div>
           <p class="fluorescent-learning"><b>이번에 해결한 문제</b> 비슷해 보이는 직관 램프를 코드·길이·G13 핀·소비전력·안정기로 구분하고, 전원 차단 후 90도로 교체해 폐형광등 전용 수거함까지 연결했습니다.</p>
           <button id="fluorescent-restart-button" type="button">다른 실습 선택 <span>↺</span></button>
+        </div>
+      </section>
+
+      <section id="shower-workspace" class="fluorescent-workspace shower-workspace" hidden aria-labelledby="shower-title">
+        <aside class="fluorescent-route-panel shower-route-panel" aria-label="샤워기 필터 교체 과정">
+          <div class="fluorescent-route-heading shower-route-heading"><span>샤워기 필터 정비</span><b id="shower-route-progress">01 / 07</b></div>
+          <div class="fluorescent-route shower-route" id="shower-route">
+            <div data-shower-stage="inspect"><i>01</i><span><b>본체·오염 확인</b><small>모델·필터 위치·O링</small></span></div>
+            <div data-shower-stage="shop"><i>02</i><span><b>전용 리필 구매</b><small>일반·시그니처·여행용</small></span></div>
+            <div data-shower-stage="prepare"><i>03</i><span><b>물 잠금·준비</b><small>수전·잔압·마른 작업면</small></span></div>
+            <div data-shower-stage="open"><i>04</i><span><b>하단 캡 분리</b><small>손으로 반시계 360°</small></span></div>
+            <div data-shower-stage="install"><i>05</i><span><b>새 필터 장착</b><small>직접 끌어 수직 삽입</small></span></div>
+            <div data-shower-stage="seal"><i>06</i><span><b>O링·캡 밀폐</b><small>홈 확인·시계 360°</small></span></div>
+            <div data-shower-stage="test"><i>07</i><span><b>흘려보내기·검증</b><small>누수·수압·물줄기</small></span></div>
+          </div>
+          <div class="fluorescent-stop-card shower-stop-card"><i>!</i><p><b>교체를 멈춰야 할 때</b><span>케이스에 금이 있거나 캡이 손으로 풀리지 않으면 공구로 강제하지 말고 본체 상태를 점검하세요.</span></p></div>
+          <button id="shower-menu-button" class="fluorescent-menu-button shower-menu-button" type="button">← 실습 선택으로 돌아가기</button>
+        </aside>
+
+        <aside class="fluorescent-guide-panel shower-guide-panel" aria-live="polite">
+          <header class="fluorescent-guide-heading shower-guide-heading">
+            <p><span id="shower-step-code">진단 01</span><b>아파트 욕실 · 필터 샤워기</b></p>
+            <h2 id="shower-title">필터를 주문하기 전에<br />샤워기부터 확인하세요</h2>
+            <p id="shower-copy">갈색으로 변했다고 아무 리필이나 사면 안 됩니다. 본체 모델과 필터 위치, 리필 계열, O링을 차례로 조사하세요.</p>
+          </header>
+          <div class="fluorescent-progress-rail shower-progress-rail"><i id="shower-progress-fill"></i></div>
+
+          <div id="shower-inspection" class="fluorescent-view shower-view shower-inspection">
+            <div class="fluorescent-section-label shower-section-label"><span>욕실 현장 단서</span><b id="shower-clue-count">0 / 5 발견</b></div>
+            <div id="shower-clues" class="fluorescent-clues shower-clues"></div>
+            <div id="shower-spec-sheet" class="fluorescent-spec-sheet shower-spec-sheet" aria-label="발견한 샤워기 정보"></div>
+          </div>
+
+          <div id="shower-shop" class="fluorescent-view shower-view shower-shop" hidden>
+            <div class="fluorescent-section-label shower-section-label"><span>공식 제품 후보 6개</span><b>2026-08-06 확인 가격</b></div>
+            <div id="shower-products" class="fluorescent-products shower-products"></div>
+            <div id="shower-compare" class="fluorescent-compare shower-compare"><span>제품을 선택하면 현재 본체와 여섯 항목을 비교합니다.</span></div>
+          </div>
+
+          <div id="shower-prepare" class="fluorescent-view shower-view shower-prepare" hidden>
+            <div class="fluorescent-section-label shower-section-label"><span>분리 전 준비</span><b id="shower-prepare-count">0 / 3 완료</b></div>
+            <div class="fluorescent-safety-list shower-prepare-list">
+              <button type="button" data-shower-prepare="water"><i>01</i><span><b>샤워 수전 완전히 잠그기</b><small>냉·온수 레버를 닫아 물 공급 차단</small></span><em>확인</em></button>
+              <button type="button" data-shower-prepare="pressure"><i>02</i><span><b>버튼 눌러 잔압 빼기</b><small>헤드에서 더 이상 물이 나오지 않는지 확인</small></span><em>확인</em></button>
+              <button type="button" data-shower-prepare="dry"><i>03</i><span><b>손·바닥 말리고 수건 깔기</b><small>미끄럼과 작은 O링 분실 방지</small></span><em>확인</em></button>
+            </div>
+            <p class="fluorescent-safety-note shower-safety-note"><b>도구 사용 금지</b> 투명 플라스틱 캡을 플라이어로 잡으면 균열이나 나사산 손상이 생길 수 있습니다.</p>
+          </div>
+
+          <div id="shower-twist" class="fluorescent-view fluorescent-turn shower-view shower-twist" hidden>
+            <div class="fluorescent-section-label shower-section-label"><span id="shower-twist-label">하단 캡 풀기</span><b id="shower-twist-count">0° / 360°</b></div>
+            <div id="shower-twist-dial" class="fluorescent-turn-dial shower-turn-dial" role="slider" tabindex="0" aria-label="샤워기 하단 캡 돌리기" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+              <div class="fluorescent-dial-ring shower-dial-ring"><i id="shower-twist-hand"></i><span id="shower-twist-direction">↶</span><b>마우스로 한 바퀴<br />천천히 돌리세요</b></div>
+            </div>
+            <p id="shower-twist-help" class="fluorescent-turn-help shower-turn-help">하단 캡을 받친 채 반시계 방향으로 한 바퀴 돌립니다.</p>
+          </div>
+
+          <div id="shower-install" class="fluorescent-view shower-view shower-install" hidden>
+            <div class="fluorescent-section-label shower-section-label"><span>직접 장착</span><b>클릭한 채 목표 위치로 끌기</b></div>
+            <div id="shower-drag-stage" class="shower-drag-stage">
+              <div class="shower-drag-source"><small>구매한 새 필터</small><button id="shower-filter-piece" type="button" aria-label="새 필터 끌기"><i></i><span>정품 순수필터</span><em>잡아서 이동</em></button></div>
+              <div class="shower-drag-arrow" aria-hidden="true"><i></i><span>→</span></div>
+              <div id="shower-filter-slot" class="shower-filter-slot"><small>투명 손잡이 바디</small><i></i><b>여기에 놓기</b><span>수직·중앙 정렬</span></div>
+            </div>
+            <p class="fluorescent-safety-note shower-safety-note"><b>접촉 주의</b> 새 필터의 흰 여과면은 젖은 바닥이나 오염된 손에 닿지 않게 합니다.</p>
+          </div>
+
+          <div id="shower-seal" class="fluorescent-view shower-view shower-seal" hidden>
+            <div class="fluorescent-section-label shower-section-label"><span>누수 방지 밀폐</span><b id="shower-seal-count">0° / 360°</b></div>
+            <button id="shower-oring-button" class="shower-oring-button" type="button"><i></i><span><b>하단 O링 홈 확인</b><small>끊김·비틀림 없이 원형 홈 전체에 안착</small></span><em>먼저 확인</em></button>
+            <div id="shower-seal-dial" class="fluorescent-turn-dial shower-turn-dial shower-seal-dial is-locked" role="slider" tabindex="0" aria-label="샤워기 하단 캡 잠그기" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+              <div class="fluorescent-dial-ring shower-dial-ring"><i id="shower-seal-hand"></i><span>↷</span><b>O링 확인 후<br />시계 방향 체결</b></div>
+            </div>
+          </div>
+
+          <div id="shower-test" class="fluorescent-view shower-view shower-test" hidden>
+            <div class="fluorescent-section-label shower-section-label"><span>초기 흘려보내기</span><b>누수·수압·물줄기 검사</b></div>
+            <button id="shower-flush-button" class="shower-flush-button" type="button"><i><span id="shower-flush-fill"></span></i><b id="shower-flush-label">버튼을 계속 눌러 물 흘려보내기</b><em>길게 누르기</em></button>
+            <div id="shower-test-results" class="shower-test-results" hidden>
+              <span><i></i><b>하단 캡</b><small>물방울 없음</small></span>
+              <span><i></i><b>수압</b><small>정상 범위 회복</small></span>
+              <span><i></i><b>분사판</b><small>물줄기 균일</small></span>
+            </div>
+            <p class="fluorescent-safety-note shower-safety-note"><b>재점검</b> 물방울이 생기면 수전을 다시 잠그고 O링 위치와 캡 나사산부터 확인합니다.</p>
+          </div>
+
+          <div id="shower-feedback" class="fluorescent-feedback shower-feedback" role="status">먼저 3D 샤워기에서 다섯 가지 단서를 선택하세요.</div>
+          <button id="shower-action" class="fluorescent-action shower-action" type="button" disabled>현장 정보 확정 <span>→</span></button>
+        </aside>
+
+        <div class="fluorescent-camera-help shower-camera-help"><span><b>빈 공간 끌기</b> 시점 회전</span><span><b>휠</b> 확대/축소</span><span><b>오른쪽 패널</b> 조사·조작</span></div>
+      </section>
+
+      <section id="shower-completion" class="fluorescent-completion shower-completion" hidden aria-labelledby="shower-completion-title">
+        <div class="fluorescent-completion-panel shower-completion-panel">
+          <p>필터 교체·누수 검증 완료</p>
+          <h2 id="shower-completion-title">물줄기도, 밀폐도<br /><em>정상입니다.</em></h2>
+          <div class="shower-result-water"><i></i><span><b>새 필터 흘려보내기 완료</b>하단 누수 없음 · 수압 정상 · 균일 분사</span></div>
+          <div class="fluorescent-result-grid shower-result-grid">
+            <span><small>적용 본체</small><b>윈도우 3G</b></span>
+            <span><small>구매 금액</small><b id="shower-purchase-price">9,900원</b></span>
+            <span><small>밀폐 절차</small><b>O링·캡</b></span>
+            <span><small>구매 실수</small><b id="shower-error-count">0회</b></span>
+          </div>
+          <p class="fluorescent-learning shower-learning"><b>이번에 해결한 문제</b> 같은 브랜드 안에서도 다른 일반형·시그니처·여행용 리필을 구분하고, 물을 잠근 뒤 필터를 직접 장착해 O링 누수와 수압까지 검증했습니다.</p>
+          <button id="shower-restart-button" type="button">다른 실습 선택 <span>↺</span></button>
         </div>
       </section>
 

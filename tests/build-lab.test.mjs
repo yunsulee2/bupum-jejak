@@ -8,10 +8,12 @@ const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const html = await readFile(path.join(root, 'index.html'), 'utf8');
 const script = await readFile(path.join(root, 'src/main.js'), 'utf8');
 const fluorescentScript = await readFile(path.join(root, 'src/fluorescent-module.js'), 'utf8');
+const showerScript = await readFile(path.join(root, 'src/shower-filter-module.js'), 'utf8');
 const style = await readFile(path.join(root, 'src/style.css'), 'utf8');
 const data = JSON.parse(await readFile(path.join(root, 'public/data/desktop-atx.json'), 'utf8'));
 const catalog = JSON.parse(await readFile(path.join(root, 'public/data/store-catalog.json'), 'utf8'));
 const fluorescentData = JSON.parse(await readFile(path.join(root, 'public/data/fluorescent-lab.json'), 'utf8'));
+const showerData = JSON.parse(await readFile(path.join(root, 'public/data/shower-filter-lab.json'), 'utf8'));
 
 test('gaming room module has a complete fourteen-step guided assembly', () => {
   assert.equal(data.parts.length, 14);
@@ -107,7 +109,7 @@ test('Unreal project and import bridge are provided', async () => {
   assert.match(importer, /pc-lab\.glb/);
 });
 
-test('the lobby offers computer assembly and fluorescent replacement as distinct modules', () => {
+test('the lobby offers computer, fluorescent and shower filter modules', () => {
   assert.match(html, /id="start-button"/);
   assert.match(html, /게이밍 컴퓨터 조립/);
   assert.match(html, /id="fluorescent-start-button"/);
@@ -115,6 +117,11 @@ test('the lobby offers computer assembly and fluorescent replacement as distinct
   assert.match(script, /function startFluorescentExperience/);
   assert.match(script, /createFluorescentModule/);
   assert.match(style, /\.module-card--fluorescent/);
+  assert.match(html, /id="shower-start-button"/);
+  assert.match(html, /샤워기 필터 교체/);
+  assert.match(script, /function startShowerFilterExperience/);
+  assert.match(script, /createShowerFilterModule/);
+  assert.match(style, /\.module-card--shower/);
 });
 
 test('fluorescent diagnosis teaches inspection, ballast compatibility, 90-degree replacement and disposal', () => {
@@ -156,4 +163,51 @@ test('two real fluorescent brands match while similar lengths and pins can still
   assert.ok(fluorescentData.products.every((product) => product.price > 0 && product.source.startsWith('https://')));
   assert.ok(fluorescentData.scenario.stopConditions.length >= 3);
   assert.equal(fluorescentData.disposalOptions.filter((option) => option.correct).length, 1);
+});
+
+test('shower filter training covers diagnosis, purchase, direct placement, sealing and leak testing', () => {
+  assert.equal(showerData.clues.length, 5);
+  assert.equal(showerData.products.length, 6);
+  assert.deepEqual(Object.keys(showerData.scenario.required), [
+    'kind', 'brand', 'family', 'generation', 'position', 'form',
+  ]);
+  assert.match(html, /본체·오염 확인/);
+  assert.match(html, /전용 리필 구매/);
+  assert.match(html, /하단 캡 분리/);
+  assert.match(html, /직접 끌어 수직 삽입/);
+  assert.match(html, /O링·캡 밀폐/);
+  assert.match(html, /흘려보내기·검증/);
+  assert.match(showerScript, /function compatibility/);
+  assert.match(showerScript, /function wrongProductFeedback/);
+  assert.match(showerScript, /function installFilter/);
+  assert.match(showerScript, /function seatORing/);
+  assert.match(showerScript, /function finishFlush/);
+  assert.match(showerScript, /SHOWER_FILTER_REPLACEMENT_LAB/);
+  assert.match(style, /\.shower-drag-stage/);
+  assert.match(style, /\.shower-oring-button/);
+  assert.match(style, /\.shower-flush-button/);
+});
+
+test('only the two genuine standard refill packs fit the selected shower body', async () => {
+  const required = showerData.scenario.required;
+  const compatible = showerData.products.filter((product) => (
+    product.kind === required.kind
+    && product.brand === required.brand
+    && product.family === required.family
+    && product.generation === required.generation
+    && product.position === required.position
+    && product.form === required.form
+  ));
+  assert.deepEqual(compatible.map((product) => product.id), [
+    'atojet-pure-filter-1pack', 'atojet-pure-filter-3pack',
+  ]);
+  assert.ok(showerData.products.some((product) => product.family === 'SIGNATURE'));
+  assert.ok(showerData.products.some((product) => product.family === 'TRAVEL_MINI'));
+  assert.ok(showerData.products.some((product) => product.brand === 'BODYLUV'));
+  assert.ok(showerData.products.every((product) => product.price > 0 && product.source.startsWith('https://')));
+  assert.ok(showerData.scenario.stopConditions.length >= 3);
+  await Promise.all(showerData.products.map(async (product) => {
+    const image = await stat(path.join(root, 'public', product.image));
+    assert.ok(image.size > 20_000, `${product.name} should use a real local product image`);
+  }));
 });

@@ -1,0 +1,180 @@
+{
+  "updatedAt": "2026-08-06",
+  "scenario": {
+    "id": "atojet-window-3g-bathroom",
+    "room": "아파트 욕실",
+    "fixture": "아토젯 3세대 윈도우 필터 샤워기",
+    "symptom": "투명창 속 필터가 갈색으로 변했고 이전보다 수압이 약해짐",
+    "required": {
+      "kind": "replacement-filter",
+      "brand": "ATOJET",
+      "family": "WINDOW_STANDARD",
+      "generation": "3G_HOME",
+      "position": "handle-body",
+      "form": "long-cylinder"
+    },
+    "stopConditions": [
+      "투명 케이스에 금이 가거나 나사산이 깨진 경우",
+      "손으로 돌려도 캡이 움직이지 않아 공구가 필요한 경우",
+      "필터 교체 후에도 수압 저하나 누수가 계속되는 경우"
+    ]
+  },
+  "clues": [
+    {
+      "id": "condition",
+      "code": "단서 01",
+      "name": "교체 신호",
+      "value": "갈색 변색 · 수압 저하",
+      "help": "날짜만 보지 말고 투명창의 오염과 실제 수압 변화를 함께 확인합니다.",
+      "camera": "filter"
+    },
+    {
+      "id": "model",
+      "code": "단서 02",
+      "name": "본체 모델",
+      "value": "아토젯 윈도우 3세대",
+      "help": "같은 브랜드 안에서도 시그니처와 여행용 필터는 별도 제품입니다.",
+      "camera": "label"
+    },
+    {
+      "id": "position",
+      "code": "단서 03",
+      "name": "필터 위치",
+      "value": "손잡이 바디 내부",
+      "help": "헤드 필터나 호스 중간형이 아니라 손잡이 투명 바디에 들어가는 리필입니다.",
+      "camera": "body"
+    },
+    {
+      "id": "family",
+      "code": "단서 04",
+      "name": "리필 계열",
+      "value": "정품 순수필터 · 일반형",
+      "help": "시그니처·탄소·여행용이라는 이름이 붙은 리필과 구분합니다.",
+      "camera": "filter"
+    },
+    {
+      "id": "seal",
+      "code": "단서 05",
+      "name": "밀폐 부품",
+      "value": "하단 캡 O링 1개",
+      "help": "필터가 맞아도 O링이 빠지거나 비틀리면 하단 연결부에서 물이 샙니다.",
+      "camera": "seal"
+    }
+  ],
+  "products": [
+    {
+      "id": "atojet-pure-filter-1pack",
+      "maker": "아토젯",
+      "name": "정품 순수필터 1팩",
+      "pack": "일반형 샤워기용 · 1팩",
+      "kind": "replacement-filter",
+      "brand": "ATOJET",
+      "family": "WINDOW_STANDARD",
+      "generation": "3G_HOME",
+      "position": "handle-body",
+      "form": "long-cylinder",
+      "price": 9900,
+      "accent": "#55dfcf",
+      "image": "/products/atojet-pure-filter.jpg",
+      "source": "https://atojet.co.kr/product/%EC%95%84%ED%86%A0%EC%A0%AF-%EC%A0%95%ED%92%88-%EC%88%9C%EC%88%98%ED%95%84%ED%84%B0-1%ED%8C%A93%ED%8C%A9/14/"
+    },
+    {
+      "id": "atojet-pure-filter-3pack",
+      "maker": "아토젯",
+      "name": "정품 순수필터 3팩",
+      "pack": "일반형 샤워기용 · 여분 포함",
+      "kind": "replacement-filter",
+      "brand": "ATOJET",
+      "family": "WINDOW_STANDARD",
+      "generation": "3G_HOME",
+      "position": "handle-body",
+      "form": "long-cylinder",
+      "price": 22000,
+      "accent": "#78efda",
+      "image": "/products/atojet-pure-filter.jpg",
+      "source": "https://atojet.co.kr/product/%EC%95%84%ED%86%A0%EC%A0%AF-%EC%A0%95%ED%92%88-%EC%88%9C%EC%88%98%ED%95%84%ED%84%B0-1%ED%8C%A93%ED%8C%A9/14/"
+    },
+    {
+      "id": "atojet-signature-refill",
+      "maker": "아토젯",
+      "name": "시그니처 샤워기 리필필터",
+      "pack": "시그니처 전용 · 1팩",
+      "kind": "replacement-filter",
+      "brand": "ATOJET",
+      "family": "SIGNATURE",
+      "generation": "SIGNATURE",
+      "position": "handle-window",
+      "form": "short-cylinder",
+      "price": 9900,
+      "accent": "#83b9ff",
+      "image": "/products/atojet-signature-filter.jpg",
+      "source": "https://m.atojet.co.kr/product/detail.html?product_no=240"
+    },
+    {
+      "id": "atojet-travel-3g-refill",
+      "maker": "아토젯",
+      "name": "여행용 미니 3세대 리필",
+      "pack": "여행용 미니 전용",
+      "kind": "replacement-filter",
+      "brand": "ATOJET",
+      "family": "TRAVEL_MINI",
+      "generation": "3G_TRAVEL",
+      "position": "mini-body",
+      "form": "mini-cylinder",
+      "price": 7900,
+      "accent": "#f0ad63",
+      "image": "/products/atojet-travel-filter.jpg",
+      "source": "https://atojet.co.kr/product/3%EC%84%B8%EB%8C%80%EC%9A%A9-%EC%95%84%ED%86%A0%EC%A0%AF-%EC%97%AC%ED%96%89%EC%9A%A9-%EB%AF%B8%EB%8B%88-%ED%95%84%ED%84%B0-%EC%83%A4%EC%9B%8C%EA%B8%B0-%EC%8B%A4%EC%86%8D%ED%98%95-%EB%A6%AC%ED%95%84%ED%95%84%ED%84%B0/212/"
+    },
+    {
+      "id": "bodyluv-puresome-refill",
+      "maker": "바디럽",
+      "name": "퓨어썸 리필 필터",
+      "pack": "퓨어썸 모델 선택형 · 3P",
+      "kind": "replacement-filter",
+      "brand": "BODYLUV",
+      "family": "PURESOME",
+      "generation": "BASIC",
+      "position": "handle-body",
+      "form": "long-cylinder",
+      "price": 11900,
+      "accent": "#cf9dff",
+      "image": "/products/bodyluv-puresome-refill.png",
+      "source": "https://bodyluv.kr/product/%EA%B5%90%EC%B2%B4%ED%95%84%ED%84%B0-%ED%93%A8%EC%96%B4%EC%8D%B8-%EB%A6%AC%ED%95%84-%ED%95%84%ED%84%B0-%EB%AA%A8%EC%9D%8C/398/"
+    },
+    {
+      "id": "atojet-signature-head",
+      "maker": "아토젯",
+      "name": "시그니처 필터 샤워기 헤드",
+      "pack": "필터가 아닌 샤워기 본체",
+      "kind": "shower-head",
+      "brand": "ATOJET",
+      "family": "SIGNATURE",
+      "generation": "SIGNATURE",
+      "position": "whole-unit",
+      "form": "shower-head",
+      "price": 32800,
+      "accent": "#ffd37a",
+      "image": "/products/atojet-signature-head.jpg",
+      "source": "https://atojet.co.kr/product/%EC%8B%A0%EC%A0%9C%ED%92%88-%EC%95%84%ED%86%A0%EC%A0%AF-%EC%8B%9C%EA%B7%B8%EB%8B%88%EC%B2%98-%ED%95%84%ED%84%B0-%EC%83%A4%EC%9B%8C%EA%B8%B0-%ED%97%A4%EB%93%9C/235/"
+    }
+  ],
+  "sources": [
+    {
+      "title": "아토젯 3세대 윈도우 필터샤워기",
+      "url": "https://atojet.co.kr/product/3%EC%84%B8%EB%8C%80-%EC%95%84%ED%86%A0%EC%A0%AF-%EC%9C%88%EB%8F%84%EC%9A%B0-%ED%95%84%ED%84%B0%EC%83%A4%EC%9B%8C%EA%B8%B0/162/category/101/display/1/"
+    },
+    {
+      "title": "아토젯 정품 순수필터 1팩/3팩",
+      "url": "https://atojet.co.kr/product/%EC%95%84%ED%86%A0%EC%A0%AF-%EC%A0%95%ED%92%88-%EC%88%9C%EC%88%98%ED%95%84%ED%84%B0-1%ED%8C%A93%ED%8C%A9/14/"
+    },
+    {
+      "title": "바디럽 퓨어썸 샤워기 사용 주의사항",
+      "url": "https://bodyluv.kr/article/faq/3/66/"
+    },
+    {
+      "title": "대림바스 필터 교체 안내",
+      "url": "https://www.daelimbath.com/product/product_filter"
+    }
+  ]
+}

@@ -170,7 +170,7 @@ button { border: 0; }
 .intro-copy { width: min(790px, 64vw); }
 .intro h1 { font-size: clamp(44px, 5.2vw, 78px); }
 .intro-lede { margin: 20px 0 25px; }
-.module-picker { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; width: min(760px, 100%); }
+.module-picker { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; width: min(1060px, 100%); }
 .module-card {
   --module-accent: var(--mint);
   position: relative;
@@ -191,6 +191,7 @@ button { border: 0; }
 }
 .module-card::after { content: ""; position: absolute; inset: auto -32px -42px auto; width: 120px; height: 120px; border: 1px solid color-mix(in srgb, var(--module-accent), transparent 78%); border-radius: 50%; box-shadow: 0 0 55px color-mix(in srgb, var(--module-accent) 10%, transparent); }
 .module-card--fluorescent { --module-accent: #9edfff; }
+.module-card--shower { --module-accent: #58e5d0; }
 .module-card:hover:not(:disabled) { transform: translateY(-4px); border-color: var(--module-accent); box-shadow: 0 22px 50px rgba(0,0,0,.25); }
 .module-card:disabled { cursor: wait; opacity: .4; }
 .module-card-number { align-self: start; color: var(--module-accent); font: 500 9px/1 var(--mono); }
@@ -298,6 +299,61 @@ button { border: 0; }
 .fluorescent-result-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 7px; margin-top: 9px; }.fluorescent-result-grid span { min-width: 0; padding: 10px; background: rgba(255,255,255,.025); }.fluorescent-result-grid small, .fluorescent-result-grid b { display: block; }.fluorescent-result-grid small { color: #666e6a; font-size: 5px; }.fluorescent-result-grid b { margin-top: 6px; overflow: hidden; color: #e5e7e3; font: 600 12px/1 var(--mono); text-overflow: ellipsis; white-space: nowrap; }
 .fluorescent-learning { margin: 18px 0 0; padding: 13px 0; border: 1px solid var(--line); border-width: 1px 0; color: #848b87; font-size: 7px; line-height: 1.6; word-break: keep-all; }.fluorescent-learning b { display: block; margin-bottom: 6px; color: #9edfff; }
 .fluorescent-completion-panel button { width: 100%; margin-top: 14px; padding: 13px; color: #071218; background: #9edfff; font-weight: 800; cursor: pointer; }.fluorescent-completion-panel button span { float: right; }
+
+/* Shower filter replacement module */
+.shower-route-panel, .shower-guide-panel { border-color: rgba(88,229,208,.24); }
+.shower-route-heading b, .shower-guide-heading > p:first-child span, .shower-section-label b { color: #58e5d0; }
+.shower-route > div.is-active { border-color: rgba(88,229,208,.45); color: #dcfff9; background: rgba(88,229,208,.075); }
+.shower-route > div.is-active i { color: #071310; border-color: #58e5d0; background: #58e5d0; box-shadow: 0 0 17px rgba(88,229,208,.32); }
+.shower-route > div.is-done i { color: #58e5d0; border-color: #58e5d0; }
+.shower-menu-button:hover { border-color: rgba(88,229,208,.46); }
+.shower-progress-rail i { background: #58e5d0; box-shadow: 0 0 11px rgba(88,229,208,.76); }
+.shower-view { scrollbar-color: rgba(88,229,208,.3) transparent; }
+.shower-clue:hover { border-color: rgba(88,229,208,.48); }
+.shower-clue.is-found { border-color: #58e5d0; background: rgba(88,229,208,.075); }
+.shower-clue small { color: #58e5d0; }.shower-clue.is-found span { color: #9fe4da; }
+.shower-products { max-height: 286px; scrollbar-color: rgba(88,229,208,.32) transparent; }
+.shower-product { --fluorescent-accent: var(--shower-product-accent); grid-template-columns: 68px 1fr; min-height: 112px; }
+.shower-product-visual { padding: 4px; background: radial-gradient(circle at 50% 45%, color-mix(in srgb, var(--shower-product-accent) 21%, #edf6f4), #e3eae8 68%); }
+.shower-product-visual img { width: 100%; height: 100%; object-fit: contain; filter: drop-shadow(0 6px 8px rgba(7,19,18,.2)); }
+.shower-product-copy small { color: var(--shower-product-accent); }
+.shower-prepare-list button:hover { border-color: rgba(88,229,208,.44); }
+.shower-prepare-list button.is-checked { border-color: #58e5d0; background: rgba(88,229,208,.06); }
+.shower-prepare-list .is-checked i { border-color: #58e5d0; background: #58e5d0; }.shower-prepare-list .is-checked em { color: #58e5d0; }
+.shower-turn-dial:focus-visible { box-shadow: 0 0 0 2px #58e5d0; }
+.shower-dial-ring { border-color: rgba(88,229,208,.48); background: radial-gradient(circle, rgba(88,229,208,.055), transparent 66%); box-shadow: inset 0 0 40px rgba(88,229,208,.04); }
+.shower-dial-ring > i { background: #58e5d0; box-shadow: 0 0 12px #58e5d0; }.shower-dial-ring > span { color: #58e5d0; }
+.shower-feedback { border-color: #58e5d0; background: rgba(88,229,208,.045); }
+.shower-action { color: #061310; background: #58e5d0; }
+
+.shower-drag-stage { display: grid; grid-template-columns: 1fr 52px 1fr; align-items: stretch; gap: 8px; min-height: 226px; padding: 12px; border: 1px solid rgba(88,229,208,.18); background: radial-gradient(circle at 70% 45%, rgba(88,229,208,.075), transparent 48%), rgba(5,10,10,.28); overflow: hidden; }
+.shower-drag-source, .shower-filter-slot { display: flex; flex-direction: column; align-items: center; justify-content: center; min-width: 0; border: 1px dashed rgba(255,255,255,.13); }
+.shower-drag-source > small, .shower-filter-slot > small { margin-bottom: 11px; color: #6f7b77; font: 500 6px/1 var(--mono); letter-spacing: .1em; }
+.shower-drag-source button { position: relative; z-index: 3; display: flex; flex-direction: column; align-items: center; width: 105px; padding: 10px 8px; color: #dfe9e6; background: rgba(255,255,255,.035); cursor: grab; touch-action: none; transition: border-color 160ms, box-shadow 160ms, opacity 160ms; }
+.shower-drag-source button:hover { border-color: #58e5d0; box-shadow: 0 0 26px rgba(88,229,208,.12); }.shower-drag-source button.is-dragging { cursor: grabbing; border-color: #58e5d0; box-shadow: 0 14px 35px rgba(0,0,0,.35); }
+.shower-drag-source button > i, .shower-filter-slot > i { position: relative; display: block; width: 31px; height: 90px; border: 2px solid #dfe8e3; border-radius: 16px; background: repeating-linear-gradient(0deg, #f4f6f1 0 5px, #d7ddd7 6px 7px); box-shadow: 0 0 18px rgba(213,245,236,.15); }
+.shower-drag-source button > i::before, .shower-drag-source button > i::after { content: ""; position: absolute; left: 4px; right: 4px; height: 4px; border-radius: 4px; background: #a9b6b2; }.shower-drag-source button > i::before { top: 3px; }.shower-drag-source button > i::after { bottom: 3px; }
+.shower-drag-source button span { margin-top: 8px; font-size: 7px; font-weight: 700; }.shower-drag-source button em { margin-top: 5px; color: #58e5d0; font: 500 5px/1 var(--mono); font-style: normal; }
+.shower-drag-source button.is-installed { opacity: 0; pointer-events: none; }
+.shower-drag-arrow { display: grid; place-items: center; color: #58e5d0; }.shower-drag-arrow i { position: absolute; width: 46px; height: 1px; background: rgba(88,229,208,.24); }.shower-drag-arrow span { z-index: 1; padding: 5px; background: #0d1212; font-size: 17px; }
+.shower-filter-slot { position: relative; border-color: rgba(88,229,208,.36); background: rgba(88,229,208,.025); transition: 180ms; }.shower-filter-slot > i { opacity: .22; border-color: #58e5d0; background: transparent; box-shadow: 0 0 20px rgba(88,229,208,.2); }.shower-filter-slot > b { margin-top: 8px; color: #a4c4bd; font-size: 7px; }.shower-filter-slot > span { margin-top: 4px; color: #60706c; font-size: 6px; }.shower-filter-slot.is-filled { border-style: solid; border-color: #58e5d0; background: rgba(88,229,208,.08); }.shower-filter-slot.is-filled > i { opacity: 1; background: repeating-linear-gradient(0deg, #f4f6f1 0 5px, #d7ddd7 6px 7px); }.shower-filter-slot.is-filled > b::after { content: " · 장착 완료 ✓"; color: #58e5d0; }
+
+.shower-oring-button { display: grid; grid-template-columns: 36px 1fr auto; align-items: center; gap: 11px; width: 100%; min-height: 67px; padding: 10px; border: 1px solid var(--line); color: #8f9995; text-align: left; background: rgba(255,255,255,.02); cursor: pointer; transition: 160ms; }
+.shower-oring-button:hover { border-color: rgba(88,229,208,.5); }.shower-oring-button.is-checked { border-color: #58e5d0; color: #e0eeea; background: rgba(88,229,208,.07); }
+.shower-oring-button > i { width: 31px; height: 31px; border: 4px solid #293431; border-radius: 50%; box-shadow: inset 0 0 0 1px #687570; }.shower-oring-button.is-checked > i { border-color: #58e5d0; box-shadow: 0 0 14px rgba(88,229,208,.35); }
+.shower-oring-button span, .shower-oring-button b, .shower-oring-button small { display: block; }.shower-oring-button b { font-size: 8px; }.shower-oring-button small { margin-top: 5px; color: #68736f; font-size: 6px; }.shower-oring-button em { color: #5f6a66; font: 500 6px/1 var(--mono); font-style: normal; }.shower-oring-button.is-checked em { color: #58e5d0; }
+.shower-seal-dial { width: 160px; height: 160px; margin-top: 0; transition: opacity 160ms, filter 160ms; }.shower-seal-dial .shower-dial-ring { width: 140px; height: 140px; }.shower-seal-dial .shower-dial-ring > i { transform-origin: 50% 66px; }.shower-seal-dial.is-locked { opacity: .25; filter: grayscale(1); cursor: not-allowed; }
+
+.shower-flush-button { display: grid; grid-template-columns: 1fr auto; gap: 10px; width: 100%; min-height: 76px; padding: 13px; border: 1px solid rgba(88,229,208,.32); color: #d7e5e1; text-align: left; background: rgba(88,229,208,.045); cursor: pointer; touch-action: none; }
+.shower-flush-button > i { grid-column: 1 / 3; height: 5px; overflow: hidden; background: rgba(255,255,255,.08); }.shower-flush-button > i span { display: block; width: 100%; height: 100%; background: linear-gradient(90deg, #58e5d0, #76dfff); box-shadow: 0 0 12px rgba(88,229,208,.75); transform: scaleX(0); transform-origin: left; }
+.shower-flush-button b { font-size: 8px; }.shower-flush-button em { color: #58e5d0; font: 500 6px/1 var(--mono); font-style: normal; }.shower-flush-button.is-complete { border-color: #58e5d0; background: rgba(88,229,208,.09); }.shower-flush-button.is-complete em::after { content: " ✓"; }
+.shower-test-results { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; margin-top: 8px; }.shower-test-results span { padding: 10px; border: 1px solid rgba(88,229,208,.2); background: rgba(88,229,208,.035); }.shower-test-results i { display: inline-block; width: 6px; height: 6px; margin-right: 6px; border-radius: 50%; background: #58e5d0; box-shadow: 0 0 8px #58e5d0; }.shower-test-results b { color: #dbe7e4; font-size: 7px; }.shower-test-results small { display: block; margin-top: 6px; color: #6f7c78; font-size: 6px; }
+
+.shower-completion { background: radial-gradient(circle at 42% 34%, rgba(88,229,208,.16), transparent 39%), linear-gradient(90deg, transparent 30%, rgba(7,11,11,.9)); }
+.shower-completion-panel { border-color: rgba(88,229,208,.42); box-shadow: 0 35px 100px rgba(0,0,0,.46), inset 0 0 60px rgba(88,229,208,.045); }
+.shower-completion-panel > p:first-child, .shower-completion-panel h2 em, .shower-learning b { color: #58e5d0; }.shower-completion-panel h2 em { text-shadow: 0 0 26px rgba(88,229,208,.3); }.shower-completion-panel button { background: #58e5d0; }
+.shower-result-water { display: flex; align-items: center; gap: 12px; margin-top: 20px; padding: 12px; border: 1px solid rgba(88,229,208,.29); background: linear-gradient(90deg, rgba(88,229,208,.08), rgba(118,223,255,.045)); }
+.shower-result-water > i { position: relative; flex: 0 0 46px; width: 46px; height: 36px; overflow: hidden; border-top: 4px solid #58e5d0; border-radius: 50% 50% 12px 12px; }.shower-result-water > i::before { content: ""; position: absolute; left: 5px; right: 5px; top: 6px; height: 26px; background: repeating-linear-gradient(90deg, transparent 0 4px, #74dfee 5px 6px); filter: drop-shadow(0 0 5px #58e5d0); }.shower-result-water span, .shower-result-water b { display: block; }.shower-result-water span { color: #71817d; font-size: 6px; }.shower-result-water b { margin-bottom: 4px; color: #e0f0ec; font-size: 8px; }
 
 .shop {
   position: absolute;

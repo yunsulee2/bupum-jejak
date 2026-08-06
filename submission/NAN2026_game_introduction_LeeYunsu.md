@@ -18,7 +18,7 @@
 **플레이 영상**  
 YouTube 업로드 후 이 문서에 링크를 삽입하고 PDF를 다시 생성할 예정입니다.
 
-![컴퓨터·형광등·샤워기 필터·서랍장을 한 공간으로 보여주는 메인 화면](file:///Users/yunsu/pc-build-lab/qa/readability-lobby-desktop.png)
+![컴퓨터·형광등·샤워기 필터·서랍장을 한 공간으로 보여주는 메인 화면](https://raw.githubusercontent.com/yunsulee2/bupum-jejak/main/qa/drawer-00-lobby.png)
 
 ## 게임이 해결하려는 문제
 
@@ -65,7 +65,7 @@ YouTube 업로드 후 이 문서에 링크를 삽입하고 PDF를 다시 생성�
 
 완성은 마지막 부품을 놓는 순간이 아닙니다. PC는 팬 9개와 RGB 조명, 모니터 첫 부팅을 확인합니다. 형광등은 떨림과 이상 소음, 샤워기는 누수와 수압, 서랍장은 걸림과 쏠림을 검사해야 끝납니다.
 
-![구매한 실제 제품 구성에 따라 달라지는 PC 조립 화면](file:///Users/yunsu/pc-build-lab/qa/assembly-purchased-products.png)
+![구매한 실제 제품 구성에 따라 달라지는 PC 조립 화면](https://raw.githubusercontent.com/yunsulee2/bupum-jejak/main/qa/assembly-purchased-products.png)
 
 ## 조작 방법
 
@@ -91,7 +91,7 @@ YouTube 업로드 후 이 문서에 링크를 삽입하고 PDF를 다시 생성�
 
 오른쪽 안내 패널의 조사와 선택을 순서대로 진행합니다. 작업을 멈춰야 하는 조건이 발견되면 강제로 계속하지 않고 전문가 점검 범위로 종료합니다. 이는 실패가 아니라 올바른 안전 판단입니다.
 
-![형광램프 규격을 판별하고 교체한 뒤 점등을 검증한 화면](file:///Users/yunsu/pc-build-lab/qa/fluorescent-07-completion-room.png)
+![형광램프 규격을 판별하고 교체한 뒤 점등을 검증한 화면](https://raw.githubusercontent.com/yunsulee2/bupum-jejak/main/qa/fluorescent-07-completion-room.png)
 
 ## 종료 조건과 결과
 

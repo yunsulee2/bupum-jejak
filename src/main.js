@@ -8,6 +8,7 @@ import { UnrealBloomPass } from 'three/addons/postprocessing/UnrealBloomPass.js'
 import { RoundedBoxGeometry } from 'three/addons/geometries/RoundedBoxGeometry.js';
 import { createFluorescentModule } from './fluorescent-module.js';
 import { createShowerFilterModule } from './shower-filter-module.js';
+import { createDrawerModule } from './drawer-module.js';
 import './style.css';
 
 const $ = (selector) => document.querySelector(selector);
@@ -25,6 +26,9 @@ const ui = {
   showerStart: $('#shower-start-button'),
   showerWorkspace: $('#shower-workspace'),
   showerCompletion: $('#shower-completion'),
+  drawerStart: $('#drawer-start-button'),
+  drawerWorkspace: $('#drawer-workspace'),
+  drawerCompletion: $('#drawer-completion'),
   shop: $('#shop'),
   shopCategories: $('#shop-categories'),
   shopProgress: $('#shop-progress'),
@@ -80,6 +84,7 @@ const state = {
   catalog: null,
   fluorescentData: null,
   showerData: null,
+  drawerData: null,
   shopCategories: [],
   shopIndex: 0,
   purchases: new Map(),
@@ -211,6 +216,7 @@ let pcAssemblyRig = null;
 let pcAssemblyBench = null;
 let fluorescentModule = null;
 let showerFilterModule = null;
+let drawerModule = null;
 
 function finishMaterial(color, options = {}) {
   return new THREE.MeshPhysicalMaterial({
@@ -1512,6 +1518,21 @@ function startShowerFilterExperience() {
   showerFilterModule.start();
 }
 
+function startDrawerExperience() {
+  ensureAudio();
+  ui.intro.hidden = true;
+  ui.shop.hidden = true;
+  ui.workspace.hidden = true;
+  ui.completion.hidden = true;
+  ui.fluorescentWorkspace.hidden = true;
+  ui.fluorescentCompletion.hidden = true;
+  ui.showerWorkspace.hidden = true;
+  ui.showerCompletion.hidden = true;
+  ui.drawerCompletion.hidden = true;
+  ui.app.dataset.mode = 'drawer';
+  drawerModule.start();
+}
+
 async function beginAssembly() {
   ensureAudio();
   state.stepIndex = 0;
@@ -1556,11 +1577,12 @@ function mapPartRoots() {
 }
 
 async function loadExperience() {
-  [state.data, state.catalog, state.fluorescentData, state.showerData] = await Promise.all([
+  [state.data, state.catalog, state.fluorescentData, state.showerData, state.drawerData] = await Promise.all([
     fetch('/data/desktop-atx.json').then((response) => response.json()),
     fetch('/data/store-catalog.json').then((response) => response.json()),
     fetch('/data/fluorescent-lab.json').then((response) => response.json()),
     fetch('/data/shower-filter-lab.json').then((response) => response.json()),
+    fetch('/data/drawer-lab.json').then((response) => response.json()),
   ]);
   buildShopCategories();
   ui.catalogDate.textContent = state.catalog.updatedAt;
@@ -1612,12 +1634,26 @@ async function loadExperience() {
           setSessionLabel: (label) => { ui.sessionLabel.textContent = label; },
           tweenCamera,
         });
+        drawerModule = createDrawerModule({
+          data: state.drawerData,
+          scene,
+          camera,
+          controls,
+          renderer,
+          pcRoot: modelRoot,
+          globalFloor: floor,
+          grid,
+          setSessionLabel: (label) => { ui.sessionLabel.textContent = label; },
+          tweenCamera,
+        });
         window.__FLUORESCENT_LAB_QA__ = fluorescentModule.qa;
         window.__SHOWER_FILTER_QA__ = showerFilterModule.qa;
+        window.__DRAWER_LAB_QA__ = drawerModule.qa;
         state.ready = true;
         ui.start.disabled = false;
         ui.fluorescentStart.disabled = false;
         ui.showerStart.disabled = false;
+        ui.drawerStart.disabled = false;
         ui.app.dataset.mode = 'intro';
         ui.loading.classList.add('is-complete');
         window.setTimeout(() => { ui.loading.hidden = true; }, 600);
@@ -1639,6 +1675,7 @@ function animate(now) {
   animateGamingEffects(now, delta);
   fluorescentModule?.update(now, delta);
   showerFilterModule?.update(now, delta);
+  drawerModule?.update(now, delta);
   if (targetHelper && !state.dragging) {
     targetHelper.material.opacity = 0.58 + Math.sin(now * 0.004) * 0.28;
   }
@@ -1650,6 +1687,7 @@ function animate(now) {
 ui.start.addEventListener('click', startExperience);
 ui.fluorescentStart.addEventListener('click', startFluorescentExperience);
 ui.showerStart.addEventListener('click', startShowerFilterExperience);
+ui.drawerStart.addEventListener('click', startDrawerExperience);
 ui.purchase.addEventListener('click', beginAssembly);
 ui.focus.addEventListener('click', focusSelected);
 ui.explode.addEventListener('click', toggleExploded);

@@ -1,0 +1,82 @@
+{
+  "updatedAt": "2026-08-07",
+  "scenario": {
+    "id": "three-drawer-flatpack-bedroom",
+    "room": "아파트 침실",
+    "task": "3단 플랫팩 서랍장 조립",
+    "problem": "비슷한 판재와 좌우 레일을 구분하고, 직각과 전도 방지까지 확인해야 서랍이 걸리지 않고 안전하게 사용할 수 있음",
+    "wall": "철근콘크리트 벽",
+    "stopConditions": [
+      "판재가 갈라졌거나 캠락 구멍이 크게 파손된 경우",
+      "벽 재질을 확인할 수 없어 적합한 앵커를 고르기 어려운 경우",
+      "수평을 맞춘 뒤에도 서랍이 한쪽으로 쏠리거나 레일에서 이탈하는 경우"
+    ]
+  },
+  "kits": [
+    {
+      "id": "basic-white",
+      "name": "화이트 입문형",
+      "subtitle": "롤러형 측면 레일",
+      "finish": "무광 화이트 포일",
+      "rail": "좌우 표시 롤러 레일",
+      "difficulty": "입문",
+      "referencePrice": 59900,
+      "reference": "IKEA GURSKEN 3칸서랍장",
+      "colors": {
+        "panel": "#e9ebe5",
+        "edge": "#c9cec7",
+        "drawer": "#f5f5ef",
+        "accent": "#75e6c6"
+      }
+    },
+    {
+      "id": "oak-softclose",
+      "name": "오크 소프트클로징",
+      "subtitle": "댐퍼형 측면 레일",
+      "finish": "내추럴 오크 무늬목",
+      "rail": "좌우 표시 소프트클로징 레일",
+      "difficulty": "중급",
+      "referencePrice": 159000,
+      "reference": "3단 서랍장 중급 가격대 참고",
+      "colors": {
+        "panel": "#9a6741",
+        "edge": "#5b3a27",
+        "drawer": "#c99a68",
+        "accent": "#ffbd66"
+      }
+    }
+  ],
+  "inventory": [
+    { "code": "A", "name": "좌·우 측판", "count": 2, "check": "레일 구멍이 안쪽을 향함" },
+    { "code": "B", "name": "상판·바닥판", "count": 2, "check": "마감면이 바깥쪽을 향함" },
+    { "code": "C", "name": "뒤판", "count": 1, "check": "두 대각선 길이로 직각 확인" },
+    { "code": "D", "name": "서랍 레일", "count": 6, "check": "L/R 각인과 전면 화살표 확인" },
+    { "code": "E", "name": "서랍 박스·앞판", "count": 3, "check": "바닥판이 홈 끝까지 들어감" },
+    { "code": "F", "name": "캠락·볼트·목심", "count": 18, "check": "캠락 화살표가 볼트 쪽을 향함" },
+    { "code": "G", "name": "전도 방지 브래킷", "count": 2, "check": "벽 재질별 나사·앵커는 별도 확인" }
+  ],
+  "stages": [
+    { "id": "kit", "code": "선택 01", "label": "키트·부품 확인", "short": "판재·레일·철물 수량" },
+    { "id": "frame", "code": "골조 02", "label": "측판·상하판 결합", "short": "마감면과 안쪽 구멍" },
+    { "id": "lock", "code": "체결 03", "label": "캠락 방향 잠금", "short": "화살표를 볼트 쪽으로" },
+    { "id": "rails", "code": "레일 04", "label": "좌우 레일 장착", "short": "L/R·전면 방향 정렬" },
+    { "id": "square", "code": "정렬 05", "label": "뒤판·직각 맞춤", "short": "대각선 두 값 비교" },
+    { "id": "drawers", "code": "삽입 06", "label": "서랍 3개 끼우기", "short": "양쪽 레일 동시 진입" },
+    { "id": "anchor", "code": "안전 07", "label": "전도 방지 계획", "short": "벽 재질별 앵커 확인" },
+    { "id": "test", "code": "검증 08", "label": "열림·닫힘 시험", "short": "걸림·틈·쏠림 확인" }
+  ],
+  "sources": [
+    {
+      "title": "IKEA 서랍장 제품군 및 벽 고정 안내",
+      "url": "https://www.ikea.com/kr/ko/cat/chests-of-drawers-10451/"
+    },
+    {
+      "title": "IKEA KULLEN 조립 설명서",
+      "url": "https://www.ikea.com/kr/ko/assembly_instructions/kullen-kanseorabjang__AA-1706241-4_pub.pdf"
+    },
+    {
+      "title": "Blum 서랍 레일 조립 안내",
+      "url": "https://www.blum.com/us/en/products/instructions/runners/"
+    }
+  ]
+}

@@ -9,11 +9,13 @@ const html = await readFile(path.join(root, 'index.html'), 'utf8');
 const script = await readFile(path.join(root, 'src/main.js'), 'utf8');
 const fluorescentScript = await readFile(path.join(root, 'src/fluorescent-module.js'), 'utf8');
 const showerScript = await readFile(path.join(root, 'src/shower-filter-module.js'), 'utf8');
+const drawerScript = await readFile(path.join(root, 'src/drawer-module.js'), 'utf8');
 const style = await readFile(path.join(root, 'src/style.css'), 'utf8');
 const data = JSON.parse(await readFile(path.join(root, 'public/data/desktop-atx.json'), 'utf8'));
 const catalog = JSON.parse(await readFile(path.join(root, 'public/data/store-catalog.json'), 'utf8'));
 const fluorescentData = JSON.parse(await readFile(path.join(root, 'public/data/fluorescent-lab.json'), 'utf8'));
 const showerData = JSON.parse(await readFile(path.join(root, 'public/data/shower-filter-lab.json'), 'utf8'));
+const drawerData = JSON.parse(await readFile(path.join(root, 'public/data/drawer-lab.json'), 'utf8'));
 
 test('gaming room module has a complete fourteen-step guided assembly', () => {
   assert.equal(data.parts.length, 14);
@@ -109,7 +111,7 @@ test('Unreal project and import bridge are provided', async () => {
   assert.match(importer, /pc-lab\.glb/);
 });
 
-test('the lobby offers computer, fluorescent and shower filter modules', () => {
+test('the lobby offers computer, fluorescent, shower filter and drawer modules', () => {
   assert.match(html, /id="start-button"/);
   assert.match(html, /게이밍 컴퓨터 조립/);
   assert.match(html, /id="fluorescent-start-button"/);
@@ -122,6 +124,48 @@ test('the lobby offers computer, fluorescent and shower filter modules', () => {
   assert.match(script, /function startShowerFilterExperience/);
   assert.match(script, /createShowerFilterModule/);
   assert.match(style, /\.module-card--shower/);
+  assert.match(html, /id="drawer-start-button"/);
+  assert.match(html, /3단 서랍장 조립/);
+  assert.match(script, /function startDrawerExperience/);
+  assert.match(script, /createDrawerModule/);
+  assert.match(style, /\.module-card--drawer/);
+});
+
+test('drawer training covers panel orientation, cam locks, rails, squaring, anchoring and motion testing', () => {
+  assert.equal(drawerData.kits.length, 2);
+  assert.equal(drawerData.inventory.length, 7);
+  assert.deepEqual(drawerData.stages.map((stage) => stage.id), [
+    'kit', 'frame', 'lock', 'rails', 'square', 'drawers', 'anchor', 'test',
+  ]);
+  assert.match(html, /측판·상하판 결합/);
+  assert.match(html, /캠락 방향 잠금/);
+  assert.match(html, /좌우 레일 장착/);
+  assert.match(html, /뒤판·직각 맞춤/);
+  assert.match(html, /서랍 3개 끼우기/);
+  assert.match(html, /전도 방지 계획/);
+  assert.match(html, /열림·닫힘 시험/);
+  assert.match(drawerScript, /THREE_DRAWER_FLATPACK_LAB/);
+  assert.match(drawerScript, /function beginDrag/);
+  assert.match(drawerScript, /function installPart/);
+  assert.match(drawerScript, /function chooseLock/);
+  assert.match(drawerScript, /function chooseRail/);
+  assert.match(drawerScript, /function chooseDiagonal/);
+  assert.match(drawerScript, /function chooseAnchor/);
+  assert.match(drawerScript, /function testDrawer/);
+  assert.match(style, /\.drawer-task-visual/);
+  assert.match(style, /\.drawer-drag-coach/);
+  assert.match(style, /\.drawer-result-motion/);
+});
+
+test('drawer module carries explicit safety boundaries and primary-source references', () => {
+  assert.ok(drawerData.scenario.stopConditions.length >= 3);
+  assert.equal(drawerData.scenario.wall, '철근콘크리트 벽');
+  assert.ok(drawerData.sources.some((source) => source.url.includes('ikea.com/kr/ko/assembly_instructions')));
+  assert.ok(drawerData.sources.some((source) => source.url.includes('blum.com')));
+  assert.match(html, /벽용 나사·앵커는 벽 재질과 제조사 지침에 맞춰 별도로 고릅니다/);
+  assert.match(html, /확신이 없으면 전문가에게 요청/);
+  assert.match(drawerScript, /value !== 'concrete'/);
+  assert.match(drawerScript, /value !== 'matched'/);
 });
 
 test('the main menu represents multiple home assembly tasks instead of only a PC', async () => {

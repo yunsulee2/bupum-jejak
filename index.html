@@ -6,7 +6,7 @@
     <meta name="theme-color" content="#0a0d0e" />
     <meta
       name="description"
-        content="컴퓨터 조립, 형광등 교체, 샤워기 필터 정비를 실제 판단 과정부터 연습하는 3D 제품 실습 시뮬레이터"
+        content="컴퓨터·서랍장 조립, 형광등 교체, 샤워기 필터 정비를 실제 판단 과정부터 연습하는 3D 제품 실습 시뮬레이터"
     />
     <link rel="icon" href="data:," />
     <link rel="preload" as="image" href="/images/home-diy-hero-v1.jpg" fetchpriority="high" />
@@ -41,7 +41,7 @@
         <div class="intro-copy">
           <p class="eyebrow"><span>부품제작 실습실</span> 제품마다 다른 문제 해결 방식을 배우세요</p>
           <h1 id="title">무엇을 직접<br /><em>해결해 볼까요?</em></h1>
-          <p class="intro-lede">컴퓨터는 조립하고, 형광등은 규격을 판별하고, 샤워기 필터는 누수 없이 정비합니다.<br />제품마다 다른 실제 문제 해결 과정을 3D로 연습하세요.</p>
+          <p class="intro-lede">컴퓨터와 서랍장은 조립하고, 형광등은 규격을 판별하고, 샤워기 필터는 누수 없이 정비합니다.<br />제품마다 다른 실제 문제 해결 과정을 3D로 연습하세요.</p>
           <div class="module-picker" aria-label="실습 모듈 선택">
             <button id="start-button" class="module-card module-card--pc" type="button" disabled>
               <span class="module-card-number">01</span>
@@ -56,6 +56,11 @@
             <button id="shower-start-button" class="module-card module-card--shower" type="button" disabled>
               <span class="module-card-number">03</span>
               <span class="module-card-copy"><small>전용 리필 · O링 · 누수 검증</small><b>샤워기 필터 교체</b><em>모델을 판별하고 직접 끌어 장착</em></span>
+              <i aria-hidden="true">↗</i>
+            </button>
+            <button id="drawer-start-button" class="module-card module-card--drawer" type="button" disabled>
+              <span class="module-card-number">04</span>
+              <span class="module-card-copy"><small>판재 · 캠락 · 레일 · 전도 방지</small><b>3단 서랍장 조립</b><em>좌우를 판별하고 서랍이 움직일 때까지 조립</em></span>
               <i aria-hidden="true">↗</i>
             </button>
           </div>
@@ -264,6 +269,130 @@
           </div>
           <p class="fluorescent-learning shower-learning"><b>이번에 해결한 문제</b> 같은 브랜드 안에서도 다른 일반형·시그니처·여행용 리필을 구분하고, 물을 잠근 뒤 필터를 직접 장착해 O링 누수와 수압까지 검증했습니다.</p>
           <button id="shower-restart-button" type="button">다른 실습 선택 <span>↺</span></button>
+        </div>
+      </section>
+
+      <section id="drawer-workspace" class="fluorescent-workspace drawer-workspace" hidden aria-labelledby="drawer-title">
+        <aside class="fluorescent-route-panel drawer-route-panel" aria-label="3단 서랍장 조립 과정">
+          <div class="fluorescent-route-heading drawer-route-heading"><span>3단 서랍장 조립</span><b id="drawer-route-progress">01 / 08</b></div>
+          <div class="fluorescent-route drawer-route" id="drawer-route">
+            <div data-drawer-stage="kit"><i>01</i><span><b>키트·부품 확인</b><small>판재·레일·철물 수량</small></span></div>
+            <div data-drawer-stage="frame"><i>02</i><span><b>측판·상하판 결합</b><small>마감면과 안쪽 구멍</small></span></div>
+            <div data-drawer-stage="lock"><i>03</i><span><b>캠락 방향 잠금</b><small>화살표를 볼트 쪽으로</small></span></div>
+            <div data-drawer-stage="rails"><i>04</i><span><b>좌우 레일 장착</b><small>L/R·전면 방향 정렬</small></span></div>
+            <div data-drawer-stage="square"><i>05</i><span><b>뒤판·직각 맞춤</b><small>대각선 두 값 비교</small></span></div>
+            <div data-drawer-stage="drawers"><i>06</i><span><b>서랍 3개 끼우기</b><small>양쪽 레일 동시 진입</small></span></div>
+            <div data-drawer-stage="anchor"><i>07</i><span><b>전도 방지 계획</b><small>벽 재질별 앵커 확인</small></span></div>
+            <div data-drawer-stage="test"><i>08</i><span><b>열림·닫힘 시험</b><small>걸림·틈·쏠림 확인</small></span></div>
+          </div>
+          <div class="fluorescent-stop-card drawer-stop-card"><i>!</i><p><b>조립을 멈춰야 할 때</b><span>판재가 갈라졌거나 벽 재질을 확인할 수 없다면 강제로 체결하지 말고 제조사 또는 전문가에게 확인하세요.</span></p></div>
+          <button id="drawer-menu-button" class="fluorescent-menu-button drawer-menu-button" type="button">← 실습 선택으로 돌아가기</button>
+        </aside>
+
+        <aside class="fluorescent-guide-panel drawer-guide-panel" aria-live="polite">
+          <header class="fluorescent-guide-heading drawer-guide-heading">
+            <p><span id="drawer-step-code">선택 01</span><b>침실 · 3단 플랫팩 서랍장</b></p>
+            <h2 id="drawer-title">설명서를 펼치고<br />부품부터 구분하세요</h2>
+            <p id="drawer-copy">비슷해 보이는 판재도 구멍과 마감면의 방향이 다릅니다. 키트를 고른 뒤 수량과 판재 표시부터 확인하세요.</p>
+          </header>
+          <div class="fluorescent-progress-rail drawer-progress-rail"><i id="drawer-progress-fill"></i></div>
+
+          <div id="drawer-kit" class="fluorescent-view drawer-view drawer-kit">
+            <div class="fluorescent-section-label drawer-section-label"><span>연습할 키트 2종</span><b>외형·레일 방식이 3D에 적용됨</b></div>
+            <div id="drawer-kits" class="drawer-kits"></div>
+            <div class="drawer-inventory-heading"><span>설명서 부품표</span><b id="drawer-inventory-count">0 / 7 확인</b></div>
+            <div id="drawer-inventory" class="drawer-inventory"></div>
+          </div>
+
+          <div id="drawer-frame" class="fluorescent-view drawer-view drawer-frame" hidden>
+            <div class="fluorescent-section-label drawer-section-label"><span>3D 직접 조립</span><b id="drawer-frame-count">0 / 2 결합</b></div>
+            <div class="drawer-task-visual"><i class="drawer-task-icon drawer-task-icon--panels"></i><span><b id="drawer-frame-task">좌·우 측판 세트를 잡으세요</b><small>구멍이 있는 면은 안쪽, 마감면은 바깥쪽</small></span><em>캔버스에서 끌기</em></div>
+            <ol class="drawer-check-list">
+              <li data-drawer-frame-part="side-set"><i>01</i><span><b>좌·우 측판</b><small>서로 마주 보게 세우기</small></span><em>대기</em></li>
+              <li data-drawer-frame-part="top-base-set"><i>02</i><span><b>상판·바닥판</b><small>마감면을 바깥으로 맞추기</small></span><em>대기</em></li>
+            </ol>
+            <p class="fluorescent-safety-note drawer-safety-note"><b>바닥 보호</b> 판재 모서리가 찍히지 않도록 포장 상자나 러그 위에서 조립합니다.</p>
+          </div>
+
+          <div id="drawer-lock" class="fluorescent-view drawer-view drawer-lock" hidden>
+            <div class="fluorescent-section-label drawer-section-label"><span>캠락 6개 방향</span><b>그림과 홈을 함께 확인</b></div>
+            <div class="drawer-cam-diagram" aria-hidden="true"><span class="drawer-cam-bolt"></span><i><b>↗</b></i><em>연결 볼트</em></div>
+            <div class="drawer-choice-grid" id="drawer-lock-choices">
+              <button type="button" data-drawer-lock="bolt"><i>↗</i><span><b>화살표가 연결 볼트를 향함</b><small>볼트 머리가 캠 중앙으로 들어옴</small></span></button>
+              <button type="button" data-drawer-lock="outside"><i>↙</i><span><b>화살표가 바깥쪽을 향함</b><small>판재 모서리 방향으로 돌림</small></span></button>
+              <button type="button" data-drawer-lock="random"><i>↻</i><span><b>방향 없이 끝까지 먼저 조임</b><small>구멍에 넣자마자 강하게 회전</small></span></button>
+            </div>
+            <p class="fluorescent-safety-note drawer-safety-note"><b>과조임 금지</b> 캠이 볼트를 잡고 멈추는 지점까지만 돌립니다. 전동드릴의 높은 토크를 사용하지 않습니다.</p>
+          </div>
+
+          <div id="drawer-rails" class="fluorescent-view drawer-view drawer-rails" hidden>
+            <div class="fluorescent-section-label drawer-section-label"><span>레일 3쌍</span><b id="drawer-rail-state">방향 판별 전</b></div>
+            <div class="drawer-choice-grid drawer-choice-grid--compact" id="drawer-rail-choices">
+              <button type="button" data-drawer-rail="markings"><i>L·R</i><span><b>각인과 전면 화살표를 맞춤</b><small>L은 왼쪽, R은 오른쪽 · 전면 표시는 앞쪽</small></span></button>
+              <button type="button" data-drawer-rail="mirrored"><i>R·L</i><span><b>좌우를 거울처럼 뒤집어 장착</b><small>각인을 반대 측판에 배치</small></span></button>
+            </div>
+            <div id="drawer-rail-drag" class="drawer-task-visual is-locked"><i class="drawer-task-icon drawer-task-icon--rail"></i><span><b>방향을 먼저 판별하세요</b><small>정답 확인 후 3D 레일 세트를 끌 수 있습니다</small></span><em>잠김</em></div>
+          </div>
+
+          <div id="drawer-square" class="fluorescent-view drawer-view drawer-square" hidden>
+            <div class="fluorescent-section-label drawer-section-label"><span>뒤판·직각 검증</span><b id="drawer-square-state">뒤판 장착 전</b></div>
+            <div class="drawer-task-visual"><i class="drawer-task-icon drawer-task-icon--back"></i><span><b>뒤판을 골조 뒤에 끌어 놓으세요</b><small>모서리 네 곳을 먼저 맞춘 뒤 대각선을 잽니다</small></span><em>캔버스에서 끌기</em></div>
+            <div id="drawer-diagonal-choices" class="drawer-diagonal-choices is-locked">
+              <button type="button" data-drawer-diagonal="equal"><i>↘ 83.4</i><i>↙ 83.4</i><b>두 대각선이 같음</b></button>
+              <button type="button" data-drawer-diagonal="skew"><i>↘ 83.4</i><i>↙ 84.8</i><b>한쪽이 1.4 cm 김</b></button>
+            </div>
+          </div>
+
+          <div id="drawer-drawers" class="fluorescent-view drawer-view drawer-drawers" hidden>
+            <div class="fluorescent-section-label drawer-section-label"><span>서랍 삽입</span><b id="drawer-drawer-count">0 / 3 장착</b></div>
+            <div class="drawer-task-visual"><i class="drawer-task-icon drawer-task-icon--drawer"></i><span><b id="drawer-drawer-task">아래 서랍부터 양쪽 레일에 맞추세요</b><small>한쪽만 걸지 말고 수평을 유지해 동시에 밀기</small></span><em>캔버스에서 끌기</em></div>
+            <div class="drawer-slot-list">
+              <span data-drawer-slot="drawer-1"><i>01</i><b>아래 서랍</b><em>대기</em></span>
+              <span data-drawer-slot="drawer-2"><i>02</i><b>가운데 서랍</b><em>대기</em></span>
+              <span data-drawer-slot="drawer-3"><i>03</i><b>위 서랍</b><em>대기</em></span>
+            </div>
+          </div>
+
+          <div id="drawer-anchor" class="fluorescent-view drawer-view drawer-anchor" hidden>
+            <div class="fluorescent-section-label drawer-section-label"><span>전도 방지</span><b>벽 재질에 따라 체결재가 달라짐</b></div>
+            <p class="drawer-field-note"><b>현장 단서</b> 관리사무소 도면과 노출된 벽면을 확인하니 서랍장 뒤는 <em>철근콘크리트 벽</em>입니다.</p>
+            <div class="drawer-anchor-step"><span>01 벽 재질 판별</span><div id="drawer-wall-choices"><button type="button" data-drawer-wall="concrete">철근콘크리트</button><button type="button" data-drawer-wall="drywall">석고보드</button><button type="button" data-drawer-wall="unknown">확인 불가</button></div></div>
+            <div class="drawer-anchor-step is-locked" id="drawer-anchor-plan"><span>02 체결 계획 선택</span><div><button type="button" data-drawer-anchor="matched">콘크리트용 앵커·나사 규격 확인</button><button type="button" data-drawer-anchor="included">남는 나사 아무거나 사용</button><button type="button" data-drawer-anchor="tape">양면테이프로 벽에 부착</button></div></div>
+            <p class="fluorescent-safety-note drawer-safety-note"><b>실제 작업 범위</b> 동봉 브래킷은 사용하되 벽용 나사·앵커는 벽 재질과 제조사 지침에 맞춰 별도로 고릅니다. 확신이 없으면 전문가에게 요청하세요.</p>
+          </div>
+
+          <div id="drawer-test" class="fluorescent-view drawer-view drawer-test" hidden>
+            <div class="fluorescent-section-label drawer-section-label"><span>기능 검증</span><b id="drawer-test-count">0 / 3 통과</b></div>
+            <div class="drawer-test-buttons">
+              <button type="button" data-drawer-test="drawer-3"><i>03</i><span><b>위 서랍 열고 닫기</b><small>전면 틈과 걸림 확인</small></span><em>시험</em></button>
+              <button type="button" data-drawer-test="drawer-2"><i>02</i><span><b>가운데 서랍 열고 닫기</b><small>좌우 레일 소음 확인</small></span><em>시험</em></button>
+              <button type="button" data-drawer-test="drawer-1"><i>01</i><span><b>아래 서랍 열고 닫기</b><small>끝단 스토퍼 작동 확인</small></span><em>시험</em></button>
+            </div>
+            <p class="drawer-field-note"><b>합격 기준</b> 한 칸씩 열었을 때 수평을 유지하고, 닫힌 앞판 사이의 틈이 일정하며, 끝단에서 레일을 이탈하지 않아야 합니다.</p>
+          </div>
+
+          <div id="drawer-feedback" class="fluorescent-feedback drawer-feedback" role="status">키트를 하나 고르고 설명서 부품표 7개를 모두 확인하세요.</div>
+          <button id="drawer-action" class="fluorescent-action drawer-action" type="button" disabled>키트·부품 확인 완료 <span>→</span></button>
+        </aside>
+
+        <div id="drawer-drag-coach" class="drawer-drag-coach" hidden aria-hidden="true"><small>클릭한 채 이동</small><b id="drawer-drag-distance">빛나는 윤곽으로 옮기세요</b></div>
+        <div class="fluorescent-camera-help drawer-camera-help"><span><b>3D 부품 끌기</b> 직접 장착</span><span><b>빈 공간 끌기</b> 시점 회전</span><span><b>휠</b> 확대/축소</span></div>
+      </section>
+
+      <section id="drawer-completion" class="fluorescent-completion drawer-completion" hidden aria-labelledby="drawer-completion-title">
+        <div class="fluorescent-completion-panel drawer-completion-panel">
+          <p>조립·수평·전도 방지 검증 완료</p>
+          <h2 id="drawer-completion-title">세 칸 모두<br /><em>부드럽습니다.</em></h2>
+          <div class="drawer-result-motion"><i><span></span></i><span><b id="drawer-result-kit">3단 서랍장</b>전면 틈 일정 · 레일 이탈 없음 · 벽 고정 계획 완료</span></div>
+          <div class="fluorescent-result-grid drawer-result-grid">
+            <span><small>선택 마감</small><b id="drawer-result-finish">무광 화이트</b></span>
+            <span><small>레일 방식</small><b id="drawer-result-rail">롤러 레일</b></span>
+            <span><small>직각 오차</small><b>0.0 cm</b></span>
+            <span><small>조립 실수</small><b id="drawer-error-count">0회</b></span>
+          </div>
+          <p class="fluorescent-learning drawer-learning"><b>이번에 해결한 문제</b> 비슷한 판재의 안팎과 캠락 방향, 좌우 레일을 구분하고 뒤판 대각선으로 직각을 맞췄습니다. 마지막에는 벽 재질에 맞는 전도 방지 계획과 세 칸의 실제 작동까지 검증했습니다.</p>
+          <p class="drawer-completion-camera"><b>빈 공간 끌기</b> 시점 회전 · <b>휠</b> 확대/축소</p>
+          <button id="drawer-restart-button" type="button">다른 실습 선택 <span>↺</span></button>
         </div>
       </section>
 

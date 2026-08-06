@@ -210,8 +210,10 @@ let lastFrame = performance.now();
 const fanGroups = [];
 const rgbMaterials = [];
 const rgbLights = [];
+const monitorScreenMaterials = [];
 const furnitureRoots = [];
 let roomRoot = null;
+let monitorBootTexture = null;
 let pcAssemblyRig = null;
 let pcAssemblyBench = null;
 let fluorescentModule = null;
@@ -255,6 +257,63 @@ function addCylinder(parent, name, radius, height, position, material, axis = 'y
   mesh.receiveShadow = true;
   parent.add(mesh);
   return mesh;
+}
+
+function createMonitorBootTexture() {
+  const canvas = document.createElement('canvas');
+  canvas.width = 1024;
+  canvas.height = 576;
+  const context = canvas.getContext('2d');
+  const gradient = context.createLinearGradient(0, 0, canvas.width, canvas.height);
+  gradient.addColorStop(0, '#061315');
+  gradient.addColorStop(0.55, '#0b2728');
+  gradient.addColorStop(1, '#121025');
+  context.fillStyle = gradient;
+  context.fillRect(0, 0, canvas.width, canvas.height);
+
+  context.strokeStyle = 'rgba(103, 220, 194, .15)';
+  context.lineWidth = 1;
+  for (let x = 0; x < canvas.width; x += 64) {
+    context.beginPath();
+    context.moveTo(x, 0);
+    context.lineTo(x, canvas.height);
+    context.stroke();
+  }
+  for (let y = 0; y < canvas.height; y += 64) {
+    context.beginPath();
+    context.moveTo(0, y);
+    context.lineTo(canvas.width, y);
+    context.stroke();
+  }
+
+  context.fillStyle = '#67dcc2';
+  context.font = '600 34px monospace';
+  context.fillText('BUILD // LAB', 64, 78);
+  context.fillStyle = '#eff8f5';
+  context.font = '700 72px sans-serif';
+  context.fillText('SYSTEM READY', 64, 188);
+  context.fillStyle = '#8ba29d';
+  context.font = '500 24px monospace';
+  context.fillText('CPU  OK    MEMORY  OK    GPU  OK', 66, 244);
+
+  const bars = [0.78, 0.62, 0.9];
+  bars.forEach((value, index) => {
+    const y = 344 + index * 58;
+    context.fillStyle = 'rgba(255,255,255,.07)';
+    context.fillRect(66, y, 520, 13);
+    context.fillStyle = index === 2 ? '#8a62ff' : '#67dcc2';
+    context.fillRect(66, y, 520 * value, 13);
+  });
+  context.fillStyle = '#798c88';
+  context.font = '500 19px monospace';
+  context.fillText('THERMAL', 620, 354);
+  context.fillText('AIRFLOW', 620, 412);
+  context.fillText('STABILITY', 620, 470);
+
+  const texture = new THREE.CanvasTexture(canvas);
+  texture.colorSpace = THREE.SRGBColorSpace;
+  texture.anisotropy = Math.min(8, renderer.capabilities.getMaxAnisotropy());
+  return texture;
 }
 
 function variantGroup(root, id) {
@@ -370,6 +429,7 @@ function buildFurnitureScene() {
     screen.material = screen.material.clone();
     screen.material.emissive.set(samsung ? 0x082933 : 0x2a071a);
     screen.material.emissiveIntensity = 0.9;
+    monitorScreenMaterials.push(screen.material);
     if (samsung) {
       const ring = new THREE.Mesh(new THREE.TorusGeometry(0.5, 0.035, 12, 48), accent);
       ring.name = 'samsung_core_ring';
@@ -393,15 +453,45 @@ function buildFurnitureScene() {
 function buildRoomScene() {
   roomRoot = new THREE.Group();
   roomRoot.name = 'completed_gaming_room';
-  const roomFloor = finishMaterial(0x161a1b, { roughness: 0.88, metalness: 0.02 });
-  const wall = finishMaterial(0x202527, { roughness: 0.93, metalness: 0 });
+  const roomFloor = finishMaterial(0x151a1b, { roughness: 0.9, metalness: 0.02 });
+  const floorPlankDark = finishMaterial(0x24201c, { roughness: 0.76, metalness: 0.01 });
+  const floorPlankLight = finishMaterial(0x302820, { roughness: 0.72, metalness: 0.01 });
+  const wall = finishMaterial(0x202527, { roughness: 0.94, metalness: 0 });
+  const wallTrim = finishMaterial(0x101516, { roughness: 0.68, metalness: 0.12 });
+  const walnut = finishMaterial(0x4b3020, { roughness: 0.7, metalness: 0.01 });
+  const acousticFelt = finishMaterial(0x111617, { roughness: 0.98, metalness: 0 });
+  const deskAccessory = finishMaterial(0x15191b, { roughness: 0.48, metalness: 0.24 });
+  const deskMat = finishMaterial(0x102321, { roughness: 0.96, metalness: 0 });
   const rug = finishMaterial(0x172d2b, { roughness: 0.98, metalness: 0 });
   addBox(roomRoot, 'room_floor', [14, 0.14, 11], [-2.2, -0.15, 1.2], roomFloor, 0.03);
+  for (let index = 0; index < 14; index += 1) {
+    const x = -8.7 + index * 1.0;
+    const plank = addBox(roomRoot, `floor_plank_${index}`, [0.94, 0.035, 10.7], [x, -0.055, 1.2], index % 3 === 0 ? floorPlankLight : floorPlankDark, 0.015);
+    plank.receiveShadow = true;
+  }
   addBox(roomRoot, 'room_back_wall', [14, 8.2, 0.12], [-2.2, 4, -4.2], wall, 0.03);
   addBox(roomRoot, 'room_side_wall', [0.12, 8.2, 11], [-9.2, 4, 1.2], wall, 0.03);
+  addBox(roomRoot, 'room_back_baseboard', [14, 0.22, 0.08], [-2.2, 0.1, -4.08], wallTrim, 0.02);
+  addBox(roomRoot, 'room_side_baseboard', [0.08, 0.22, 11], [-9.08, 0.1, 1.2], wallTrim, 0.02);
   addBox(roomRoot, 'room_rug', [5.2, 0.035, 4.4], [-4.6, -0.04, 3.4], rug, 0.35);
-  addBox(roomRoot, 'wall_shelf', [3.4, 0.12, 0.55], [-5.4, 5.9, -3.8], finishMaterial(0x4e3525, { roughness: 0.74 }), 0.04);
-  [-6.5, -5.4, -4.3].forEach((x, index) => addBox(roomRoot, 'shelf_object', [0.38, 0.8 + index * 0.12, 0.3], [x, 6.35, -3.66], finishMaterial(index === 1 ? 0x8a62ff : 0x303b3b, { roughness: 0.6 }), 0.06));
+  addBox(roomRoot, 'acoustic_felt', [4.25, 4.65, 0.06], [-5.0, 3.55, -4.08], acousticFelt, 0.02);
+  for (let index = 0; index < 17; index += 1) {
+    addBox(roomRoot, `acoustic_slat_${index}`, [0.12, 4.45, 0.08], [-7 + index * 0.25, 3.55, -3.99], walnut, 0.018);
+  }
+  addBox(roomRoot, 'wall_shelf', [3.4, 0.12, 0.55], [-5.4, 6.3, -3.78], walnut, 0.04);
+  [-6.5, -5.4, -4.3].forEach((x, index) => addBox(roomRoot, 'shelf_object', [0.38, 0.8 + index * 0.12, 0.3], [x, 6.75, -3.66], finishMaterial(index === 1 ? 0x8a62ff : 0x303b3b, { roughness: 0.6 }), 0.06));
+  addBox(roomRoot, 'desk_mat', [3.8, 0.035, 1.28], [-5, 3.33, 0.42], deskMat, 0.12);
+  addBox(roomRoot, 'keyboard_body', [1.75, 0.1, 0.54], [-5.15, 3.42, 0.43], deskAccessory, 0.06);
+  for (let row = 0; row < 4; row += 1) {
+    for (let column = 0; column < 12; column += 1) {
+      addBox(roomRoot, 'keyboard_key', [0.1, 0.025, 0.08], [-5.69 + column * 0.1, 3.49, 0.25 + row * 0.1], finishMaterial(0x343b3c, { roughness: 0.58, metalness: 0.08 }), 0.015);
+    }
+  }
+  addBox(roomRoot, 'mouse', [0.27, 0.1, 0.42], [-3.95, 3.42, 0.43], deskAccessory, 0.11);
+  addBox(roomRoot, 'desk_cable_channel', [3.9, 0.18, 0.22], [-5, 2.88, -0.8], wallTrim, 0.05);
+  addCylinder(roomRoot, 'floor_lamp_post', 0.055, 3.4, [-8.2, 1.7, 2.0], wallTrim, 'y', 20);
+  addCylinder(roomRoot, 'floor_lamp_base', 0.42, 0.08, [-8.2, 0.02, 2.0], wallTrim, 'y', 32);
+  addCylinder(roomRoot, 'floor_lamp_shade', 0.44, 0.68, [-8.2, 3.3, 2.0], finishMaterial(0xd5a868, { emissive: 0x5c3211, emissiveIntensity: 1.2, roughness: 0.5 }), 'y', 32);
   addBox(roomRoot, 'neon_bar_cyan', [3.2, 0.055, 0.04], [-5.1, 7.1, -4.05], finishMaterial(0x69e7ff, { emissive: 0x69e7ff, emissiveIntensity: 4, roughness: 0.1 }), 0.02).rotation.z = -0.26;
   addBox(roomRoot, 'neon_bar_magenta', [2.2, 0.055, 0.04], [-2.5, 6.7, -4.05], finishMaterial(0xff4f9a, { emissive: 0xff4f9a, emissiveIntensity: 4, roughness: 0.1 }), 0.02).rotation.z = 0.38;
   const roomLight = new THREE.PointLight(0x6ee7d0, 0, 12, 2);
@@ -412,6 +502,13 @@ function buildRoomScene() {
   warmLamp.name = 'room_warm_light';
   warmLamp.position.set(-8, 3.8, 2.5);
   roomRoot.add(warmLamp);
+  const monitorLight = new THREE.SpotLight(0x69e7ff, 0, 10, Math.PI / 3.2, 0.8, 1.5);
+  monitorLight.name = 'room_monitor_light';
+  monitorLight.position.set(-5, 5.0, 0.1);
+  monitorLight.target.position.set(-5, 2.1, 2.2);
+  monitorLight.castShadow = true;
+  monitorLight.shadow.mapSize.set(1024, 1024);
+  roomRoot.add(monitorLight, monitorLight.target);
   roomRoot.visible = false;
   scene.add(roomRoot);
 }
@@ -1391,11 +1488,14 @@ function powerOnGamingRig() {
   state.poweredOn = true;
   state.powerStartedAt = performance.now();
   const monitorColor = state.purchases.get('monitor') === 'lg-27gx790a' ? 0xff4f9a : 0x69e7ff;
+  if (!monitorBootTexture) monitorBootTexture = createMonitorBootTexture();
   furnitureRoots.forEach((root) => root.traverse((object) => {
     if (object.name !== 'monitor_oled_screen' || !object.material) return;
+    object.material.map = monitorBootTexture;
     object.material.emissive.set(monitorColor);
-    object.material.emissiveIntensity = 1.7;
+    object.material.emissiveIntensity = 1.05;
     object.material.color.set(0x061113);
+    object.material.needsUpdate = true;
   }));
   playTone('install');
 }
@@ -1431,6 +1531,14 @@ function animateGamingEffects(now, delta) {
     light.color.setHSL(hue, 0.9, 0.55);
     light.intensity = lightStrength * (6.5 + Math.sin(now * 0.0025 + index) * 1.2);
   });
+
+  if (state.poweredOn && roomRoot?.visible) {
+    const monitorLight = roomRoot.getObjectByName('room_monitor_light');
+    if (monitorLight) monitorLight.intensity = 4.4 + Math.sin(now * 0.0017) * 0.25;
+    monitorScreenMaterials.forEach((material, index) => {
+      material.emissiveIntensity = 0.95 + Math.sin(now * 0.0014 + index) * 0.08;
+    });
+  }
 }
 
 function finishAssembly() {
@@ -1443,21 +1551,26 @@ function finishAssembly() {
   powerOnGamingRig();
   setPcAssemblyPose(false);
   if (pcAssemblyRig) {
-    pcAssemblyRig.position.x = -2.2;
+    pcAssemblyRig.scale.setScalar(0.42);
+    pcAssemblyRig.position.set(-2.85, 3.48, -0.18);
+    pcAssemblyRig.rotation.y = -0.08;
     pcAssemblyRig.updateMatrixWorld(true);
   }
   if (roomRoot) {
     roomRoot.visible = true;
     roomRoot.getObjectByName('room_rgb_light').intensity = 7.5;
     roomRoot.getObjectByName('room_warm_light').intensity = 5.5;
+    roomRoot.getObjectByName('room_monitor_light').intensity = 4.4;
   }
   const environment = modelScene.getObjectByName('environment');
   if (environment) environment.visible = false;
   floor.visible = false;
   grid.visible = false;
+  renderer.toneMappingExposure = 0.92;
+  bloom.strength = 0.2;
   ui.completionTotal.textContent = formatWon(purchaseTotal());
 
-  tweenCamera(new THREE.Vector3(10.8, 8.7, 14.2), new THREE.Vector3(-1.25, 2.8, 0.7), 1300);
+  tweenCamera(new THREE.Vector3(7.8, 7.5, 13.8), new THREE.Vector3(-4.25, 3.0, 0.15), 1300);
   window.setTimeout(() => {
     ui.workspace.hidden = true;
     ui.completion.hidden = false;
@@ -1718,11 +1831,17 @@ window.__BUILD_LAB_QA__ = {
     };
   },
   roomState() {
+    const pcBounds = pcAssemblyRig ? new THREE.Box3().setFromObject(pcAssemblyRig, true) : null;
     return {
       visible: Boolean(roomRoot?.visible),
       furnitureParts: furnitureRoots.length,
       environmentVisible: modelScene?.getObjectByName('environment')?.visible ?? null,
       floorVisible: floor.visible,
+      pcBounds: pcBounds ? {
+        min: pcBounds.min.toArray(),
+        max: pcBounds.max.toArray(),
+        size: pcBounds.getSize(new THREE.Vector3()).toArray(),
+      } : null,
     };
   },
   powerState() {

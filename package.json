@@ -1,0 +1,22 @@
+{
+  "name": "build-lab-desktop-atx",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite --host 127.0.0.1",
+    "build": "vite build",
+    "preview": "vite preview --host 127.0.0.1",
+    "test": "node --test tests/*.test.mjs",
+    "assets": "blender --background --python tools/build_pc_scene.py",
+    "assets:cables": "blender --background assets/pc-lab-source.blend --python tools/update_cable_asset.py",
+    "assets:glass": "blender --background assets/pc-lab-source.blend --python tools/update_case_glass.py",
+    "assets:interaction": "blender --background assets/pc-lab-source.blend --python tools/update_interaction_proxy.py"
+  },
+  "dependencies": {
+    "three": "^0.179.1"
+  },
+  "devDependencies": {
+    "vite": "^7.1.1"
+  }
+}

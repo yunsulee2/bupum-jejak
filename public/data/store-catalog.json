@@ -1,0 +1,143 @@
+{
+  "updatedAt": "2026-08-06",
+  "currency": "KRW",
+  "notice": "표시 가격은 조회일 기준 공식몰·가격비교 참고가이며 실제 결제가는 판매처와 시점에 따라 달라질 수 있습니다.",
+  "categories": [
+    {
+      "id": "desk",
+      "code": "공간-01",
+      "group": "공간 가구",
+      "name": "게이밍 책상",
+      "description": "상판 크기, 높이 조절 방식과 케이블 정리 구조가 조립 부품과 최종 방에 반영됩니다.",
+      "assemblyPartIds": ["desk-frame", "desk-top"],
+      "options": [
+        {
+          "id": "ikea-utespelare",
+          "name": "IKEA 우테스펠라레 160×80",
+          "maker": "IKEA",
+          "price": 199000,
+          "badge": "고정형",
+          "spec": "1600×800mm · 6단계 수동 높이",
+          "summary": "넓은 상판과 후면 타공판, 케이블 수납망을 갖춘 게이밍 책상",
+          "image": "/products/ikea-utespelare.jpg",
+          "source": "https://www.ikea.com/kr/ko/p/utespelare-gaming-desk-ash-effect-grey-90571533/",
+          "appearance": { "style": "fixed", "color": "#343a3b", "accent": "#7c8b88" }
+        },
+        {
+          "id": "desker-motion-1600",
+          "name": "데스커 모션데스크 프리미엄 1600",
+          "maker": "DESKER",
+          "price": 923000,
+          "badge": "전동형",
+          "spec": "1600×700mm · 전동 높이 조절",
+          "summary": "듀얼 모터 다리와 높이 컨트롤러를 갖춘 프리미엄 모션데스크",
+          "image": "/products/desker-motion.png",
+          "source": "https://www.desker.co.kr/product/detail/271",
+          "appearance": { "style": "motion", "color": "#e9e5dc", "accent": "#f1f3f2" }
+        }
+      ]
+    },
+    {
+      "id": "chair",
+      "code": "공간-02",
+      "group": "공간 가구",
+      "name": "게이밍 의자",
+      "description": "등판 형태, 좌판과 팔걸이 구조가 실제 조립 부품과 방의 의자 외형을 결정합니다.",
+      "assemblyPartIds": ["chair-base", "chair-body"],
+      "options": [
+        {
+          "id": "sidiz-gc-pro",
+          "name": "시디즈 GC PRO 일반형",
+          "maker": "SIDIZ",
+          "price": 690000,
+          "badge": "인체공학형",
+          "spec": "9단계 팔걸이 · 게이밍 틸트",
+          "summary": "조절 범위가 넓고 메시형 포인트가 있는 국내 프리미엄 게이밍 의자",
+          "image": "/products/sidiz-gc-pro.jpg",
+          "source": "https://kr.sidiz.com/pages/gc-pro",
+          "appearance": { "style": "ergonomic", "color": "#182322", "accent": "#45d5ba" }
+        },
+        {
+          "id": "secretlab-titan-evo",
+          "name": "Secretlab TITAN Evo",
+          "maker": "Secretlab",
+          "price": 1211500,
+          "badge": "버킷형",
+          "spec": "4D 팔걸이 · 내장 요추 지지",
+          "summary": "높은 등판과 측면 볼스터를 갖춘 대표적인 레이싱 스타일 의자",
+          "image": "/products/secretlab-titan.jpg",
+          "source": "https://secretlabchairs.co.kr/pages/titan-evo-2022-series",
+          "appearance": { "style": "racing", "color": "#15181c", "accent": "#8a62ff" }
+        }
+      ]
+    },
+    {
+      "id": "monitor",
+      "code": "기기-01",
+      "group": "디스플레이",
+      "name": "게이밍 모니터",
+      "description": "패널 크기와 스탠드 구조가 조립 단계와 최종 책상 배치에 그대로 반영됩니다.",
+      "assemblyPartIds": ["monitor-stand", "monitor-panel"],
+      "options": [
+        {
+          "id": "samsung-g60sf",
+          "name": "삼성 오디세이 OLED G6 G60SF",
+          "maker": "SAMSUNG",
+          "price": 1190000,
+          "badge": "500Hz",
+          "spec": "27형 · QHD · OLED · 500Hz",
+          "summary": "초고주사율 경쟁 게임에 초점을 둔 평면 OLED 게이밍 모니터",
+          "image": "/products/samsung-g60sf.png",
+          "source": "https://www.samsung.com/sec/monitors/gaming-ls27fg600skxkr-d2c/LS27FG600SKXKR/",
+          "appearance": { "style": "odyssey", "color": "#171a1d", "accent": "#69e7ff", "width": 3.0 }
+        },
+        {
+          "id": "lg-27gx790a",
+          "name": "LG 울트라기어 OLED 27GX790A",
+          "maker": "LG",
+          "price": 1090000,
+          "badge": "480Hz",
+          "spec": "27형 · QHD · OLED · 480Hz",
+          "summary": "DP 2.1과 빠른 OLED 응답속도를 갖춘 e스포츠 지향 모니터",
+          "image": "/products/lg-27gx790a.jpg",
+          "source": "https://www.lge.co.kr/monitors/27gx790a",
+          "appearance": { "style": "ultragear", "color": "#111315", "accent": "#ff4f9a", "width": 3.0 }
+        }
+      ]
+    },
+    {
+      "id": "case",
+      "code": "본체-00",
+      "group": "PC 부품",
+      "name": "PC 케이스",
+      "description": "선택한 케이스에 따라 전면 패널, 프레임 색과 최종 게이밍 PC 인상이 달라집니다.",
+      "assemblyPartIds": [],
+      "options": [
+        {
+          "id": "fractal-north-xl",
+          "name": "Fractal Design North XL",
+          "maker": "Fractal Design",
+          "price": 289000,
+          "badge": "우드 전면",
+          "spec": "XL ATX · 목재 흡기 패널",
+          "summary": "목재 슬랫과 메시 흡기를 조합한 차분한 게이밍 케이스",
+          "image": "/products/fractal-north-xl.jpg",
+          "source": "https://www.fractal-design.com/products/cases/north/north-xl/charcoal-black/",
+          "appearance": { "style": "wood", "color": "#151a1b", "accent": "#8c5635" }
+        },
+        {
+          "id": "nzxt-h9-flow",
+          "name": "NZXT H9 Flow",
+          "maker": "NZXT",
+          "price": 249000,
+          "badge": "화이트 쇼케이스",
+          "spec": "ATX · 듀얼 챔버 · 강화유리",
+          "summary": "밝은 프레임과 넓은 유리 면으로 내부 부품을 강조하는 케이스",
+          "image": "/products/nzxt-h9-flow.png",
+          "source": "https://nzxt.com/product/h9-flow",
+          "appearance": { "style": "glass-white", "color": "#dfe4e4", "accent": "#eaf9ff" }
+        }
+      ]
+    }
+  ]
+}

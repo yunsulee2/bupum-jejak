@@ -1,0 +1,199 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="theme-color" content="#0a0d0e" />
+    <meta
+      name="description"
+      content="실제 조립 순서와 첫 부팅을 연습하는 게이밍 데스크톱 PC 3D 조립 시뮬레이터"
+    />
+    <link rel="icon" href="data:," />
+    <title>조립 실습실 · 데스크톱 PC 만들기</title>
+  </head>
+  <body>
+    <main id="app" class="app" data-mode="loading">
+      <section class="viewport-shell" aria-label="3D 데스크톱 PC 조립 작업대">
+        <div id="scene" class="scene"></div>
+        <div class="viewport-grid" aria-hidden="true"></div>
+        <div class="ambient-glow" aria-hidden="true"></div>
+        <div class="loading-screen" id="loading-screen">
+          <div class="loading-mark"><i></i><i></i><i></i></div>
+          <p>정밀 3D 부품 불러오기</p>
+          <strong>조립 작업대를 준비하는 중</strong>
+          <div class="loading-track"><i id="loading-progress"></i></div>
+        </div>
+      </section>
+
+      <header class="topbar">
+        <a class="brand" href="/" aria-label="조립 실습실 처음 화면">
+          <span class="brand-symbol" aria-hidden="true"><i></i></span>
+          <span><b>조립//실습실</b><small>실무형 제품 조립 훈련</small></span>
+        </a>
+        <div class="session-meta">
+          <span><i></i> 실습 환경 정상</span>
+          <strong id="session-label">게이밍 룸 · 구매 준비</strong>
+        </div>
+      </header>
+
+      <section id="intro" class="intro" aria-labelledby="title">
+        <div class="intro-copy">
+          <p class="eyebrow"><span>실습 01</span> 나만의 게이밍 룸 만들기</p>
+          <h1 id="title">구매부터 조립까지,<br /><em>내 공간을 완성하다.</em></h1>
+          <p class="intro-lede">
+            실제 인기 제품의 가격과 사양을 비교해 예산을 짜고,<br />구매한 책상·의자·모니터·게이밍 PC를 직접 조립해 방에 배치하세요.
+          </p>
+          <button id="start-button" class="start-button" type="button" disabled>
+            <span><small>12개 품목 · 실제품 24개 비교 · 조립 14단계</small>제품 구매 시작</span>
+            <i aria-hidden="true">↗</i>
+          </button>
+          <div class="intro-specs" aria-label="실습 사양">
+            <span>ATX</span><span>AM5</span><span>DDR5</span><span>PCIe 5.0</span><span>M.2 2280</span><span>RGB 냉각</span>
+          </div>
+        </div>
+        <div class="intro-index" aria-hidden="true">
+          <span>01</span><i></i><small>조립<br />검증<br />첫 부팅</small>
+        </div>
+      </section>
+
+      <section id="shop" class="shop" hidden aria-labelledby="shop-title">
+        <div class="shop-shell">
+          <aside class="shop-nav" aria-label="구매 품목">
+            <div class="shop-nav-heading">
+              <span>구매 목록</span>
+              <b id="shop-progress">01 / 12</b>
+            </div>
+            <div id="shop-categories" class="shop-categories"></div>
+            <p class="shop-nav-note"><i>i</i>품목마다 하나씩 선택하세요. 선택한 외형이 조립 부품과 완성된 방에 그대로 적용됩니다.</p>
+          </aside>
+
+          <section class="shop-stage">
+            <header class="shop-stage-heading">
+              <p><span id="shop-group">공간 가구</span><b id="shop-code">공간-01</b></p>
+              <h2 id="shop-title">게이밍 책상</h2>
+              <p id="shop-description"></p>
+            </header>
+            <div id="shop-options" class="shop-options"></div>
+            <div class="shop-assurance">
+              <span><i>01</i><b>실제품 기준</b>제조사·공식 제품 정보 반영</span>
+              <span><i>02</i><b>구매 연동</b>선택한 SKU가 3D 부품으로 변경</span>
+              <span><i>03</i><b>예산 확인</b>품목별 가격과 총액 즉시 계산</span>
+            </div>
+          </section>
+
+          <aside class="cart-panel" aria-label="구매 견적">
+            <div class="cart-heading">
+              <span>나의 게이밍 룸 견적</span>
+              <b><i id="cart-count">0</i> / 12</b>
+            </div>
+            <div id="cart-lines" class="cart-lines"></div>
+            <div class="cart-total">
+              <span>예상 구매 총액<small>배송·조립 공임 제외</small></span>
+              <strong id="cart-total">0원</strong>
+            </div>
+            <p class="price-meta">가격 기준일 <b id="catalog-date">-</b></p>
+            <p id="price-notice" class="price-notice"></p>
+            <button id="purchase-button" class="purchase-button" type="button" disabled>
+              구매 확정하고 조립하기 <span>→</span>
+            </button>
+          </aside>
+        </div>
+      </section>
+
+      <section id="workspace" class="workspace" hidden>
+        <aside class="inventory-panel" aria-label="부품 목록">
+          <div class="panel-heading">
+            <span>부품 보관함</span>
+            <b id="part-count">00 / 14</b>
+          </div>
+          <div id="part-list" class="part-list"></div>
+          <div class="inventory-note">
+            <i aria-hidden="true">!</i>
+            <p><b>정전기 안전 구역</b><span>부품 접점과 소켓 핀을 직접 만지지 마세요.</span></p>
+          </div>
+        </aside>
+
+        <aside class="guide-panel" aria-live="polite">
+          <div class="guide-progress">
+            <span id="chapter-label">사전 조립</span>
+            <b><i id="step-current">01</i> / <span id="step-total">14</span></b>
+          </div>
+          <div class="progress-rail"><i id="progress-fill"></i></div>
+          <div class="guide-content">
+            <p id="step-kicker" class="step-kicker">소켓 방향 맞추기</p>
+            <h2 id="step-title">CPU를 장착하세요</h2>
+            <p id="step-copy" class="step-copy"></p>
+            <div class="guide-phases" aria-label="현재 조립 과정">
+              <span data-phase="choose"><i>✓</i> 구매 확인</span>
+              <span data-phase="grab"><i>2</i> 부품 잡기</span>
+              <span data-phase="drop"><i>3</i> 위치에 놓기</span>
+            </div>
+            <div class="variant-section">
+              <div class="variant-heading"><span>구매한 부품</span><b>구매 단계의 선택이 적용됨</b></div>
+              <div id="variant-list" class="variant-list"></div>
+            </div>
+            <div id="placement-guide" class="placement-guide">
+              <span>장착 위치 안내</span>
+              <p id="placement-copy"></p>
+            </div>
+            <dl class="spec-list">
+              <div><dt>규격</dt><dd id="step-spec"></dd></div>
+              <div><dt>도구</dt><dd id="step-tool"></dd></div>
+              <div><dt>검증</dt><dd id="step-check"></dd></div>
+            </dl>
+            <div class="warning-card">
+              <span>주의</span>
+              <p id="step-warning"></p>
+            </div>
+          </div>
+          <div id="drag-status" class="drag-status" role="status">
+            <span><small>현재 할 일</small><b id="drag-status-label">종류를 고른 뒤 3D 부품을 잡으세요</b></span>
+            <i aria-hidden="true">끌기</i>
+          </div>
+        </aside>
+
+        <footer class="tool-dock" aria-label="3D 작업 도구">
+          <div class="camera-help"><i></i><span><b>빈 공간 끌기</b> 회전</span><span><b>휠</b> 확대</span></div>
+          <div class="dock-actions">
+            <button id="focus-button" type="button"><i>◎</i><span>선택 부품 보기</span></button>
+            <button id="explode-button" type="button"><i>↔</i><span>분해도</span></button>
+            <button id="reset-camera" type="button"><i>↺</i><span>카메라 초기화</span></button>
+          </div>
+        </footer>
+
+        <div id="part-callout" class="part-callout" hidden>
+          <span id="callout-code">P-01</span><b id="callout-name">CPU</b>
+        </div>
+
+        <div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+        <div id="drag-coach" class="drag-coach" hidden aria-hidden="true">
+          <span>마우스를 놓아 장착</span><b id="drag-distance">목표 위치 찾는 중</b>
+        </div>
+      </section>
+
+      <section id="completion" class="completion" hidden aria-labelledby="completion-title">
+        <div class="boot-lines" aria-hidden="true"></div>
+        <div class="completion-panel">
+          <p>전원 인가 자체 검사</p>
+          <h2 id="completion-title">시스템<br /><em>정상 작동</em></h2>
+          <div class="power-state"><i></i><span><b>냉각 시스템 가동 중</b>팬 9개 회전 · RGB 조명 동기화</span></div>
+          <div class="completion-total"><span>완성한 게이밍 룸 총액</span><strong id="completion-total">0원</strong></div>
+          <div class="post-list">
+            <span><i></i> 중앙처리장치 · 인식 완료</span>
+            <span><i></i> 메모리 · 듀얼 채널 인식 완료</span>
+            <span><i></i> 저장장치 · NVMe 인식 완료</span>
+            <span><i></i> 그래픽 카드 · PCIe x16 인식 완료</span>
+          </div>
+          <div class="score-row">
+            <div><small>조립 점수</small><strong id="score-value">100</strong></div>
+            <div><small>잘못 놓은 횟수</small><strong id="error-value">0</strong></div>
+          </div>
+          <p class="completion-camera-help"><b>빈 공간 끌기</b> 시점 회전 · <b>휠</b> 확대/축소 · <b>우클릭 끌기</b> 이동</p>
+          <button id="restart-button" type="button">다시 조립하기 <span>↺</span></button>
+        </div>
+      </section>
+    </main>
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>

@@ -1,0 +1,302 @@
+{
+  "module": {
+    "id": "desktop-atx-01",
+    "title": "데스크톱 ATX 조립 실습",
+    "platform": "AM5 / DDR5 / ATX",
+    "description": "호환 부품을 선택하고 실제 장착 위치까지 직접 옮겨 조립하는 실무형 실습 모듈"
+  },
+  "parts": [
+    {
+      "id": "desk-frame",
+      "purchaseKey": "desk",
+      "code": "가구-01",
+      "name": "책상 하부 프레임",
+      "shortName": "책상 프레임",
+      "nodeNames": ["part_desk_frame"],
+      "spec": "다리 · 가로대 · 높이 장치",
+      "quantity": 1,
+      "accent": "#7dd7c4",
+      "variants": [
+        { "id": "ikea-utespelare", "name": "IKEA 우테스펠라레", "badge": "고정형", "spec": "수동 높이 · 스틸 프레임", "tradeoff": "6단계 높이와 케이블망 구성", "tint": "#7c8b88", "price": 199000 },
+        { "id": "desker-motion-1600", "name": "데스커 모션데스크", "badge": "전동형", "spec": "듀얼 모터 · T형 다리", "tradeoff": "전동 높이 조절과 밝은 프레임", "tint": "#e9e5dc", "price": 923000 }
+      ]
+    },
+    {
+      "id": "desk-top",
+      "purchaseKey": "desk",
+      "code": "가구-02",
+      "name": "책상 상판",
+      "shortName": "책상 상판",
+      "nodeNames": ["part_desk_top"],
+      "spec": "1600mm급 상판 · 케이블 통로",
+      "quantity": 1,
+      "accent": "#9dd7c9",
+      "variants": [
+        { "id": "ikea-utespelare", "name": "IKEA 우테스펠라레", "badge": "그레이", "spec": "1600×800mm", "tradeoff": "후면 타공판과 넓은 깊이", "tint": "#7c8b88", "price": 199000 },
+        { "id": "desker-motion-1600", "name": "데스커 모션데스크", "badge": "화이트", "spec": "1600×700mm", "tradeoff": "밝은 상판과 전동 컨트롤러", "tint": "#e9e5dc", "price": 923000 }
+      ]
+    },
+    {
+      "id": "chair-base",
+      "purchaseKey": "chair",
+      "code": "가구-03",
+      "name": "의자 오발과 가스 실린더",
+      "shortName": "의자 하부",
+      "nodeNames": ["part_chair_base"],
+      "spec": "오발 · 바퀴 5개 · 가스봉",
+      "quantity": 1,
+      "accent": "#8a62ff",
+      "variants": [
+        { "id": "sidiz-gc-pro", "name": "시디즈 GC PRO", "badge": "인체공학", "spec": "우레탄 바퀴 · 검정", "tradeoff": "가벼운 인체공학형 하부", "tint": "#45d5ba", "price": 690000 },
+        { "id": "secretlab-titan-evo", "name": "Secretlab TITAN Evo", "badge": "버킷형", "spec": "광폭 오발 · 검정", "tradeoff": "넓고 묵직한 레이싱형 하부", "tint": "#8a62ff", "price": 1211500 }
+      ]
+    },
+    {
+      "id": "chair-body",
+      "purchaseKey": "chair",
+      "code": "가구-04",
+      "name": "의자 좌판과 등판",
+      "shortName": "의자 본체",
+      "nodeNames": ["part_chair_body"],
+      "spec": "좌판 · 등판 · 팔걸이",
+      "quantity": 1,
+      "accent": "#a785ff",
+      "variants": [
+        { "id": "sidiz-gc-pro", "name": "시디즈 GC PRO", "badge": "인체공학", "spec": "조절형 등판 · 9단 팔걸이", "tradeoff": "민트 포인트와 메시형 등판", "tint": "#45d5ba", "price": 690000 },
+        { "id": "secretlab-titan-evo", "name": "Secretlab TITAN Evo", "badge": "버킷형", "spec": "높은 등판 · 4D 팔걸이", "tradeoff": "보라 포인트와 측면 볼스터", "tint": "#8a62ff", "price": 1211500 }
+      ]
+    },
+    {
+      "id": "monitor-stand",
+      "purchaseKey": "monitor",
+      "code": "기기-01",
+      "name": "모니터 받침대와 기둥",
+      "shortName": "모니터 스탠드",
+      "nodeNames": ["part_monitor_stand"],
+      "spec": "받침대 · 높이 조절 기둥",
+      "quantity": 1,
+      "accent": "#69e7ff",
+      "variants": [
+        { "id": "samsung-g60sf", "name": "삼성 오디세이 OLED G6", "badge": "500Hz", "spec": "평판 베이스 · 슬림 기둥", "tradeoff": "청록 링 포인트 스탠드", "tint": "#69e7ff", "price": 1190000 },
+        { "id": "lg-27gx790a", "name": "LG 울트라기어 OLED", "badge": "480Hz", "spec": "V형 베이스 · 높이 조절", "tradeoff": "자홍 포인트 V형 스탠드", "tint": "#ff4f9a", "price": 1090000 }
+      ]
+    },
+    {
+      "id": "monitor-panel",
+      "purchaseKey": "monitor",
+      "code": "기기-02",
+      "name": "OLED 모니터 패널",
+      "shortName": "모니터 패널",
+      "nodeNames": ["part_monitor_panel"],
+      "spec": "27형 · QHD · OLED",
+      "quantity": 1,
+      "accent": "#ff4f9a",
+      "variants": [
+        { "id": "samsung-g60sf", "name": "삼성 오디세이 OLED G6", "badge": "500Hz", "spec": "27형 · QHD · 500Hz", "tradeoff": "둥근 후면 조명과 얇은 베젤", "tint": "#69e7ff", "price": 1190000 },
+        { "id": "lg-27gx790a", "name": "LG 울트라기어 OLED", "badge": "480Hz", "spec": "27형 · QHD · 480Hz", "tradeoff": "육각형 후면과 자홍 포인트", "tint": "#ff4f9a", "price": 1090000 }
+      ]
+    },
+    {
+      "id": "cpu",
+      "code": "부품-01",
+      "name": "데스크톱 중앙처리장치",
+      "shortName": "중앙처리장치",
+      "nodeNames": ["part_cpu"],
+      "spec": "AM5 LGA 패키지",
+      "quantity": 1,
+      "accent": "#ffb454",
+      "variants": [
+        { "id": "cpu-65", "name": "AMD Ryzen 5 9600X", "badge": "균형형", "spec": "AM5 · 6코어 · 65W", "tradeoff": "발열과 가격 부담이 비교적 낮음", "tint": "#ffb454", "price": 379000, "image": "/products/amd-9600x.jpg", "source": "https://www.amd.com/en/products/processors/desktops/ryzen/9000-series/amd-ryzen-5-9600x.html" },
+        { "id": "cpu-120", "name": "AMD Ryzen 7 9800X3D", "badge": "게이밍", "spec": "AM5 · 8코어 · 120W", "tradeoff": "3D V-Cache 기반 고성능 게임 구성", "tint": "#ff8d58", "price": 720000, "image": "/products/amd-9800x3d.jpg", "source": "https://prod.danawa.com/info/?cate=112747&pcode=70679912" }
+      ]
+    },
+    {
+      "id": "ssd",
+      "code": "부품-02",
+      "name": "NVMe 솔리드 스테이트 드라이브",
+      "shortName": "M.2 저장장치",
+      "nodeNames": ["part_ssd"],
+      "spec": "M.2 2280 · PCIe",
+      "quantity": 1,
+      "accent": "#77d7c4",
+      "variants": [
+        { "id": "ssd-g4", "name": "SK hynix Platinum P41 2TB", "badge": "균형형", "spec": "M.2 2280 · PCIe 4.0", "tradeoff": "게임 로딩과 일반 작업에 충분한 고성능", "tint": "#77d7c4", "price": 460000, "image": "/products/sk-p41.jpg", "source": "https://ssd.skhynix.com/platinum_p41/" },
+        { "id": "ssd-g5", "name": "Samsung 990 PRO 2TB", "badge": "고성능", "spec": "M.2 2280 · PCIe 4.0", "tradeoff": "최대 읽기 7,450MB/s급 플래그십 SSD", "tint": "#5fb9ff", "price": 590000, "image": "/products/samsung-990-pro.jpg", "source": "https://prod.danawa.com/info/?cate=11349052&pcode=18297722" }
+      ]
+    },
+    {
+      "id": "ram",
+      "code": "부품-03",
+      "name": "DDR5 메모리 키트",
+      "shortName": "DDR5 메모리 2개",
+      "nodeNames": ["part_ram_a", "part_ram_b"],
+      "spec": "288핀 UDIMM · 2개",
+      "quantity": 2,
+      "accent": "#b9ee84",
+      "variants": [
+        { "id": "ram-32", "name": "Kingston FURY Beast RGB 32GB", "badge": "게임형", "spec": "16GB ×2 · DDR5-6000", "tradeoff": "게임과 RGB 연출을 위한 균형 구성", "tint": "#b9ee84", "price": 320000, "image": "/products/kingston-fury.jpg", "source": "https://www.kingston.com/en/memory/gaming/kingston-fury-beast-ddr5-rgb-memory" },
+        { "id": "ram-64", "name": "G.SKILL Trident Z5 Neo RGB 64GB", "badge": "작업형", "spec": "32GB ×2 · DDR5-6000", "tradeoff": "3D 제작과 영상 편집에 유리한 대용량", "tint": "#9ba9ff", "price": 690000, "image": "/products/gskill-trident.webp", "source": "https://www.gskill.com/product/165/390/Trident-Z5-Neo-RGB-DDR5-AMD-EXPO" }
+      ]
+    },
+    {
+      "id": "cooler",
+      "code": "부품-04",
+      "name": "중앙처리장치 공랭 쿨러",
+      "shortName": "공랭 쿨러",
+      "nodeNames": ["part_cooler"],
+      "spec": "AM5 장착 규격 · PWM 팬",
+      "quantity": 1,
+      "accent": "#91b8ff",
+      "variants": [
+        { "id": "cooler-single", "name": "Thermalright PA120 SE ARGB", "badge": "가성비", "spec": "듀얼타워 · 120mm 팬 ×2", "tradeoff": "AM5 호환과 높은 가격 대비 냉각 성능", "tint": "#91b8ff", "price": 46730, "image": "/products/thermalright-pa120.jpg", "source": "https://prod.danawa.com/info/?pcode=16852175" },
+        { "id": "cooler-dual", "name": "DEEPCOOL AK620 DIGITAL", "badge": "디지털", "spec": "듀얼타워 · 상태 표시 상단", "tradeoff": "온도 표시와 묵직한 듀얼타워 외형", "tint": "#69d7ea", "price": 99000, "image": "/products/deepcool-ak620.jpg", "source": "https://www.deepcool.com/products/Cooling/cpuaircoolers/AK620-DIGITAL-Performance-CPU-Cooler-with-Status-Display/2023/16774.shtml" }
+      ]
+    },
+    {
+      "id": "psu",
+      "code": "부품-05",
+      "name": "모듈러 전원공급장치",
+      "shortName": "전원공급장치",
+      "nodeNames": ["part_psu"],
+      "spec": "ATX · 완전 모듈러",
+      "quantity": 1,
+      "accent": "#e3e9ed",
+      "variants": [
+        { "id": "psu-750", "name": "CORSAIR RM850e ATX 3.1", "badge": "블랙", "spec": "ATX 3.1 · 850W · 풀모듈러", "tradeoff": "게이밍 PC에 넉넉한 정격 출력", "tint": "#e3e9ed", "price": 195000, "image": "/products/corsair-rm850e.png", "source": "https://www.corsair.com/us/en/p/psu/cp-9020296-na/rme-series-rm850e-fully-modular-low-noise-atx-power-supply-cp-9020296-na" },
+        { "id": "psu-850", "name": "Seasonic CORE V2 GX-850 White", "badge": "화이트", "spec": "ATX 3.1 · 850W · 풀모듈러", "tradeoff": "화이트 쇼케이스와 10년 보증 구성", "tint": "#b6c5d5", "price": 187000, "image": "/products/seasonic-gx850.jpg", "source": "https://prod.danawa.com/info/?pcode=78844340" }
+      ]
+    },
+    {
+      "id": "motherboard",
+      "code": "부품-06",
+      "name": "ATX 메인보드 어셈블리",
+      "shortName": "ATX 메인보드",
+      "nodeNames": ["part_motherboard"],
+      "spec": "305 × 244mm · 고정점 9개",
+      "quantity": 1,
+      "accent": "#55c7ad",
+      "variants": [
+        { "id": "board-b", "name": "MSI MAG B850 TOMAHAWK MAX WIFI", "badge": "균형형", "spec": "AM5 · DDR5 · ATX", "tradeoff": "확장성과 전원부의 균형이 좋은 게이밍 보드", "tint": "#55c7ad", "price": 339000, "image": "/products/msi-b850.webp", "source": "https://www.msi.com/Motherboard/MAG-B850-TOMAHAWK-MAX-WIFI" },
+        { "id": "board-x", "name": "ASUS TUF Gaming B850-PLUS WIFI", "badge": "TUF", "spec": "AM5 · DDR5 · ATX", "tradeoff": "견고한 전원부와 무선 연결을 갖춘 ATX 보드", "tint": "#54a9ff", "price": 310570, "image": "/products/asus-b850.jpg", "source": "https://prod.danawa.com/info/?pcode=77460911" }
+      ]
+    },
+    {
+      "id": "gpu",
+      "code": "부품-07",
+      "name": "그래픽 처리 카드",
+      "shortName": "그래픽 카드",
+      "nodeNames": ["part_gpu"],
+      "spec": "PCIe x16",
+      "quantity": 1,
+      "accent": "#ff805e",
+      "variants": [
+        { "id": "gpu-rtx4070", "name": "ASUS DUAL GeForce RTX 4070 OC", "badge": "인지도", "spec": "12GB GDDR6X · 2팬 · PCIe 4.0", "tradeoff": "Steam 사용 비중이 높은 대표 QHD 카드 · 단종 재고 가격 변동 큼", "tint": "#7c91a5", "modelScale": 0.86, "fanCount": 2, "price": 799000, "image": "/products/asus-rtx4070.jpg", "source": "https://prod.danawa.com/info/?pcode=19756598" },
+        { "id": "gpu-rtx4070-super", "name": "GIGABYTE RTX 4070 SUPER GAMING OC", "badge": "QHD 인기", "spec": "12GB GDDR6X · 3팬 · PCIe 4.0", "tradeoff": "RTX 4070보다 높은 성능의 유명 QHD 구성 · 재고가 참고", "tint": "#69d7ea", "modelScale": 0.92, "fanCount": 3, "price": 899000, "image": "/products/gigabyte-rtx4070-super.jpg", "source": "https://prod.danawa.com/info/?pcode=32494484" },
+        { "id": "gpu-rtx5070", "name": "GIGABYTE RTX 5070 WINDFORCE OC", "badge": "현세대 QHD", "spec": "12GB GDDR7 · 3팬 · PCIe 5.0", "tradeoff": "Steam 사용 비중이 빠르게 늘어난 현세대 QHD 카드", "tint": "#ff9a66", "modelScale": 0.96, "fanCount": 3, "price": 1100000, "image": "/products/gigabyte-5070.png", "source": "https://marketplace.nvidia.com/ko-kr/consumer/graphics-cards/" },
+        { "id": "gpu-rx9070xt", "name": "PowerColor Radeon RX 9070 XT Reaper", "badge": "AMD 4K", "spec": "16GB GDDR6 · 3팬 · PCIe 5.0", "tradeoff": "16GB VRAM과 2개의 8핀 전원을 쓰는 고성능 Radeon 선택지", "tint": "#d54949", "modelScale": 0.98, "fanCount": 3, "price": 1129990, "image": "/products/powercolor-rx9070xt.webp", "source": "https://www.powercolor.com/product-detail212.htm" },
+        { "id": "gpu-rtx5070ti", "name": "GIGABYTE RTX 5070 Ti GAMING OC", "badge": "고성능", "spec": "16GB GDDR7 · 3팬 · PCIe 5.0", "tradeoff": "고해상도 게임과 여유 있는 VRAM 구성", "tint": "#ff685d", "modelScale": 1.025, "fanCount": 3, "price": 1690000, "image": "/products/gigabyte-5070ti.png", "source": "https://marketplace.nvidia.com/ko-kr/consumer/graphics-cards/-rtx-5070-ti-gaming-oc-d7-gigabyte/" },
+        { "id": "gpu-rtx5080", "name": "MSI GeForce RTX 5080 VANGUARD SOC", "badge": "4K 상급", "spec": "16GB GDDR7 · 3팬 · PCIe 5.0", "tradeoff": "360W급 전력과 850W 이상 전원공급장치를 요구하는 상급 4K 구성", "tint": "#8a62ff", "modelScale": 1.07, "fanCount": 3, "price": 2349000, "image": "/products/msi-rtx5080.jpg", "source": "https://prod.danawa.com/info/?pcode=75541700" }
+      ]
+    },
+    {
+      "id": "cables",
+      "code": "부품-08",
+      "name": "시스템 전원 케이블 세트",
+      "shortName": "전원 케이블 세트",
+      "nodeNames": ["part_cables"],
+      "spec": "24핀 · CPU 8핀 · 그래픽 12V",
+      "quantity": 3,
+      "accent": "#f2d36e",
+      "variants": [
+        { "id": "cable-basic", "name": "CORSAIR Premium Type 5 Cable Kit", "badge": "슬리빙", "spec": "개별 피복 · 검정 · 3종", "tradeoff": "정돈된 검정 배선과 기본 호환 구성", "tint": "#f2d36e", "price": 129000, "image": "/products/corsair-type5.webp", "source": "https://www.corsair.com/us/en/c/pc-components-accessories/psu-parts" },
+        { "id": "cable-sleeved", "name": "LIAN LI STRIMER Wireless Set", "badge": "RGB", "spec": "24핀 · 그래픽 전원 · RGB", "tradeoff": "케이블 자체가 빛나는 쇼케이스 구성", "tint": "#f0a85d", "price": 185000, "image": "/products/lianli-pw24.jpg", "source": "https://lian-li.com/product/strimer-wireless/" }
+      ]
+    }
+  ],
+  "steps": [
+    {
+      "id": "assemble-desk-frame", "partId": "desk-frame", "chapter": "공간 조립", "kicker": "프레임 방향과 잠금", "title": "책상 하부 프레임을 세우세요",
+      "copy": "구매한 책상의 좌우 다리와 가로대를 한 묶음으로 잡아 바닥의 빛나는 조립 위치까지 끌어 놓습니다. 전동형은 모터 케이블이 안쪽을 향해야 합니다.",
+      "tool": "육각 렌치 · M6 볼트", "check": "좌우 다리 방향 · 가로대 수평 · 4점 체결", "warning": "볼트를 처음부터 한쪽만 강하게 조이면 프레임이 비틀릴 수 있습니다. 네 지점을 가조립한 뒤 대각선 순서로 조이세요.",
+      "guide": "작업대 왼쪽 바닥의 넓은 민트색 윤곽에 프레임을 맞추세요.", "dropTolerance": 125
+    },
+    {
+      "id": "attach-desk-top", "partId": "desk-top", "chapter": "공간 조립", "kicker": "상판 체결과 케이블 통로", "title": "상판을 프레임 위에 올리세요",
+      "copy": "상판의 케이블 통로가 뒤쪽을 향하도록 확인한 뒤, 모서리가 아닌 양 측면을 잡아 프레임 위 빛나는 위치에 내려놓습니다.",
+      "tool": "십자 2번 드라이버 · 상판 나사", "check": "앞뒤 방향 · 프레임 중앙 · 모든 나사 체결", "warning": "상판을 세워 둔 채 혼자 들거나 모서리만 잡으면 파손될 수 있습니다. 실제 작업에서는 두 사람이 함께 드세요.",
+      "guide": "방금 조립한 프레임 바로 위의 넓고 얇은 윤곽이 목표입니다.", "dropTolerance": 135
+    },
+    {
+      "id": "assemble-chair-base", "partId": "chair-base", "chapter": "공간 조립", "kicker": "바퀴와 가스 실린더", "title": "의자 하부를 바닥에 놓으세요",
+      "copy": "오발에 다섯 바퀴와 가스 실린더가 결합된 하부를 잡아 책상 앞쪽의 빛나는 위치로 끌어 놓습니다.",
+      "tool": "고무 망치 · 보호 장갑", "check": "바퀴 5개 완전 삽입 · 가스봉 수직", "warning": "가스 실린더를 임의로 분해하거나 충격을 가하지 마세요. 실제 조립에서는 보호 캡 제거 여부만 확인합니다.",
+      "guide": "책상 앞, 바닥에 표시된 작은 원형 윤곽 중앙에 놓으세요.", "dropTolerance": 105
+    },
+    {
+      "id": "attach-chair-body", "partId": "chair-body", "chapter": "공간 조립", "kicker": "좌판과 등판 결합", "title": "의자 본체를 가스봉에 결합하세요",
+      "copy": "좌판과 등판, 팔걸이로 이루어진 본체를 양쪽에서 잡고 의자 하부의 가스봉 위 빛나는 위치까지 끌어 놓습니다.",
+      "tool": "육각 렌치 · 측면 볼트", "check": "가스봉 중앙 결합 · 등판 수직 · 팔걸이 고정", "warning": "손가락이 좌판 아래 틸트 장치에 끼이지 않도록 본체의 좌우 측면을 잡으세요.",
+      "guide": "의자 하부 중앙의 수직 실린더 바로 위가 장착 위치입니다.", "dropTolerance": 112
+    },
+    {
+      "id": "assemble-monitor-stand", "partId": "monitor-stand", "chapter": "디스플레이 조립", "kicker": "스탠드와 받침대", "title": "모니터 스탠드를 책상 위에 놓으세요",
+      "copy": "받침대와 기둥이 결합된 스탠드를 잡아 상판 뒤쪽 중앙의 빛나는 위치로 끌어 놓습니다. V형 받침은 열린 쪽이 사용자 방향입니다.",
+      "tool": "손나사 · 부드러운 작업 매트", "check": "받침대 방향 · 기둥 잠금 · 흔들림 없음", "warning": "패널을 먼저 세우면 넘어질 수 있습니다. 반드시 받침대와 기둥을 먼저 완전히 체결하세요.",
+      "guide": "책상 상판 뒤쪽 중앙의 작은 스탠드 윤곽에 맞추세요.", "dropTolerance": 96
+    },
+    {
+      "id": "attach-monitor-panel", "partId": "monitor-panel", "chapter": "디스플레이 조립", "kicker": "패널 잠금과 화면 보호", "title": "OLED 패널을 스탠드에 걸어주세요",
+      "copy": "화면을 누르지 말고 패널의 아래쪽과 측면을 잡아 스탠드 상단의 빛나는 결합 위치까지 끌어 놓습니다.",
+      "tool": "부드러운 작업 매트 · 손", "check": "퀵 릴리스 잠금 · 화면 수평 · 케이블 여유", "warning": "OLED 화면 중앙을 누르면 패널이 손상될 수 있습니다. 베젤과 하단 프레임만 잡으세요.",
+      "guide": "스탠드 기둥 위, 눈높이에 표시된 넓은 사각 윤곽입니다.", "dropTolerance": 118
+    },
+    {
+      "id": "install-cpu", "partId": "cpu", "chapter": "사전 조립", "kicker": "소켓 방향 맞추기", "title": "중앙처리장치를 소켓에 놓으세요",
+      "copy": "부품 모서리의 삼각형과 소켓 삼각형을 같은 방향으로 맞춘 뒤, 부품을 잡아 빛나는 소켓 위로 끌어 놓습니다.",
+      "tool": "손 · 소켓 레버", "check": "삼각형과 양쪽 홈이 모두 일치", "warning": "힘으로 누르거나 좌우로 비비면 소켓 접점이 손상될 수 있습니다.",
+      "guide": "금색 삼각형이 왼쪽 아래를 향하게 맞추세요.", "dropTolerance": 72
+    },
+    {
+      "id": "install-ssd", "partId": "ssd", "chapter": "사전 조립", "kicker": "저장장치 연결", "title": "M.2 저장장치를 슬롯에 놓으세요",
+      "copy": "금색 접점과 슬롯 홈을 맞춘 뒤 저장장치를 빛나는 M.2 영역까지 끌어 놓습니다. 체결 애니메이션이 삽입 각도를 마무리합니다.",
+      "tool": "십자 0번 드라이버 · M.2 걸쇠", "check": "접점 완전 삽입 · 기판 수평", "warning": "홈이 다른 모듈을 억지로 삽입하지 말고 방열판 보호 필름도 확인하세요.",
+      "guide": "메인보드 중앙의 가늘고 긴 민트색 영역을 찾으세요.", "dropTolerance": 78
+    },
+    {
+      "id": "install-ram", "partId": "ram", "chapter": "사전 조립", "kicker": "듀얼 채널 메모리", "title": "메모리 2개를 A2·B2 슬롯에 놓으세요",
+      "copy": "두 메모리를 한 묶음으로 잡아 두 번째와 네 번째 슬롯 위로 끌어 놓습니다. 하단의 비대칭 홈이 슬롯 돌기와 맞아야 합니다.",
+      "tool": "손 · 메모리 슬롯 걸쇠", "check": "A2/B2 슬롯 · 양쪽 걸쇠 체결", "warning": "한쪽만 체결된 상태로 전원을 켜면 부팅되지 않을 수 있습니다.",
+      "guide": "CPU 오른쪽의 세로 슬롯 중 2번과 4번 슬롯입니다.", "dropTolerance": 92
+    },
+    {
+      "id": "install-cooler", "partId": "cooler", "chapter": "냉각 장치", "kicker": "방열 접촉면", "title": "공랭 쿨러를 중앙처리장치 위에 놓으세요",
+      "copy": "보호 필름과 서멀 컴파운드를 확인한 다음, 쿨러를 수직으로 잡아 빛나는 장착 영역까지 끌어 놓습니다.",
+      "tool": "십자 2번 드라이버 · 서멀 컴파운드", "check": "균등한 압력 · CPU 팬 단자 연결", "warning": "쿨러를 비스듬히 누르면 서멀 컴파운드가 한쪽으로 밀릴 수 있습니다.",
+      "guide": "방금 장착한 중앙처리장치 바로 위가 목표 위치입니다.", "dropTolerance": 110
+    },
+    {
+      "id": "install-psu", "partId": "psu", "chapter": "케이스 조립", "kicker": "전원과 공기 흐름", "title": "전원공급장치를 케이스 하단에 넣으세요",
+      "copy": "팬이 하단 흡기구를 향하도록 방향을 확인하고 전원공급장치를 케이스 아래쪽의 빛나는 공간까지 끌어 넣습니다.",
+      "tool": "십자 2번 드라이버 · 전원공급장치 나사 4개", "check": "흡기 방향 · 후면 네 지점 고정", "warning": "스위치를 끄고 외부 전원 코드가 분리된 상태에서 작업하세요.",
+      "guide": "케이스의 가장 아래쪽, 후면과 맞닿는 사각 공간입니다.", "dropTolerance": 105
+    },
+    {
+      "id": "install-motherboard", "partId": "motherboard", "chapter": "케이스 조립", "kicker": "ATX 고정점", "title": "조립된 메인보드를 케이스에 넣으세요",
+      "copy": "입출력 단자 방향을 케이스 후면에 맞춘 뒤 메인보드 전체를 케이스 안의 빛나는 고정 영역까지 끌어 놓습니다.",
+      "tool": "십자 2번 드라이버 · ATX 나사 9개", "check": "입출력부 정렬 · 고정점 9개", "warning": "기판 아래 불필요한 스탠드오프가 있으면 단락될 수 있습니다.",
+      "guide": "케이스 안쪽의 넓은 세로 판과 입출력 구멍을 함께 맞추세요.", "dropTolerance": 140
+    },
+    {
+      "id": "install-gpu", "partId": "gpu", "chapter": "확장 장치", "kicker": "PCIe 확장 연결", "title": "그래픽 카드를 첫 번째 긴 슬롯에 꽂으세요",
+      "copy": "그래픽 카드의 금색 접점과 후면 브래킷을 동시에 맞춰, 메인보드 위쪽의 긴 슬롯으로 끌어 놓습니다.",
+      "tool": "십자 2번 드라이버 · 슬롯 나사", "check": "PCIe 걸쇠 · 브래킷 고정", "warning": "무거운 그래픽 카드는 팬이 아닌 가장자리와 백플레이트를 잡으세요.",
+      "guide": "CPU 아래에 있는 가장 길고 위쪽에 위치한 확장 슬롯입니다.", "dropTolerance": 110
+    },
+    {
+      "id": "connect-power", "partId": "cables", "chapter": "전원과 첫 부팅", "kicker": "시스템 전원 연결", "title": "세 전원 케이블을 해당 단자에 연결하세요",
+      "copy": "24핀 메인 전원, CPU 8핀, 그래픽 12V 케이블 묶음을 잡아 빛나는 커넥터 영역으로 끌어 놓습니다.",
+      "tool": "24핀 · CPU 8핀 · 그래픽 12V", "check": "모든 걸쇠 체결 · 팬 간섭 없음", "warning": "CPU와 그래픽 전원 커넥터는 비슷해 보여도 배선이 다릅니다.",
+      "guide": "보드 오른쪽 24핀, 왼쪽 위 8핀, 그래픽 카드 전원부를 확인하세요.", "dropTolerance": 125
+    }
+  ]
+}

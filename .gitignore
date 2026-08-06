@@ -1,0 +1,12 @@
+node_modules/
+dist/
+.gstack/
+.DS_Store
+*.blend1
+*.blend2
+*.log
+__pycache__/
+*.py[cod]
+.env
+.env.*
+!.env.example

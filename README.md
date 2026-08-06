@@ -1,6 +1,6 @@
 # 부품제작 — 인터랙티브 제품 조립 실습실
 
-실제 제품의 가격과 사양을 비교해 견적을 만든 뒤, 구매한 책상·의자·모니터·데스크톱 PC를 직접 조립하고 첫 부팅까지 확인하는 3D 수직 프로토타입입니다.
+제품마다 다른 문제 해결 과정을 3D로 연습하는 실습형 프로토타입입니다. 현재 메인 화면에서 `게이밍 컴퓨터 조립`과 `전구 교체 진단`을 선택할 수 있습니다.
 
 ## 현재 구현
 
@@ -18,6 +18,12 @@
 - 조립 중부터 계속 동작하는 팬 9개와 RGB 순환 조명, 최종 게이밍 룸 배치와 전원 인가 자체 검사
 - 데스크톱·모바일 반응형 UI
 - Unreal 프로젝트와 자동 임포트 스크립트 골격
+- 메인 화면의 컴퓨터 조립·전구 교체 모듈 선택
+- 기존 전구·소켓·조명 갓·조광기를 살펴 요구 규격을 완성하는 현장 조사
+- 실제 판매 사양을 반영한 전구 후보 6개와 베이스·루멘·켈빈·조광·크기별 오답 피드백
+- 스위치·차단기·냉각 상태를 확인하는 안전 잠금 절차
+- 마우스로 원을 그려 반시계 방향 분리와 시계 방향 장착을 수행하는 전용 조작
+- 교체한 2700 K 전구의 점등·조광 검증과 따뜻한 방 조명 연출
 
 ## 실행
 
@@ -30,7 +36,11 @@ npm run dev
 
 구매 화면에서 품목별 제품을 고르고 총액을 확인한 뒤 조립을 시작합니다. 화면 속 구매 부품을 빛나는 장착 영역까지 직접 끌어 놓으며, 목표에서 멀리 놓으면 부품이 원위치로 돌아오고 다음 이동 방향이 표시됩니다.
 
+전구 교체에서는 먼저 3D 현장의 네 단서를 조사합니다. 요구 규격과 제품 포장을 비교해 전구를 구매하고, 안전 절차를 마친 뒤 원형 제스처로 기존 전구를 풀고 새 전구를 장착합니다.
+
 ![강화유리 케이스와 제품형 PC 부품 조립 화면](qa/neural4d-case-assembly.png)
+
+![전구 규격을 판별하고 교체한 최종 점등 화면](qa/bulb-07-completion-room.png)
 
 ```bash
 npm test
@@ -72,7 +82,11 @@ unreal/BuildLab/Scripts/import_build_lab.py
 - [ASUS CPU 설치 가이드](https://www.asus.com/support/faq/1047659/): 소켓 규격 확인, 삼각형 기준점과 노치 정렬
 - [ASUS ProArt X870E Creator](https://www.asus.com/motherboards-components/motherboards/proart/proart-x870e-creator-wifi/): AM5, DDR5 DIMM 4개, PCIe x16, M.2 2280, 전원 헤더의 배치 참고
 - [Fractal Design North XL](https://www.fractal-design.com/products/cases/north/north-xl/charcoal-black/): 503 × 240 × 509 mm 섀시, 7개 확장 슬롯, 케이블 라우팅과 목재 전면 흡기 구조 참고
+- [IKEA Korea LED 전구](https://www.ikea.com/kr/ko/cat/led-bulbs-20514/): E26·E14·GU10 베이스, 루멘, 색온도, 조광 여부와 국내 판매가 참고
+- [ENERGY STAR 밝기 안내](https://www.energystar.gov/products/learn-about-brightness): 와트가 아닌 루멘으로 밝기를 비교하는 구매 기준
+- [ENERGY STAR 조명 선택](https://www.energystar.gov/products/light_fixtures): 켈빈 색온도와 조광기 호환성 확인 기준
+- [CPSC 전구 안전 안내](https://www.cpsc.gov/Recalls/2004/cpsc-osram-sylvania-products-inc-announce-recall-of-decorative-light-bulbs): 전원 차단과 파손 전구 취급 원칙
 
 ## 교육 범위
 
-현재 버전은 실무 교육을 대체하거나 자격을 인증하지 않는 훈련 보조 프로토타입입니다. 다음 단계에서 실제 조립 전문가 검수를 거쳐 체결 토크, 케이블 규격, 메인보드별 슬롯 우선순위, 실패 진단 시나리오를 제품군별로 분리해야 합니다.
+현재 버전은 실무 교육을 대체하거나 자격을 인증하지 않는 훈련 보조 프로토타입입니다. 전구 모듈은 전구 자체 교체만 다루며 소켓·배선 수리를 안내하지 않습니다. 소켓의 파손·그을림·노출 배선이 보이면 작업을 멈추고 전기 전문가에게 점검을 요청해야 합니다. 다음 단계에서 실제 조립·전기 전문가 검수를 거쳐 체결 토크, 케이블 규격과 실패 진단 시나리오를 제품군별로 분리해야 합니다.

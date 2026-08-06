@@ -7,9 +7,11 @@ import test from 'node:test';
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const html = await readFile(path.join(root, 'index.html'), 'utf8');
 const script = await readFile(path.join(root, 'src/main.js'), 'utf8');
+const bulbScript = await readFile(path.join(root, 'src/bulb-module.js'), 'utf8');
 const style = await readFile(path.join(root, 'src/style.css'), 'utf8');
 const data = JSON.parse(await readFile(path.join(root, 'public/data/desktop-atx.json'), 'utf8'));
 const catalog = JSON.parse(await readFile(path.join(root, 'public/data/store-catalog.json'), 'utf8'));
+const bulbData = JSON.parse(await readFile(path.join(root, 'public/data/bulb-lab.json'), 'utf8'));
 
 test('gaming room module has a complete fourteen-step guided assembly', () => {
   assert.equal(data.parts.length, 14);
@@ -103,4 +105,49 @@ test('Unreal project and import bridge are provided', async () => {
   const importer = await readFile(path.join(root, 'unreal/BuildLab/Scripts/import_build_lab.py'), 'utf8');
   assert.match(project, /"Name": "BuildLab"/);
   assert.match(importer, /pc-lab\.glb/);
+});
+
+test('the lobby offers computer assembly and bulb replacement as distinct modules', () => {
+  assert.match(html, /id="start-button"/);
+  assert.match(html, /게이밍 컴퓨터 조립/);
+  assert.match(html, /id="bulb-start-button"/);
+  assert.match(html, /전구 교체 진단/);
+  assert.match(script, /function startBulbExperience/);
+  assert.match(script, /createBulbModule/);
+  assert.match(style, /\.module-card--bulb/);
+});
+
+test('bulb diagnosis teaches inspection, compatibility, safety, rotation and testing', () => {
+  assert.equal(bulbData.clues.length, 4);
+  assert.equal(bulbData.products.length, 6);
+  assert.deepEqual(Object.keys(bulbData.scenario.required), [
+    'base', 'lumens', 'cct', 'dimmable', 'shape', 'maxDiameterMm', 'voltage',
+  ]);
+  assert.match(html, /현장 관찰/);
+  assert.match(html, /규격 비교·구매/);
+  assert.match(html, /안전 준비/);
+  assert.match(html, /반시계 방향 회전/);
+  assert.match(html, /점등 검증/);
+  assert.match(bulbScript, /function compatibility/);
+  assert.match(bulbScript, /function wrongProductFeedback/);
+  assert.match(bulbScript, /function addTurnDelta/);
+  assert.match(bulbScript, /function powerOn/);
+  assert.match(html, /소켓·배선 수리는 전기 전문가/);
+  assert.match(style, /\.bulb-turn-dial/);
+});
+
+test('only one bulb candidate matches every discovered field condition', () => {
+  const required = bulbData.scenario.required;
+  const compatible = bulbData.products.filter((product) => (
+    product.base === required.base
+    && product.lumens === required.lumens
+    && product.cct === required.cct
+    && product.dimmable === required.dimmable
+    && product.shape === required.shape
+    && product.diameterMm <= required.maxDiameterMm
+  ));
+  assert.equal(compatible.length, 1);
+  assert.equal(compatible[0].id, 'solhetta-e26-806-warm-dim');
+  assert.ok(bulbData.products.every((product) => product.price > 0 && product.source.startsWith('https://')));
+  assert.ok(bulbData.scenario.stopConditions.length >= 3);
 });

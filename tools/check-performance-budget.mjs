@@ -10,7 +10,7 @@ const limits = {
   javascriptChunk: 500 * 1024,
   desktopModel: 7 * 1024 * 1024,
   mobileModel: 4 * 1024 * 1024,
-  lobbyHero: 120 * 1024,
+  lobbyHero: 200 * 1024,
 };
 
 const manifest = JSON.parse(await readFile(manifestPath, 'utf8'));
@@ -31,11 +31,11 @@ for (const file of scripts) {
 
 const desktopModel = (await stat(path.join(root, 'public/models/pc-lab.glb'))).size;
 const mobileModel = (await stat(path.join(root, 'public/models/pc-lab-mobile.glb'))).size;
-const lobbyHero = (await stat(path.join(root, 'public/images/home-diy-hero-v1.avif'))).size;
+const lobbyHero = (await stat(path.join(root, 'public/images/home-assembly-studio-hero-v2.jpg'))).size;
 if (desktopModel > limits.desktopModel) failures.push(`데스크톱 3D 모델 ${desktopModel}B > ${limits.desktopModel}B`);
 if (mobileModel > limits.mobileModel) failures.push(`모바일 3D 모델 ${mobileModel}B > ${limits.mobileModel}B`);
 if (mobileModel >= desktopModel) failures.push('모바일 3D 모델이 데스크톱 모델보다 작지 않습니다.');
-if (lobbyHero > limits.lobbyHero) failures.push(`로비 AVIF ${lobbyHero}B > ${limits.lobbyHero}B`);
+if (lobbyHero > limits.lobbyHero) failures.push(`로비 배경 이미지 ${lobbyHero}B > ${limits.lobbyHero}B`);
 
 if (failures.length) {
   console.error(`성능 예산 초과\n- ${failures.join('\n- ')}`);

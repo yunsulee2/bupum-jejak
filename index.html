@@ -3,13 +3,13 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-    <meta name="theme-color" content="#0a0d0e" />
+    <meta name="theme-color" content="#f4eee5" />
     <meta
       name="description"
         content="컴퓨터·서랍장 조립, 형광등 교체, 샤워기 필터 정비를 실제 판단 과정부터 연습하는 3D 제품 실습 시뮬레이터"
     />
     <link rel="icon" href="data:," />
-    <link rel="preload" as="image" href="%BASE_URL%images/home-diy-hero-v1.avif" type="image/avif" fetchpriority="high" />
+    <link rel="preload" as="image" href="%BASE_URL%images/home-assembly-studio-hero-v2.jpg" type="image/jpeg" fetchpriority="high" />
     <title>부품제작 · 인터랙티브 제품 조립</title>
   </head>
   <body>
@@ -29,7 +29,7 @@
       <header class="topbar">
         <a class="brand" href="%BASE_URL%" aria-label="부품제작 처음 화면">
           <span class="brand-symbol" aria-hidden="true"><i></i></span>
-          <span><b>부품//제작</b><small>실무형 제품 조립 훈련</small></span>
+          <span><b>부품제작</b><small>집에서 배우는 생활 조립</small></span>
         </a>
         <div class="session-meta">
           <span><i></i> 실습 환경 정상</span>
@@ -39,37 +39,49 @@
 
       <section id="intro" class="intro" aria-labelledby="title">
         <div class="intro-copy">
-          <p class="eyebrow"><span>부품제작 실습실</span> 제품마다 다른 문제 해결 방식을 배우세요</p>
-          <h1 id="title">무엇을 직접<br /><em>해결해 볼까요?</em></h1>
-          <p class="intro-lede">컴퓨터와 서랍장은 조립하고, 형광등은 규격을 판별하고, 샤워기 필터는 누수 없이 정비합니다.<br />제품마다 다른 실제 문제 해결 과정을 3D로 연습하세요.</p>
-          <div class="module-picker" aria-label="실습 모듈 선택">
+          <div class="intro-hero">
+            <p class="eyebrow"><span>생활 조립 스튜디오</span><i aria-hidden="true"></i><b>HOME ASSEMBLY LAB</b></p>
+            <h1 id="title"><span>집에서 마주치는 일을</span><em>내 손으로 해결하다.</em></h1>
+            <p class="intro-lede">사기 전에 규격을 판단하고, 손으로 조립하고, 마지막 작동까지 검증하세요.<br />설명서를 외우는 대신 실패 원인을 이해하는 3D 생활 기술 실습입니다.</p>
+            <div class="intro-metrics" aria-label="실습 특징">
+              <span><b>04</b><small>생활 실습</small></span>
+              <span><b>3D</b><small>직접 조작</small></span>
+              <span><b>WHY</b><small>원인 피드백</small></span>
+            </div>
+          </div>
+
+          <div class="intro-modules">
+            <div class="module-picker-heading">
+              <span><small>오늘의 작업대</small><b>어떤 일을 해결해 볼까요?</b></span>
+              <p><i aria-hidden="true"></i> 설치 없이 바로 시작</p>
+            </div>
+            <div class="module-picker" aria-label="실습 모듈 선택">
             <button id="start-button" class="module-card module-card--pc" type="button" disabled>
               <span class="module-card-number">01</span>
-              <span class="module-card-copy"><small>구매 · 호환성 · 14단계 조립</small><b>게이밍 컴퓨터 조립</b><em>부품을 비교 구매하고 직접 끌어 장착</em></span>
-              <i aria-hidden="true">↗</i>
+              <span class="module-card-icon" aria-hidden="true"><svg viewBox="0 0 32 32"><rect x="7" y="4.5" width="18" height="23" rx="2"/><circle cx="16" cy="12" r="4"/><path d="M11 21h10M11 24h6"/></svg></span>
+              <span class="module-card-copy"><small>호환성 확인 · 구매 · 14단계</small><b>게이밍 컴퓨터 조립</b><em>예산을 맞추고 부품을 직접 장착해 첫 부팅까지</em></span>
+              <i class="module-card-arrow" aria-hidden="true">→</i>
             </button>
             <button id="fluorescent-start-button" class="module-card module-card--fluorescent" type="button" disabled>
               <span class="module-card-number">02</span>
-              <span class="module-card-copy"><small>규격 · 안정기 · 안전 배출</small><b>형광등 교체 진단</b><em>비슷한 직관 램프에서 호환 제품 찾기</em></span>
-              <i aria-hidden="true">↗</i>
+              <span class="module-card-icon" aria-hidden="true"><svg viewBox="0 0 32 32"><path d="M5 11h22v10H5zM8 14h16v4H8zM8 8v3M24 8v3M8 21v3M24 21v3"/></svg></span>
+              <span class="module-card-copy"><small>규격 판별 · 안전 절차 · 배출</small><b>형광등 교체 진단</b><em>비슷한 램프 사이에서 맞는 규격을 찾아 안전하게 교체</em></span>
+              <i class="module-card-arrow" aria-hidden="true">→</i>
             </button>
             <button id="shower-start-button" class="module-card module-card--shower" type="button" disabled>
               <span class="module-card-number">03</span>
-              <span class="module-card-copy"><small>전용 리필 · O링 · 누수 검증</small><b>샤워기 필터 교체</b><em>모델을 판별하고 직접 끌어 장착</em></span>
-              <i aria-hidden="true">↗</i>
+              <span class="module-card-icon" aria-hidden="true"><svg viewBox="0 0 32 32"><path d="M10 11a6 6 0 0 1 12 0v2H10zM16 5V3M9 7 7 5M23 7l2-2M12 17v2M16 17v3M20 17v2M10 24h12M12 20v7M20 20v7"/></svg></span>
+              <span class="module-card-copy"><small>모델 판별 · O링 · 누수 검증</small><b>샤워기 필터 교체</b><em>전용 리필을 구분하고 물이 새지 않도록 다시 체결</em></span>
+              <i class="module-card-arrow" aria-hidden="true">→</i>
             </button>
             <button id="drawer-start-button" class="module-card module-card--drawer" type="button" disabled>
               <span class="module-card-number">04</span>
-              <span class="module-card-copy"><small>판재 · 캠락 · 레일 · 전도 방지</small><b>3단 서랍장 조립</b><em>좌우를 판별하고 서랍이 움직일 때까지 조립</em></span>
-              <i aria-hidden="true">↗</i>
+              <span class="module-card-icon" aria-hidden="true"><svg viewBox="0 0 32 32"><rect x="7" y="4" width="18" height="24" rx="1.5"/><path d="M7 12h18M7 20h18M14 8h4M14 16h4M14 24h4"/></svg></span>
+              <span class="module-card-copy"><small>판재 · 캠락 · 레일 · 전도 방지</small><b>3단 서랍장 조립</b><em>좌우 부품을 판별하고 서랍이 부드럽게 움직일 때까지</em></span>
+              <i class="module-card-arrow" aria-hidden="true">→</i>
             </button>
+            </div>
           </div>
-          <div class="intro-specs" aria-label="학습 방식">
-            <span>실제품 사양</span><span>3D 직접 조작</span><span>실수 원인 피드백</span><span>완성 결과 검증</span>
-          </div>
-        </div>
-        <div class="intro-index" aria-hidden="true">
-          <span>01</span><i></i><small>조립<br />검증<br />첫 부팅</small>
         </div>
       </section>
 

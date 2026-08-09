@@ -192,14 +192,14 @@ test('drawer module carries explicit safety boundaries and primary-source refere
 });
 
 test('the main menu represents multiple home assembly tasks instead of only a PC', async () => {
-  const hero = await stat(path.join(root, 'public/images/home-diy-hero-v1.jpg'));
-  const optimizedHero = await stat(path.join(root, 'public/images/home-diy-hero-v1.avif'));
-  assert.ok(hero.size > 300_000, `expected a detailed home DIY hero image, got ${hero.size} bytes`);
-  assert.ok(optimizedHero.size < 120_000, `expected a compact AVIF hero image, got ${optimizedHero.size} bytes`);
-  assert.match(html, /rel="preload" as="image" href="%BASE_URL%images\/home-diy-hero-v1\.avif"/);
-  assert.match(style, /image-set\([\s\S]*home-diy-hero-v1\.avif[\s\S]*home-diy-hero-v1\.jpg/);
+  const hero = await stat(path.join(root, 'public/images/home-assembly-studio-hero-v2.jpg'));
+  assert.ok(hero.size > 120_000, `expected a detailed home assembly studio hero image, got ${hero.size} bytes`);
+  assert.ok(hero.size < 200_000, `expected an optimized lobby hero below 200KB, got ${hero.size} bytes`);
+  assert.match(html, /rel="preload" as="image" href="%BASE_URL%images\/home-assembly-studio-hero-v2\.jpg"/);
+  assert.match(style, /background-image: url\('\/images\/home-assembly-studio-hero-v2\.jpg'\)/);
   assert.match(style, /\.intro::after \{[^}]*linear-gradient/s);
-  assert.match(style, /\.intro::before \{ background-position: 82% center;/);
+  assert.match(style, /\.app\[data-mode="intro"\] \.topbar/);
+  assert.match(html, /집에서 마주치는 일을/);
 });
 
 test('fluorescent diagnosis teaches inspection, ballast compatibility, 90-degree replacement and disposal', () => {

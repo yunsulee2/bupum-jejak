@@ -51,7 +51,7 @@ async function navigate(width, height, mobile = false) {
   await command('Page.navigate', { url: 'http://127.0.0.1:5173/' });
   for (let attempt = 0; attempt < 100; attempt += 1) {
     if (await evaluate(`document.querySelector('#loading-screen')?.hidden && !document.querySelector('#start-button')?.disabled`)) {
-      await evaluate(`Promise.all([document.fonts.ready, fetch('/images/home-diy-hero-v1.jpg').then((response) => response.blob())])`);
+      await evaluate(`Promise.all([document.fonts.ready, fetch('/images/home-assembly-studio-hero-v2.jpg').then((response) => response.blob())])`);
       await wait(350);
       return;
     }
@@ -188,7 +188,7 @@ socket.close();
 await fetch(`${endpoint}/json/close/${target.id}`);
 
 if (report.desktopLobby.moduleLabel < 9 || report.desktopLobby.moduleDescription < 10) process.exitCode = 1;
-if (!report.desktopLobby.heroBackground.includes('home-diy-hero-v1.jpg') || report.desktopLobby.heroBackgroundSize !== 'cover') process.exitCode = 1;
+if (!report.desktopLobby.heroBackground.includes('home-assembly-studio-hero-v2.jpg') || report.desktopLobby.heroBackgroundSize !== 'cover') process.exitCode = 1;
 if (report.desktopShower.guideBody < 12 || !report.desktopShower.routeScrollsWhenNeeded || !report.desktopShower.detailScrollsWhenNeeded) process.exitCode = 1;
 if (report.desktopShower.guideWidth / report.desktopShower.viewportWidth > 0.36) process.exitCode = 1;
 if (!report.desktopShop.visible || report.desktopShop.stageBody < 12 || report.desktopShop.productBody < 11 || !report.desktopShop.optionsScrollWhenNeeded) process.exitCode = 1;
@@ -196,7 +196,7 @@ if (!report.desktopAssembly.visible || !report.desktopAssembly.guideScrolls || r
 if (report.desktopAssembly.bodyText < 12 || report.desktopAssembly.partTitle < 11) process.exitCode = 1;
 if ((report.desktopAssembly.guideWidth + report.desktopAssembly.inventoryWidth) / report.desktopAssembly.viewportWidth > 0.52) process.exitCode = 1;
 if (report.mobileLobby.columns !== 1 || !report.mobileLobby.lobbyScrollsWhenNeeded) process.exitCode = 1;
-if (!report.mobileLobby.heroBackground.includes('home-diy-hero-v1.jpg') || !report.mobileLobby.heroBackgroundPosition.startsWith('82%')) process.exitCode = 1;
+if (!report.mobileLobby.heroBackground.includes('home-assembly-studio-hero-v2.jpg') || !report.mobileLobby.heroBackgroundPosition.startsWith('64%')) process.exitCode = 1;
 if (!report.mobileShop.visible || report.mobileShop.bodyText < 12 || report.mobileShop.productText < 11) process.exitCode = 1;
 if (!report.mobileAssembly.visible || !report.mobileAssembly.guideScrolls || report.mobileAssembly.guideOverflow !== 'auto') process.exitCode = 1;
 if (!report.mobileAssembly.bodyVisible || report.mobileAssembly.bodyText < 11 || errors.length) process.exitCode = 1;

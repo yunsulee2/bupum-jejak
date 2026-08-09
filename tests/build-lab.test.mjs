@@ -74,6 +74,11 @@ test('the interface exposes real-product shopping, direct dragging, guidance and
   assert.match(script, /function placeCableBundleOnTray/);
 });
 
+test('desktop purchase grid keeps the checkout action inside the viewport', () => {
+  assert.match(style, /\.shop-shell\s*\{[^}]*grid-template-rows:\s*minmax\(0,\s*1fr\)/s);
+  assert.match(style, /\.cart-lines\s*\{[^}]*min-height:\s*0[^}]*overflow-y:\s*auto/s);
+});
+
 test('all twenty-eight purchase choices use local real-product images', async () => {
   const productChoices = [
     ...catalog.categories.flatMap((category) => category.options),

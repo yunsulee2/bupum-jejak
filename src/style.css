@@ -1277,3 +1277,390 @@ button { border: 0; }
   .module-card-copy em { margin-top: 5px; font-size: 9px; line-height: 1.4; }
   .module-card > .module-card-arrow { width: 30px; height: 30px; font-size: 15px; }
 }
+
+/* Legibility system: keep the 3D workspace large and let information panels scroll. */
+:root {
+  --type-micro: 11px;
+  --type-caption: 12px;
+  --type-label: 13px;
+  --type-body: 15px;
+  --type-body-strong: 16px;
+}
+
+/* Global chrome and lobby */
+.brand small,
+.loading-screen p,
+.module-picker-heading small { font-size: var(--type-micro); line-height: 1.35; }
+.session-meta,
+.eyebrow,
+.intro-metrics small,
+.module-card-number { font-size: var(--type-caption); line-height: 1.35; }
+.module-picker-heading p { font-size: var(--type-label); }
+.module-card-copy small {
+  display: -webkit-box;
+  min-height: 27px;
+  overflow: hidden;
+  font-size: var(--type-micro);
+  line-height: 1.35;
+  text-overflow: clip;
+  white-space: normal;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
+.module-card-copy b { font-size: 17px; }
+.module-card-copy em { font-size: var(--type-label); line-height: 1.55; }
+
+/* Fluorescent, shower-filter, and drawer workspaces */
+.fluorescent-route-heading,
+.fluorescent-guide-heading > p:first-child,
+.fluorescent-section-label { font-size: var(--type-caption); line-height: 1.35; }
+.fluorescent-route > div { min-height: 62px; }
+.fluorescent-route > div > i,
+.fluorescent-route small,
+.fluorescent-stop-card span { font-size: var(--type-micro); line-height: 1.45; }
+.fluorescent-route b,
+.fluorescent-stop-card b,
+.fluorescent-menu-button { font-size: var(--type-label); line-height: 1.35; }
+.fluorescent-guide-heading > p:last-child { font-size: var(--type-body-strong); line-height: 1.7; }
+.fluorescent-clue { min-height: 116px; }
+.fluorescent-clue small,
+.fluorescent-product-copy small,
+.fluorescent-safety-list i,
+.fluorescent-safety-list small,
+.fluorescent-safety-list em,
+.fluorescent-test-state small,
+.fluorescent-disposal-options small,
+.fluorescent-disposal-options em,
+.fluorescent-camera-help { font-size: var(--type-micro); line-height: 1.45; }
+.fluorescent-clue b,
+.fluorescent-product-copy b,
+.fluorescent-safety-list b,
+.fluorescent-disposal-options b { font-size: var(--type-label); line-height: 1.4; }
+.fluorescent-clue span,
+.fluorescent-product-copy span,
+.fluorescent-spec-sheet b,
+.fluorescent-dial-ring > b,
+.fluorescent-test-state b,
+.fluorescent-test dl div { font-size: var(--type-caption); line-height: 1.5; }
+.fluorescent-spec-sheet small { font-size: var(--type-micro); line-height: 1.35; }
+.fluorescent-product-copy strong { font-size: 14px; }
+.fluorescent-compare,
+.fluorescent-safety-note,
+.fluorescent-turn-help { font-size: var(--type-label); line-height: 1.6; }
+.fluorescent-feedback { min-height: 46px; font-size: var(--type-label); line-height: 1.55; }
+.fluorescent-action { min-height: 50px; font-size: var(--type-body); }
+
+.shower-drag-source > small,
+.shower-filter-slot > small,
+.shower-drag-source button em,
+.shower-filter-slot > span,
+.shower-oring-button small,
+.shower-oring-button em,
+.shower-flush-button em,
+.shower-test-results small { font-size: var(--type-micro); line-height: 1.45; }
+.shower-drag-source button span,
+.shower-filter-slot > b,
+.shower-oring-button b,
+.shower-flush-button b,
+.shower-test-results b { font-size: var(--type-label); line-height: 1.4; }
+
+/* Drawer-specific controls */
+.drawer-kit-card small,
+.drawer-inventory b em,
+.drawer-inventory small,
+.drawer-inventory strong,
+.drawer-task-visual em,
+.drawer-check-list small,
+.drawer-check-list em,
+.drawer-cam-diagram > em,
+.drawer-choice-grid small,
+.drawer-slot-list i,
+.drawer-slot-list em,
+.drawer-anchor-step > span,
+.drawer-test-buttons small,
+.drawer-test-buttons em { font-size: var(--type-micro); line-height: 1.45; }
+.drawer-kit-card em,
+.drawer-task-visual small { font-size: var(--type-caption); line-height: 1.5; }
+.drawer-kit-card b { font-size: var(--type-body-strong); }
+.drawer-kit-card strong { font-size: var(--type-label); white-space: nowrap; }
+.drawer-inventory b,
+.drawer-slot-list b,
+.drawer-anchor-step button { font-size: var(--type-caption); line-height: 1.4; }
+.drawer-task-visual b,
+.drawer-check-list b,
+.drawer-choice-grid b,
+.drawer-diagonal-choices b,
+.drawer-test-buttons b { font-size: var(--type-label); line-height: 1.4; }
+.drawer-field-note { font-size: var(--type-label); line-height: 1.6; }
+
+/* PC purchase flow */
+.shop-nav-heading,
+.cart-heading,
+.shop-stage-heading > p:first-child { font-size: var(--type-caption); line-height: 1.35; }
+.shop-categories > p,
+.shop-category > i,
+.shop-category small,
+.shop-category em,
+.shop-nav-note,
+.product-photo-label,
+.product-visual b,
+.product-copy > small,
+.product-copy > em,
+.product-price i,
+.cart-lines small,
+.cart-total small,
+.price-meta,
+.price-notice { font-size: var(--type-micro); line-height: 1.45; }
+.shop-category { min-height: 58px; }
+.shop-category b,
+.cart-lines strong,
+.cart-total span { font-size: var(--type-caption); line-height: 1.4; }
+.shop-stage-heading > p:last-child { font-size: var(--type-body-strong); line-height: 1.7; }
+.product-copy > p { font-size: var(--type-body); line-height: 1.6; }
+.shop-option > a { min-height: 44px; height: auto; padding-block: 14px; font-size: var(--type-caption); }
+.shop-assurance span,
+.shop-assurance i { font-size: var(--type-micro); line-height: 1.5; }
+.shop-assurance b,
+.cart-lines b { font-size: var(--type-label); line-height: 1.4; }
+.purchase-button { min-height: 54px; font-size: var(--type-body); }
+
+/* PC assembly workspace */
+.panel-heading,
+.guide-progress { font-size: var(--type-caption); line-height: 1.35; }
+.part-card { min-height: 64px; }
+.part-index,
+.part-copy small,
+.part-state,
+.inventory-note b,
+.inventory-note span,
+.step-kicker,
+.guide-phases span,
+.guide-phases i,
+.variant-card .variant-badge,
+.variant-card small,
+.variant-card > i,
+.placement-guide span,
+.warning-card span,
+.drag-status small,
+.camera-help,
+.camera-help span b,
+.part-callout span,
+.drag-coach span { font-size: var(--type-micro); line-height: 1.45; }
+.part-copy b,
+.variant-heading b,
+.variant-card b,
+.spec-list dt,
+.spec-list dd,
+.dock-actions span,
+.part-callout b,
+.drag-coach b { font-size: var(--type-label); line-height: 1.4; }
+.variant-heading span { font-size: var(--type-label); }
+.step-copy { font-size: var(--type-body-strong); line-height: 1.7; }
+.variant-card p,
+.placement-guide p,
+.warning-card p { font-size: var(--type-label); line-height: 1.6; }
+.drag-status b { font-size: var(--type-body); line-height: 1.45; }
+.drag-status > i,
+.toast { font-size: var(--type-label); line-height: 1.5; }
+.dock-actions button { min-height: 44px; }
+
+/* Completion and result states */
+.completion-panel > p,
+.fluorescent-completion-panel > p:first-child,
+.power-state span,
+.fluorescent-result-light span,
+.shower-result-water span,
+.completion-total span,
+.score-row small,
+.completion-camera-help,
+.fluorescent-result-grid small { font-size: var(--type-micro); line-height: 1.45; }
+.power-state b,
+.fluorescent-result-light b,
+.shower-result-water b,
+.post-list span { font-size: var(--type-label); line-height: 1.45; }
+.fluorescent-learning { font-size: var(--type-label); line-height: 1.65; }
+
+@media (max-width: 760px) {
+  .intro-lede { font-size: var(--type-body-strong); line-height: 1.75; }
+  .eyebrow,
+  .intro-metrics small,
+  .module-picker-heading small,
+  .module-picker-heading p,
+  .module-card-copy small { font-size: var(--type-micro); }
+  .module-card-copy em { font-size: var(--type-caption); line-height: 1.5; }
+  .module-card { min-height: 120px; }
+  .fluorescent-route b { font-size: var(--type-caption); }
+  .fluorescent-menu-button { min-height: 44px; font-size: var(--type-caption); }
+  .guide-progress,
+  .step-kicker { font-size: var(--type-micro); }
+  .step-copy { font-size: var(--type-body); line-height: 1.65; }
+  .part-copy b { font-size: var(--type-caption); }
+  .part-copy small,
+  .part-state { font-size: var(--type-micro); }
+}
+
+/* Interface polish: stronger hierarchy without adding more chrome. */
+:root {
+  --text-primary: #edf4f2;
+  --text-secondary: #b8c4c1;
+  --text-muted: #929f9c;
+  --text-faint: #7d8a87;
+  --surface-raised: rgba(15, 21, 22, .96);
+  --surface-soft: rgba(255, 255, 255, .035);
+}
+
+.app:not([data-mode="intro"]) { color-scheme: dark; }
+.app { text-rendering: optimizeLegibility; }
+::selection { color: #07110f; background: #8ce8d4; }
+
+:where(button, a):focus-visible {
+  outline: 2px solid var(--mint);
+  outline-offset: 3px;
+  box-shadow: 0 0 0 5px rgba(103, 220, 194, .13);
+}
+
+* { scrollbar-color: rgba(103, 220, 194, .5) rgba(255, 255, 255, .025); }
+*::-webkit-scrollbar-thumb { background: rgba(103, 220, 194, .5); background-clip: padding-box; }
+
+.app[data-mode="intro"] .session-meta { font-size: var(--type-caption); line-height: 1.35; }
+.app[data-mode="intro"] .brand small,
+.session-meta strong,
+.intro-metrics b,
+.shop-nav-note i,
+.inventory-note > i,
+.fluorescent-stop-card > i,
+.drawer-inventory button > i { font-size: var(--type-micro); line-height: 1; }
+.drawer-inventory-heading { font-size: var(--type-caption); line-height: 1.35; }
+.app:not([data-mode="intro"]) .brand small,
+.app:not([data-mode="intro"]) .session-meta span { color: var(--text-muted); }
+.app:not([data-mode="intro"]) .session-meta strong { color: var(--text-primary); }
+
+.inventory-panel,
+.guide-panel,
+.fluorescent-route-panel,
+.fluorescent-guide-panel {
+  border-color: rgba(188, 224, 218, .2);
+  background: linear-gradient(145deg, rgba(15, 21, 22, .97), rgba(9, 14, 15, .91));
+  box-shadow: 0 26px 72px rgba(0, 0, 0, .34), inset 0 1px rgba(255, 255, 255, .025);
+}
+
+.guide-panel,
+.fluorescent-route,
+.fluorescent-view,
+.shop-categories,
+.shop-options,
+.cart-lines,
+.part-list { scrollbar-gutter: stable; }
+
+.fluorescent-route > div { color: var(--text-faint); }
+.fluorescent-route > div.is-active { color: var(--text-primary); }
+.fluorescent-stop-card span,
+.fluorescent-guide-heading > p:first-child,
+.fluorescent-section-label,
+.shop-categories > p,
+.panel-heading span,
+.step-kicker { color: var(--text-muted); }
+.fluorescent-guide-heading > p:last-child,
+.shop-stage-heading > p:last-child,
+.step-copy,
+.drawer-field-note { color: var(--text-secondary); }
+
+.fluorescent-clue,
+.fluorescent-product,
+.fluorescent-safety-list button,
+.fluorescent-disposal-options button,
+.drawer-kit-card,
+.drawer-inventory button,
+.drawer-check-list li,
+.drawer-choice-grid button,
+.drawer-diagonal-choices button,
+.drawer-test-buttons button,
+.variant-card {
+  border-color: rgba(204, 228, 224, .17);
+  background: var(--surface-soft);
+}
+
+.fluorescent-clue span,
+.fluorescent-product-copy span,
+.fluorescent-safety-list small,
+.fluorescent-disposal-options small,
+.drawer-kit-card em,
+.drawer-inventory small,
+.drawer-task-visual small,
+.drawer-check-list small,
+.drawer-choice-grid small,
+.drawer-test-buttons small,
+.part-copy small,
+.inventory-note span,
+.variant-card small,
+.variant-card p,
+.warning-card p { color: var(--text-faint); }
+
+.fluorescent-clue b,
+.fluorescent-product-copy b,
+.fluorescent-spec-sheet b,
+.fluorescent-safety-list b,
+.fluorescent-disposal-options b,
+.drawer-kit-card b,
+.drawer-inventory b,
+.drawer-task-visual b,
+.drawer-check-list b,
+.drawer-choice-grid b,
+.drawer-test-buttons b,
+.part-copy b,
+.variant-card b,
+.spec-list dd { color: var(--text-primary); }
+
+.shop-category { color: var(--text-muted); }
+.shop-category small,
+.shop-category > i,
+.product-copy > em,
+.product-price i,
+.cart-lines small,
+.cart-total small,
+.price-meta,
+.price-notice { color: var(--text-faint); }
+.product-copy > p,
+.cart-lines button,
+.shop-nav-note { color: var(--text-muted); }
+.cart-lines button:hover,
+.shop-category:hover { color: var(--text-primary); }
+
+.guide-phases span {
+  border-color: rgba(199, 225, 221, .18);
+  color: var(--text-muted);
+  background: rgba(255, 255, 255, .025);
+}
+.guide-phases span.is-active {
+  border-color: rgba(103, 220, 194, .72);
+  color: #8ce8d4;
+  background: rgba(103, 220, 194, .11);
+}
+.placement-guide { border-left-width: 3px; background: rgba(103, 220, 194, .075); }
+.warning-card { border-left-width: 3px; background: rgba(255, 174, 84, .075); }
+.drag-status { background: rgba(255, 255, 255, .045); }
+.toast { border-color: rgba(188, 224, 218, .22); background: rgba(9, 14, 15, .95); }
+
+.purchase-button,
+.fluorescent-action,
+.completion-panel button,
+.fluorescent-completion-panel button {
+  box-shadow: inset 0 1px rgba(255, 255, 255, .35), 0 10px 24px rgba(0, 0, 0, .18);
+  transition: filter 160ms ease, transform 160ms ease, box-shadow 160ms ease;
+}
+.purchase-button:hover:not(:disabled),
+.fluorescent-action:hover:not(:disabled),
+.completion-panel button:hover,
+.fluorescent-completion-panel button:hover { filter: brightness(1.08); box-shadow: inset 0 1px rgba(255, 255, 255, .42), 0 13px 30px rgba(0, 0, 0, .26); }
+.purchase-button:active:not(:disabled),
+.fluorescent-action:active:not(:disabled),
+.completion-panel button:active,
+.fluorescent-completion-panel button:active { transform: translateY(1px); }
+
+@media (max-width: 760px) {
+  :where(button, a):focus-visible { outline-offset: 2px; }
+  .fluorescent-route-panel,
+  .fluorescent-guide-panel,
+  .inventory-panel,
+  .guide-panel { box-shadow: 0 18px 46px rgba(0, 0, 0, .32), inset 0 1px rgba(255, 255, 255, .025); }
+}
